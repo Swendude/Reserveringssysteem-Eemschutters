@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eemschutters Reserveringssysteem</title>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+    </style>
 </head>
 
 <body>
@@ -18,13 +25,23 @@
     {% if not laatste %}
     <a href="{% url 'reserveringen' %}?next={{next_offset}}">volgende schietdag</a>
     {% endif %}
-    
-    <table style="width:100%">
+
+    <table style="width:100%;">
         <tr>
             {% for baan in banen  %}
             <th>{{baan}}</th>
             {% endfor %}
         </tr>
+        {% for bslot, eslot in slots  %}
+        <tr>
+            {% for baan in banen  %}
+            <td>
+                <p>van: {{bslot}}</p>
+                <p>tot: {{eslot}}</p>
+            </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
     </table>
 </body>
 

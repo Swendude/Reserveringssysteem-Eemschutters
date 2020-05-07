@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 import datetime
 from django.core.exceptions import ValidationError
-
+from django.utils import timezone
 
 class Baan(models.Model):
     naam = models.CharField(max_length=50)
@@ -55,6 +55,16 @@ class Schietdag(models.Model):
     @property
     def dagen(self):
         return dict(DAGEN)
+
+    def slot_tijden(self):
+        times = []
+        last_time = self.open
+        while last_time < self.sluit:
+            end_time = (datetime.datetime.combine(timezone.now(), last_time) + self.slot_duur).time()
+            times.append((last_time, end_time))
+            last_time = end_time
+        assert(len(times) == self.aantal_slots)
+        return times
 
     def clean(self):
         """

@@ -39,11 +39,13 @@ def index(request):
     if offset > len(schietdagen) - 1:
         offset = len(schietdagen)
     gekozen_schietdag_datum, gekozen_schietdag = schietdagen[offset]
+    slots = gekozen_schietdag.slot_tijden()
     banen = Baan.objects.all()
 
     return render(request, 'reserveringen/reserveringen.html', {'view_date': view_date,
                                                                 'gekozen_schietdag_datum': gekozen_schietdag_datum,
                                                                 'banen': banen,
+                                                                'slots': slots,
                                                                 'next_offset': offset + 1,
                                                                 'prev_offset': offset - 1,
                                                                 'laatste': offset == len(schietdagen) - 1,
