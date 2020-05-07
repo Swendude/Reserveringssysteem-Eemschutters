@@ -1,48 +1,79 @@
+{% load static %}
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eemschutters Reserveringssysteem</title>
-    <style>
-        table,
-        th,
-        td {
-            border: 1px solid black;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="{% static 'reserveringen/style.css' %}">
 </head>
 
 <body>
-    <h1>Eemschutters reserveringssysteem</h1>
-    <p>Het is momenteel {{ view_date }}</p>
-    <p>Dit is het reserveringsysteem van de eemschutters. Kies hieronder een baan en tijdstip om te selecteren</p>
-    <br>
-    <p>Reserveren voor: {{ gekozen_schietdag_datum | date:"l j b Y" }}</p>
-    {% if not eerste %}
-    <a href="{% url 'reserveringen' %}?next={{prev_offset}}">vorige schietdag</a>
-    {% endif %}
-    {% if not laatste %}
-    <a href="{% url 'reserveringen' %}?next={{next_offset}}">volgende schietdag</a>
-    {% endif %}
 
-    <table style="width:100%;">
-        <tr>
-            {% for baan in banen  %}
-            <th>{{baan}}</th>
-            {% endfor %}
-        </tr>
-        {% for bslot, eslot in slots  %}
-        <tr>
-            {% for baan in banen  %}
-            <td>
-                <p>van: {{bslot}}</p>
-                <p>tot: {{eslot}}</p>
-            </td>
-            {% endfor %}
-        </tr>
-        {% endfor %}
-    </table>
+    <header>
+        <div class="wrapper">
+            <h1>Reserveringssysteem</h1>
+            <h2>Eemschutters</h2>
+        </div>
+    </header>
+
+    <div class="content">
+        <div class="wrapper">
+
+            <p><strong>Het is momenteel {{ view_date }}</strong></p>
+            <p>Dit is het reserveringsysteem van de eemschutters. Kies hieronder een baan en tijdstip om te selecteren</p>
+            <br>
+            <h3>Voor wanneer wil je reserveren?</h3>
+            <p>Reserveren voor: {{ gekozen_schietdag_datum | date:"l j b Y" }}</p>
+
+            {% if not eerste %}
+            <a href="{% url 'reserveringen' %}?next={{prev_offset}}">vorige schietdag</a>
+            {% endif %}
+            {% if not laatste %}
+            <a href="{% url 'reserveringen' %}?next={{next_offset}}">volgende schietdag</a>
+            {% endif %}
+
+
+            <h3>Welke baan, wil je hoelaat reserveren?</h3>
+
+            <div class="overzichtBanen">
+                {% for baan in banen  %}
+                <div class="baanRij">
+                    <div class="baanLabel">
+                        <strong>{{baan}}</strong><br />Omschrijving
+                    </div>            
+                    <div class="baanBeschikbaarheid">
+                        {% for bslot, eslot in slots  %}
+                            <div class="baanSlot">
+                                van: {{bslot}}<br />tot: {{eslot}}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <table style="width:100%;">
+                <tr>
+                    {% for baan in banen  %}
+                    <th>{{baan}}</th>
+                    {% endfor %}
+                </tr>
+                {% for bslot, eslot in slots  %}
+                <tr>
+                    {% for baan in banen  %}
+                    <td>
+                        <p>van: {{bslot}}</p>
+                        <p>tot: {{eslot}}</p>
+                    </td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </table>
+
+        </div>    
+    </div>
+
 </body>
 
 </html>
