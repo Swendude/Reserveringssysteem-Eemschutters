@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 import datetime
 from django.core.exceptions import ValidationError
-from multiselectfield import MultiSelectField
 
 
 class Baan(models.Model):
@@ -29,25 +28,24 @@ DAGEN = ((0, 'Maandag'),
          (6, 'Zondag'))
 
 
-class Protocol(models.Model):
+class Schietdag(models.Model):
     """
-    Een protocol is een instelling waarmee een reserveringen gemaakt kan worden.
+    Een schietdag is een dag waarop men kan schieten.
     """
-    slot_duur = models.DurationField()
-    opstart_duur = models.DurationField()
-    afbouw_duur = models.DurationField()
-    open = models.TimeField()
-    sluit = models.TimeField()
-    prioriteit = models.IntegerField()
-    geldig_op = MultiSelectField(choices=DAGEN, default=None, null=True, blank=True)
+    dag = models.IntegerField(choices=DAGEN, unique=True, null=False)
+    slot_duur = models.DurationField(help_text='[HH:MM:SS]')
+    opstart_duur = models.DurationField(help_text='[HH:MM:SS]')
+    afbouw_duur = models.DurationField(help_text='[HH:MM:SS]')
+    open = models.TimeField(help_text='[HH:MM:SS]')
+    sluit = models.TimeField(help_text='[HH:MM:SS]')
 
     def __str__(self):
-        return f'Protocol {self.prioriteit}'
+        return dict(DAGEN)[self.dag]
 
     @property
     def aantal_slots(self):
         """
-        Bereken het aantal slots als gevolg van dit protocol.
+        Bereken het aantal slots als gevolg van deze instellingen.
         """
         tijd_open = datetime.timedelta(hours=self.sluit.hour - self.open.hour,
                                        minutes=self.sluit.minute - self.open.minute)
@@ -67,19 +65,18 @@ class Protocol(models.Model):
                 f'Er zijn {self.aantal_slots} slots in dit protocol. Dit moet een rond getal zijn.')
 
     class Meta:
-        verbose_name_plural = 'Protocollen'
+        verbose_name_plural = 'Schietdagen'
         
 
 
 class Reservering(models.Model):
     """
-    Een reservering is een tijdsduur op een baan. 
-    Dit object kan alleen aangemaakt worden vanuit een protocol.
+    Een reservering is een tijdsduur op een baan.
     """
     start = models.DateTimeField()
     eind = models.DateTimeField()
     baan = models.ForeignKey(Baan, on_delete=models.PROTECT)
-    protocol = models.ForeignKey(Protocol, on_delete=models.PROTECT)
+    schietdag = models.ForeignKey(Schietdag, on_delete=models.PROTECT)
     gebruiker = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
