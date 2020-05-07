@@ -1,0 +1,8 @@
+asgiref==3.2.7
+autopep8==1.5.2
+Django==3.0.6
+django-multiselectfield==0.1.12
+pycodestyle==2.5.0
+python-dotenv==0.13.0
+pytz==2020.1
+sqlparse==0.3.1
