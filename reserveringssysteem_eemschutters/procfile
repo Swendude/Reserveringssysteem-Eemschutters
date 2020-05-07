@@ -1,0 +1,1 @@
+web: gunicorn reserveringssysteem_eemschutters.wsgi
