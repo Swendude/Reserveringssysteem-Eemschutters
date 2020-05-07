@@ -43,7 +43,7 @@ snuggs==1.4.7
 tqdm==4.32.2
 traitlets==4.3.2
 typed-ast==1.4.0
-urllib3==1.23
+urllib3==1.24.2
 virtualenv==16.7.5
 Werkzeug==1.0.0
 wrapt==1.11.2
