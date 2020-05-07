@@ -1,6 +1,5 @@
 .venv
 .vscode
 .env
-reserveringssysteem_eemschutters/db.sqlite3
+db.sqlite3
 __pycache__/
-
