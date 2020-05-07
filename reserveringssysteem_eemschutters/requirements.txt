@@ -36,7 +36,7 @@ pyparsing==2.4.6
 PySocks==1.6.8
 PyYAML==3.12
 rasterio==1.1.2
-requests==2.19.1
+requests==2.20.0
 ruamel-yaml==0.15.46
 six==1.11.0
 snuggs==1.4.7
