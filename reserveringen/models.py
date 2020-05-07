@@ -11,9 +11,9 @@ class Baan(models.Model):
 
     def __str__(self):
         if not self.mobiel:
-            return f"Baan: {self.naam} ({self.afstand} m)"
+            return f"Baan {self.naam} ({self.afstand} m)"
         else:
-            return f"Baan: {self.naam} (mobiel)"
+            return f"Baan {self.naam}  (mobiel)"
 
     class Meta:
         verbose_name_plural = "Banen"

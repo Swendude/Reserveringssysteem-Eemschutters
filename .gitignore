@@ -1,4 +1,4 @@
-.venv
+venv
 .vscode
 .env
 reserveringssysteem_eemschutters/db.sqlite3
