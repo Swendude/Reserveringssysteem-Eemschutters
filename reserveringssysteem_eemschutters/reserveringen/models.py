@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 import datetime
 from django.core.exceptions import ValidationError
+from multiselectfield import MultiSelectField
+
 
 class Baan(models.Model):
     naam = models.CharField(max_length=50)
@@ -12,15 +14,24 @@ class Baan(models.Model):
         if not self.mobiel:
             return f"Baan: {self.naam} ({self.afstand} m)"
         else:
-            return f"Mobiele baan: {self.naam}"
+            return f"Baan: {self.naam} (mobiel)"
 
     class Meta:
         verbose_name_plural = "Banen"
 
 
+DAGEN = ((0, 'Maandag'),
+         (1, 'Dinsdag'),
+         (2, 'Woensdag'),
+         (3, 'Donderdag'),
+         (4, 'Vrijdag'),
+         (5, 'Zaterdag'),
+         (6, 'Zondag'))
+
+
 class Protocol(models.Model):
     """
-    Een protocol is een instelling waarmee een Slot gemaakt kan worden.
+    Een protocol is een instelling waarmee een reserveringen gemaakt kan worden.
     """
     slot_duur = models.DurationField()
     opstart_duur = models.DurationField()
@@ -28,6 +39,7 @@ class Protocol(models.Model):
     open = models.TimeField()
     sluit = models.TimeField()
     prioriteit = models.IntegerField()
+    geldig_op = MultiSelectField(choices=DAGEN, default=None, null=True, blank=True)
 
     def __str__(self):
         return f'Protocol {self.prioriteit}'
@@ -41,26 +53,37 @@ class Protocol(models.Model):
                                        minutes=self.sluit.minute - self.open.minute)
 
         return tijd_open/self.slot_duur
+    
+    @property
+    def dagen(self):
+        return dict(DAGEN)
+
     def clean(self):
         """
         Valideer dat het aantal slots een rond getal is.
         """
         if not self.aantal_slots.is_integer():
-            raise ValidationError(f'Er zijn {self.aantal_slots} slots in dit protocol. Dit moet een rond getal zijn.')
+            raise ValidationError(
+                f'Er zijn {self.aantal_slots} slots in dit protocol. Dit moet een rond getal zijn.')
 
     class Meta:
         verbose_name_plural = 'Protocollen'
-
-# class Slot(models.Model):
-#     datum = models.DateField()
-#     start =
-
-# class Question(models.Model):
-#     question_text = models.CharField(max_length=200)
-#     pub_date = models.DateTimeField('date published')
+        
 
 
-# class Choice(models.Model):
-#     question = models.ForeignKey(Question, on_delete=models.CASCADE)
-#     choice_text = models.CharField(max_length=200)
-#     votes = models.IntegerField(default=0)
+class Reservering(models.Model):
+    """
+    Een reservering is een tijdsduur op een baan. 
+    Dit object kan alleen aangemaakt worden vanuit een protocol.
+    """
+    start = models.DateTimeField()
+    eind = models.DateTimeField()
+    baan = models.ForeignKey(Baan, on_delete=models.PROTECT)
+    protocol = models.ForeignKey(Protocol, on_delete=models.PROTECT)
+    gebruiker = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Reservering van {self.gebruiker.username} op {self.start}"
+
+    class Meta:
+        verbose_name_plural = "Reserveringen"
