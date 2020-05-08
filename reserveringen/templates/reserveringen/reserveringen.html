@@ -23,7 +23,8 @@
         <div class="wrapper">
 
             <p><strong>Het is momenteel {{ view_date }}</strong></p>
-            <p>Dit is het reserveringsysteem van de eemschutters. Kies hieronder een baan en tijdstip om te selecteren</p>
+            <p>Dit is het reserveringsysteem van de eemschutters. Kies hieronder een baan en tijdstip om te selecteren
+            </p>
             <br>
             <h3>Voor wanneer wil je reserveren?</h3>
             <p>Reserveren voor: {{ gekozen_schietdag_datum | date:"l j b Y" }}</p>
@@ -39,23 +40,41 @@
             <h3>Welke baan, wil je hoelaat reserveren?</h3>
 
             <div class="overzichtBanen">
+                <div class="baanRij">
+                    <div class="baanlabel"></div>
+                    <div class="baanBeschikbaarheid">
+                        {% for bslot, eslot in slots  %}
+                        <div class="tijdSlot">
+                            <div>
+                                <strong>
+                                    {{bslot}} - {{eslot}}
+                                </strong>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+
                 {% for baan in banen  %}
                 <div class="baanRij">
                     <div class="baanLabel">
                         <strong>{{baan}}</strong><br />Omschrijving
-                    </div>            
+                    </div>
                     <div class="baanBeschikbaarheid">
-                        {% for bslot, eslot in slots  %}
-                            <div class="baanSlot">
-                                van: {{bslot}}<br />tot: {{eslot}}
+                        {% for _ in slots  %}
+                        <div class="baanSlot">
+                            <div>
+                                <p>beschikbaar</p>
                             </div>
+                        </div>
                         {% endfor %}
                     </div>
                 </div>
                 {% endfor %}
             </div>
 
-            <table style="width:100%;">
+            {% comment %} <table style="width:100%;">
                 <tr>
                     {% for baan in banen  %}
                     <th>{{baan}}</th>
@@ -71,9 +90,9 @@
                     {% endfor %}
                 </tr>
                 {% endfor %}
-            </table>
+            </table> {% endcomment %}
 
-        </div>    
+        </div>
     </div>
 
 </body>

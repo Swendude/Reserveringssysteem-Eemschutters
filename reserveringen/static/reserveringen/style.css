@@ -54,7 +54,6 @@
 
         .overzichtBanen .baanRij {
             display:flex;
-            border-bottom:1px solid red;
 
         }
 
@@ -62,17 +61,40 @@
             flex:200px 0 0;
             display:block;
             position:relative;
-            background-color: rgba(#A47C4B, 0.2);
+            background-color: rgba(164, 124, 75, 0.2);
+            border-bottom:1px solid red;
+            border-right:1px solid red;
         
         }
 
         .overzichtBanen .baanRij .baanBeschikbaarheid {
             display:flex;
-            flex:100% 1 1;
+            flex:100% 1 1;  
 
         }
 
-        .overzichtBanen .baanRij .baanBeschikbaarheid .baanSlot {
+        .overzichtBanen .baanRij .baanBeschikbaarheid {
             flex:100% 1 1;
             position: relative;
+        }
+
+        .tijdSlot {
+            display: flex;
+            flex:100% 1 1;
+            position: relative;
+            border-left: 1px solid rgba(0, 0, 0, 0.1);
+            border-right: 1px solid rgba(0, 0, 0, 0.1);
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            justify-content: center;
+            padding: 7px;
+        }
+
+        .baanSlot {
+            display: flex;
+            flex:100% 1 1;
+            position: relative;
+            justify-content: center;
+            border:1px solid rgba(0, 0, 0, 0.1);
+            border-left: 1px solid rgba(0, 0, 0, 0.1);
+            border-right: 1px solid rgba(0, 0, 0, 0.1);
         }
