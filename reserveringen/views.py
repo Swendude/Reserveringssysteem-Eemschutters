@@ -4,12 +4,12 @@ English and dutch don't mix
 """
 from django.shortcuts import render, HttpResponse
 from django.utils import timezone
-from .models import Schietdag, Baan
+from .models import Schietdag, Baan, Reservering
 import datetime
 from django.db.models import Max
 from collections import namedtuple
 
-Slot = namedtuple("Slot", ["datum", "starttijd", "eindtijd", "baan","status"])
+Slot = namedtuple("Slot", ["datum", "starttijd", "eindtijd", "baan", "status"])
 
 
 def next_datetime_with_weekday(current, target):
@@ -50,19 +50,30 @@ def index(request):
     gekozen_schietdag_datum, gekozen_schietdag = schietdagen[dagkeuze]
     slot_tijden = gekozen_schietdag.slot_tijden()
     banen = Baan.objects.all()
-    
+
     slots_per_baan = {}
     for baan in banen:
         slots_per_baan[baan] = []
         for slot_tijd in slot_tijden:
-            slots_per_baan[baan].append(Slot(gekozen_schietdag_datum, slot_tijd[0], slot_tijd[1], baan, "Vrij"))
-             
+            status = "Vrij"
+            slot_start = timezone.make_aware(
+                datetime.datetime.combine(gekozen_schietdag_datum, slot_tijd[0]))
+            slot_eind = timezone.make_aware(datetime.datetime.combine(
+                gekozen_schietdag_datum, slot_tijd[1]))
+            reservering = Reservering.objects.filter(baan=baan,
+                                                     schietdag=gekozen_schietdag,
+                                                     start=slot_start,
+                                                     eind=slot_eind)
+            if reservering:
+                status = "Bezet"
 
+            slots_per_baan[baan].append(
+                Slot(gekozen_schietdag_datum, slot_tijd[0], slot_tijd[1], baan, status))
 
     return render(request, 'reserveringen/reserveringen.html', {'view_date': view_date,
                                                                 'schietdagen': schietdagen,
                                                                 'gekozen_schietdag_datum': gekozen_schietdag_datum,
                                                                 'banen': banen,
-                                                                'slot_tijden':slot_tijden,
+                                                                'slot_tijden': slot_tijden,
                                                                 'slots_per_baan': slots_per_baan,
                                                                 'choice': dagkeuze})
