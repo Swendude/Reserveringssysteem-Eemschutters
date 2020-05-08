@@ -7,6 +7,9 @@ from django.utils import timezone
 from .models import Schietdag, Baan
 import datetime
 from django.db.models import Max
+from collections import namedtuple
+
+Slot = namedtuple("Slot", ["datum", "starttijd", "eindtijd", "baan","status"])
 
 
 def next_datetime_with_weekday(current, target):
@@ -28,29 +31,38 @@ def index(request):
                                                minutes=-view_date.time().minute,
                                                seconds=-view_date.time().second)
 
-    offset = 0
+    dagkeuze = 0
     if request.GET.get('next'):
         try:
-            offset = int(request.GET['next'])
-            if offset < 0:
-                offset = 0
+            dagkeuze = int(request.GET['next'])
+            if dagkeuze < 0:
+                dagkeuze = 0
         except ValueError:
-            offset = 0
+            dagkeuze = 0
 
     schietdagen = Schietdag.objects.order_by('dag')
     schietdagen = list(map(lambda schietdag: (next_datetime_with_weekday(
         view_date, schietdag.dag), schietdag), schietdagen))
     schietdagen.sort(key=lambda t: (t[0] - view_date).total_seconds())
 
-    if offset > len(schietdagen) - 1:
-        offset = len(schietdagen)
-    gekozen_schietdag_datum, gekozen_schietdag = schietdagen[offset]
-    slots = gekozen_schietdag.slot_tijden()
+    if dagkeuze > len(schietdagen) - 1:
+        dagkeuze = len(schietdagen)
+    gekozen_schietdag_datum, gekozen_schietdag = schietdagen[dagkeuze]
+    slot_tijden = gekozen_schietdag.slot_tijden()
     banen = Baan.objects.all()
+    
+    slots_per_baan = {}
+    for baan in banen:
+        slots_per_baan[baan] = []
+        for slot_tijd in slot_tijden:
+            slots_per_baan[baan].append(Slot(gekozen_schietdag_datum, slot_tijd[0], slot_tijd[1], baan, "Vrij"))
+             
+
 
     return render(request, 'reserveringen/reserveringen.html', {'view_date': view_date,
                                                                 'schietdagen': schietdagen,
                                                                 'gekozen_schietdag_datum': gekozen_schietdag_datum,
                                                                 'banen': banen,
-                                                                'slots': slots,
-                                                                'choice': offset})
+                                                                'slot_tijden':slot_tijden,
+                                                                'slots_per_baan': slots_per_baan,
+                                                                'choice': dagkeuze})
