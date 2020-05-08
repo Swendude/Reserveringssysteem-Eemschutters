@@ -39,6 +39,7 @@ class Schietdag(models.Model):
     open = models.TimeField(help_text='[HH:MM:SS]')
     sluit = models.TimeField(help_text='[HH:MM:SS]')
 
+
     def __str__(self):
         return dict(DAGEN)[self.dag]
 

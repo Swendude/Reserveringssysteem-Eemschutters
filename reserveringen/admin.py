@@ -19,8 +19,9 @@ class SchietdagAdmin(admin.ModelAdmin):
 
 
 class ReserveringAdmin(admin.ModelAdmin):
-     def has_add_permission(self, request):
-        return False
+    pass
+    #  def has_add_permission(self, request):
+    #     return False
 
 admin.site.register(Baan)
 admin.site.register(Reservering, ReserveringAdmin)

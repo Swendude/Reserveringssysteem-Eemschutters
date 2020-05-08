@@ -44,11 +44,11 @@
                 <div class="baanRij">
                     <div class="baanlabel"></div>
                     <div class="baanBeschikbaarheid">
-                        {% for bslot, eslot in slots  %}
+                        {% for slot_start, slot_eind in slot_tijden  %}
                         <div class="tijdSlot">
                             <div>
                                 <strong>
-                                    {{bslot}} - {{eslot}}
+                                    {{slot_start}} - {{slot_eind}}
                                 </strong>
                             </div>
                         </div>
@@ -57,16 +57,16 @@
                 </div>
 
 
-                {% for baan in banen  %}
+                {% for baan, slots in slots_per_baan.items  %}
                 <div class="baanRij">
                     <div class="baanLabel">
-                        <strong>{{baan}}</strong><br />Omschrijving
+                        <strong>{{baan}}</strong><br />
                     </div>
                     <div class="baanBeschikbaarheid">
-                        {% for _ in slots  %}
+                        {% for slot in slots  %}
                         <div class="baanSlot">
                             <div>
-                                <p>beschikbaar</p>
+                                <p>{{slot.status}}</p>
                             </div>
                         </div>
                         {% endfor %}
@@ -74,24 +74,6 @@
                 </div>
                 {% endfor %}
             </div>
-
-            {% comment %} <table style="width:100%;">
-                <tr>
-                    {% for baan in banen  %}
-                    <th>{{baan}}</th>
-                    {% endfor %}
-                </tr>
-                {% for bslot, eslot in slots  %}
-                <tr>
-                    {% for baan in banen  %}
-                    <td>
-                        <p>van: {{bslot}}</p>
-                        <p>tot: {{eslot}}</p>
-                    </td>
-                    {% endfor %}
-                </tr>
-                {% endfor %}
-            </table> {% endcomment %}
 
         </div>
     </div>
