@@ -22,13 +22,14 @@
     <div class="content">
         <div class="wrapper">
             <h1>Voor wanneer wil je reserveren?</h1>
-            
+
             {% for datum, schietdag in schietdagen %}
-                {% if forloop.counter0 == choice %}
-                    <button class="dateButton disabled">&#128197;{{ datum | date:"l j b Y" }}</button>
-                {% else %}
-                    <a href="{% url 'reserveringen' %}?next={{ forloop.counter0 }}"><button class="dateButton">&#128197;{{ datum | date:"l j b Y" }}</button></a>
-                {% endif %}
+            {% if forloop.counter0 == choice %}
+            <button class="dateButton disabled">&#128197;{{ datum | date:"l j b Y" }}</button>
+            {% else %}
+            <a href="{% url 'reserveringen' %}?next={{ forloop.counter0 }}"><button
+                    class="dateButton">&#128197;{{ datum | date:"l j b Y" }}</button></a>
+            {% endif %}
             {% endfor %}
             <!-- {% if not eerste %}
             <a href="{% url 'reserveringen' %}?next={{prev_offset}}">vorige schietdag</a>
@@ -65,9 +66,22 @@
                     <div class="baanBeschikbaarheid">
                         {% for slot in slots  %}
                         <div class="baanSlot">
+
+                            {% if slot.status == 'Vrij'%}
                             <div>
-                                <p>{{slot.status}}</p>
+                                <form action="{% url 'reserveringen' %}" method="post">
+                                    {% csrf_token %}
+                                    {{ slot.form }}
+                                    <button class="dateButton" type="submit">Reserveer</button>
+                                </form>
                             </div>
+                            {% else %}
+                            <div>
+                                    <button class="dateButton disabled">Bezet</button>
+                                </form>
+                            </div>
+                            {% endif %}
+
                         </div>
                         {% endfor %}
                     </div>

@@ -8,8 +8,10 @@ from .models import Schietdag, Baan, Reservering
 import datetime
 from django.db.models import Max
 from collections import namedtuple
+from .forms import ReserveringForm
+from django.contrib.auth.decorators import login_required
 
-Slot = namedtuple("Slot", ["datum", "starttijd", "eindtijd", "baan", "status"])
+Slot = namedtuple("Slot", ["datum", "starttijd", "eindtijd", "baan", "status", 'form'])
 
 
 def next_datetime_with_weekday(current, target):
@@ -20,8 +22,15 @@ def next_datetime_with_weekday(current, target):
         datetime.timedelta(((target-current.weekday()) % 7))
     return target
 
-
+@login_required(login_url='/admin/')
 def index(request):
+    if request.method == 'POST':
+        # Create a reservation
+        form = ReserveringForm(request.POST)
+        if form.is_valid():
+            args = {**{'gebruiker': request.user}, **form.cleaned_data}
+            Reservering(**args).save()
+            
     # Determine our date based on an optional GET parameter 'next' that offsets to the next available day
     view_date = timezone.now()
     # Set our time to UTC 12:00:00, this should work with the math we do in `next_datetime_with_weekdays`
@@ -66,9 +75,13 @@ def index(request):
                                                      eind=slot_eind)
             if reservering:
                 status = "Bezet"
-
+            slot_form = ReserveringForm(initial={
+                'start':slot_start,
+                'eind':slot_eind,
+                'baan':baan.pk,
+                'schietdag':gekozen_schietdag.pk})
             slots_per_baan[baan].append(
-                Slot(gekozen_schietdag_datum, slot_tijd[0], slot_tijd[1], baan, status))
+                Slot(gekozen_schietdag_datum, slot_tijd[0], slot_tijd[1], baan, status, slot_form))
 
     return render(request, 'reserveringen/reserveringen.html', {'view_date': view_date,
                                                                 'schietdagen': schietdagen,

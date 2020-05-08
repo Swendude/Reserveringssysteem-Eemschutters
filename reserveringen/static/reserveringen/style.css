@@ -108,6 +108,10 @@
             border: 1px solid  rgba(0, 0, 0, 0.1);
         }
 
+        .dateButton:hover {
+            background-color: lightblue;
+        }
+
         .dateButton.disabled {
             color:#fff;
             background-color:#A47C4B;
