@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eemschutters Reserveringssysteem</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'reserveringen/style.css' %}">
 </head>
 
@@ -19,41 +21,61 @@
 
     <div class="content">
         <div class="wrapper">
-
-            <p><strong>Het is momenteel {{ view_date }}</strong></p>
-            <p>Dit is het reserveringsysteem van de eemschutters. Kies hieronder een baan en tijdstip om te selecteren</p>
-            <br>
-            <h3>Voor wanneer wil je reserveren?</h3>
-            <p>Reserveren voor: {{ gekozen_schietdag_datum | date:"l j b Y" }}</p>
-
-            {% if not eerste %}
+            <h1>Voor wanneer wil je reserveren?</h1>
+            
+            {% for datum, schietdag in schietdagen %}
+                {% if forloop.counter0 == choice %}
+                    <button class="dateButton disabled">&#128197;{{ datum | date:"l j b Y" }}</button>
+                {% else %}
+                    <a href="{% url 'reserveringen' %}?next={{ forloop.counter0 }}"><button class="dateButton">&#128197;{{ datum | date:"l j b Y" }}</button></a>
+                {% endif %}
+            {% endfor %}
+            <!-- {% if not eerste %}
             <a href="{% url 'reserveringen' %}?next={{prev_offset}}">vorige schietdag</a>
             {% endif %}
             {% if not laatste %}
             <a href="{% url 'reserveringen' %}?next={{next_offset}}">volgende schietdag</a>
-            {% endif %}
+            {% endif %} -->
 
 
-            <h3>Welke baan, wil je hoelaat reserveren?</h3>
+            <h3>Welke baan, wil je hoelaat reserveren op {{ gekozen_schietdag_datum | date:"l j b Y" }}?</h3>
 
             <div class="overzichtBanen">
+                <div class="baanRij">
+                    <div class="baanlabel"></div>
+                    <div class="baanBeschikbaarheid">
+                        {% for bslot, eslot in slots  %}
+                        <div class="tijdSlot">
+                            <div>
+                                <strong>
+                                    {{bslot}} - {{eslot}}
+                                </strong>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+
                 {% for baan in banen  %}
                 <div class="baanRij">
                     <div class="baanLabel">
                         <strong>{{baan}}</strong><br />Omschrijving
-                    </div>            
+                    </div>
                     <div class="baanBeschikbaarheid">
-                        {% for bslot, eslot in slots  %}
-                            <div class="baanSlot">
-                                van: {{bslot}}<br />tot: {{eslot}}
+                        {% for _ in slots  %}
+                        <div class="baanSlot">
+                            <div>
+                                <p>beschikbaar</p>
                             </div>
+                        </div>
                         {% endfor %}
                     </div>
                 </div>
                 {% endfor %}
             </div>
 
-            <table style="width:100%;">
+            {% comment %} <table style="width:100%;">
                 <tr>
                     {% for baan in banen  %}
                     <th>{{baan}}</th>
@@ -69,9 +91,9 @@
                     {% endfor %}
                 </tr>
                 {% endfor %}
-            </table>
+            </table> {% endcomment %}
 
-        </div>    
+        </div>
     </div>
 
 </body>
