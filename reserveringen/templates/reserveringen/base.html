@@ -21,12 +21,9 @@
                 </div>
                 {% if user.is_authenticated %}
                 <nav>
-                    <a href="{% url 'reserveringen' %}" class="actief">Reserveren</a>
-                    <a href="{% url 'mijn_reserveringen' %}">Mijn reserveringen</a>
-                    <a href="{% url 'logout' %}">Log uit</a>
-                    <!-- <a href="{% url 'reserveringen' %}"><button class="dateButton">Reserveren</button></a>
-                    <a href="{% url 'mijn_reserveringen' %}"><button class="dateButton">Mijn reserveringen</button></a>
-                    <a href="{% url 'logout' %}"><button class="datebutton">Log uit</button></a> -->
+                    <a href="{% url 'reserveringen' %}" {% if request.resolver_match.url_name == "reserveringen" %}class="actief"{% endif %}>Reserveren</a>
+                    <a href="{% url 'mijn_reserveringen' %}" {% if request.resolver_match.url_name == "mijn_reserveringen" %}class="actief"{% endif %}>Mijn reserveringen</a>
+                    <a href="{% url 'logout' %}" {% if request.resolver_match.url_name == "logout" %}class="actief"{% endif %}>Log uit</a>
                 </nav>    
                 {% endif %}
             </div>
