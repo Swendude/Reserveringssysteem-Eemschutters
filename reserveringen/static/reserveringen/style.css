@@ -153,6 +153,12 @@
             cursor: default;
         }
 
+        .dateButton.self {
+            color:#fff;
+            background-color:#B6D094;
+            cursor: default;
+        }
+
         .reservering {
             margin: 10 0 10 0;
             padding: 10px;

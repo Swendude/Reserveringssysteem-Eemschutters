@@ -53,8 +53,11 @@
                 </div>
                 {% else %}
                 <div>
+                    {% if slot.zelf %}
+                    <button class="dateButton self disabled">Bezet door jou!</button>
+                    {% else %}
                     <button class="dateButton disabled">Bezet</button>
-                    </form>
+                    {% endif %}
                 </div>
                 {% endif %}
 
