@@ -1,12 +1,13 @@
 {% load static %}
-<html lang="en">
+<!DOCTYPE html>
+<html lang="nl">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eemschutters Reserveringssysteem</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'reserveringen/style.css' %}">
 </head>
 
@@ -16,25 +17,17 @@
         <div class="wrapper">
             <div class="headerrow">
                 <div class="logo">
-                    <h1>Reserveringssysteem</h1>
-                    <h2>Eemschutters</h2>
+                    <div class="systeemNaam">Reserveringssysteem</div>
+                    <div class="systeemBedrijfsnaam">Eemschutters</div>
                 </div>
                 {% if user.is_authenticated %}
-                <div class="menuitems">
-                    <div>
-                        <a href="{% url 'reserveringen' %}"><button class="dateButton">Reserveren</button></a>
-                    </div>
-                    
-                    <div>
-                        <a href="{% url 'mijn_reserveringen' %}"><button class="dateButton">Mijn reserveringen</button></a>
-                    </div>
-                    <div class="userinfo">
-                        <a href="{% url 'logout' %}"><button class="datebutton">Log uit</button></a>
-                    </div>
-                </div>
+                <nav>
+                    <a href="{% url 'reserveringen' %}" {% if request.resolver_match.url_name == "reserveringen" %}class="actief"{% endif %}>Reserveren</a>
+                    <a href="{% url 'mijn_reserveringen' %}" {% if request.resolver_match.url_name == "mijn_reserveringen" %}class="actief"{% endif %}>Mijn reserveringen</a>
+                    <a href="{% url 'logout' %}" {% if request.resolver_match.url_name == "logout" %}class="actief"{% endif %}>Log uit</a>
+                </nav>    
+                {% endif %}
             </div>
-            {% endif %}
-        </div>
         </div>
     </header>
 
@@ -46,5 +39,14 @@
     </div>
 
 </body>
+<script type="text/javascript">
 
+    function disableButton(form)
+    {
+      console.log("HOOI");
+      form.reserveerButton.disabled = true;
+      form.reserveerButton.value = "Bezig.."
+    }
+  
+</script>
 </html>

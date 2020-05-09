@@ -10,6 +10,8 @@ from django.db.models import Max
 from collections import namedtuple
 from .forms import ReserveringForm
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
+
 
 Slot = namedtuple("Slot", ["datum", "starttijd", "eindtijd", "baan", "status", 'form', 'zelf'])
 
@@ -37,7 +39,9 @@ def reserveringen(request):
         form = ReserveringForm(request.POST)
         if form.is_valid():
             args = {**{'gebruiker': request.user}, **form.cleaned_data}
+            # TODO: Bestaat Reservering al?!
             Reservering(**args).save()
+        return HttpResponseRedirect(request.path_info)
             
     # Determine our date based on an optional GET parameter 'next' that offsets to the next available day
     view_date = timezone.now()

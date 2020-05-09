@@ -4,30 +4,29 @@
 
 {% block content %}
 
-<h1>Voor wanneer wil je reserveren?</h1>
+<h1>Maak een reservering</h1>
+
+<h2>Voor wanneer wil je reserveren?</h2>
 
 {% for datum, schietdag in schietdagen %}
 {% if forloop.counter0 == choice %}
-<button class="dateButton disabled">&#128197;{{ datum | date:"l j b Y" }}</button>
+<div class="dateSelector active"><div class="icon">&#128197;</div>{{ datum | date:"l j b Y" }}</div>
+<!-- <button class="dateButton disabled">&#128197; {{ datum | date:"l j b Y" }}</button> -->
 {% else %}
-<a href="{% url 'reserveringen' %}?next={{ forloop.counter0 }}"><button
-        class="dateButton">&#128197;{{ datum | date:"l j b Y" }}</button></a>
+<!-- <div active"><div class="icon">&#128197;</div>{{ datum | date:"l j b Y" }}</div> -->
+<a href="{% url 'reserveringen' %}?next={{ forloop.counter0 }}" class="dateSelector"><div class="icon">&#128197;</div>{{ datum | date:"l j b Y" }}</a>
 {% endif %}
 {% endfor %}
-
-<h3>Welke baan, wil je hoelaat reserveren op {{ gekozen_schietdag_datum | date:"l j b Y" }}?</h3>
+<br /><br />
+<h2>Welke baan, wil je hoelaat reserveren op {{ gekozen_schietdag_datum | date:"l j b Y" }}?</h2>
 
 <div class="overzichtBanen">
-    <div class="baanRij">
-        <div class="baanlabel"></div>
+    <div class="baanRij baanRijHeader">
+        <div class="baanLabel"></div>
         <div class="baanBeschikbaarheid">
             {% for slot_start, slot_eind in slot_tijden  %}
-            <div class="tijdSlot">
-                <div>
-                    <strong>
-                        {{slot_start}} - {{slot_eind}}
-                    </strong>
-                </div>
+            <div class="baanSlot">
+                {{slot_start}} - {{slot_eind}}
             </div>
             {% endfor %}
         </div>
@@ -45,10 +44,10 @@
 
                 {% if slot.status == 'Vrij'%}
                 <div>
-                    <form action="{% url 'reserveringen' %}" method="post">
+                    <form action="{% url 'reserveringen' %}" method="post" onsubmit="disableButton(this)">
                         {% csrf_token %}
                         {{ slot.form }}
-                        <button class="dateButton" type="submit">Reserveer</button>
+                        <button class="dateButton" name="reserveerButton" type="submit">Reserveer</button>
                     </form>
                 </div>
                 {% else %}

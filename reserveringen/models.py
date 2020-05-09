@@ -101,5 +101,13 @@ class Reservering(models.Model):
     def __str__(self):
         return f"Reservering van {self.gebruiker.username} op {self.start}"
 
+    @property
+    def aankomst(self):
+        return self.start - self.schietdag.opstart_duur
+    
+    @property
+    def vertrek(self):
+        return self.eind + self.schietdag.afbouw_duur
+
     class Meta:
         verbose_name_plural = "Reserveringen"

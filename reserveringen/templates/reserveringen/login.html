@@ -1,7 +1,8 @@
 {% extends 'reserveringen/base.html' %}
 {% load static %}
 {% block content %}
-<h1>Welkom bij het reserveringssysteem, log eerst in:</h1>
+<h1>Inloggen</h1>
+<p>Welkom bij het reserveringssysteem, log eerst in.</p>
 <form method="post" action="{% url 'login' %}">
     {% csrf_token %}
 

@@ -1,5 +1,18 @@
 @import "partials/reset";
 
+// $color-primary: #6844D5;
+$color-primary: #0066CC;
+
+$color-background: #F5F6FA;
+$font-header: 'Montserrat', sans-serif;
+
+@mixin for-desktop-up {
+    @media (min-width: 1200px) { @content; }
+}
+
+@mixin dropShadow {
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+}
 
 body {
     font-family: Arial, Helvetica, sans-serif;
@@ -8,6 +21,7 @@ body {
     -webkit-font-smoothing: antialiased;
     line-height:1.6em;
     font-size:14px;    
+    background: $color-background;
 }
 
 
@@ -21,60 +35,285 @@ h1,
 h2,
 h3,
 h4 { 
-    font-family: 'Montserrat', sans-serif;
+    font-family: $font-header;
     font-weight: bold;
+    line-height:1.6em;
+    margin-bottom:16px;
 }
+
+h1 {
+    font-size:24px;
+    color: $color-primary;
+}
+
+h2 {
+    font-size:16px;
+}
+
 
 .wrapper {
-    width:1200px;
-    margin: 0 auto;
+
+    width:100%;
+    padding:0 20px;
+
+    @include for-desktop-up() {
+        width:1200px;
+        margin: 0 auto;
+        padding:unset;
+    }
 }
+
+
 
 header {
-    height:300px;
-    background: #A47C4B;
-    padding-top:60px;
+    min-height:80px;
+    background: #ffffff;
+    padding:20px 0;
+    box-sizing:border-box;
+    margin-bottom:40px;
 
-    color:#fff;
+    @include dropShadow();
+
+
+    .systeemNaam,
+    .systeemBedrijfsnaam {
+        display:inline-block;
+        font-size:24px;
+        font-family: $font-header;
+        font-weight: bold;
+        line-height:1.6em;
+    }
+
+    .systeemNaam {
+        font-weight: normal;
+    }
+    
+    .systeemBedrijfsnaam {
+        color: $color-primary;
+    }
+    
+    .headerrow {
+        padding: 0 40px;
+        width: 100%;
+        box-sizing:border-box;
+
+        display:block;
+
+        @include for-desktop-up() {
+            display:flex;
+        }
+
+        // align-items: flex-end;
+
+        .logo,
+        nav {
+            flex:50% 0 0;
+        }
+
+        nav {
+            text-align:right;
+            font-family: $font-header;
+            font-weight: bold;
+
+            a {
+                color: #000;
+                display:inline-block;
+                text-align:center;
+                text-decoration: none;
+                padding:10px;
+
+                &.actief,
+                &:hover {
+                    color: $color-primary;
+                }
+            }
+        }
+
+    }
+
+    // .menuitems {
+    //     flex: 1;
+    //     display: inline-flex;
+    //     justify-content: flex-end;
+    // }
+    // .menuitem {
+    //     color: $color-primary;
+    //     background-color: white;
+    //     border: 1px solid white;
+    //     text-align: center;
+    //     padding: 5px;
+    //     margin: 10 15 10 5;
+    // }    
+    // .userinfo {
+    //     display: flex;
+    //     flex-direction: column;
+    // }
+    
 }
 
-.content .wrapper {
-    background: #fff;
-    margin-top:-100px;
-    padding:40px;
-    box-sizing:border-box;
-
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-
+.content {
+    .wrapper {
+        background: #fff;
+        // margin-top:-100px;
+        padding:40px;
+        box-sizing:border-box;
+        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    }
 }
 
 .overzichtBanen {
     display:block;
     position:relative;
+
+    .baanRij {
+        display:flex;
+        border-bottom:1px solid rgba($color-primary, 0.4);
+
+        .baanLabel {
+            flex:200px 0 0;
+            display:block;
+            position:relative;
+            background-color: rgba($color-primary, 0.1);       
+            border-right:1px solid rgba($color-primary, 1);
+
+            // border-bottom:1px solid red;
+            // border-right:1px solid red;
+            padding: 12px 0px 12px 6px;
+
+        }
+
+        .baanBeschikbaarheid {
+            display:flex;
+            flex:100% 1 1;
+            position: relative;
+
+            .baanSlot {
+                flex:100% 1 1;
+                position: relative;            
+            }
+        
+        }
+
+        &.baanRijHeader {
+            font-weight: bold;
+            background-color: rgba($color-primary, 0.3);   
+            line-height:40px;
+
+            
+
+        }
+
+    }
 }
 
-.overzichtBanen .baanRij {
-    display:flex;
-    border-bottom:1px solid red;
+.dateSelector {
+
+    display: inline-block;
+    border:2px solid $color-primary;
+    color: $color-primary;
+    border-radius:5px;
+    padding:10px;
+    font-weight: bold;
+    text-decoration: none;
+    margin-right:10px;
+    margin-bottom:10px;
+
+    .icon {
+        display:inline-block;
+        margin-right:10px;
+    }
+
+
+    &.active,
+    &:hover {
+
+        background: $color-primary;
+        color:#fff;
+
+    }
+
 
 }
 
-.overzichtBanen .baanRij .baanLabel {
-    flex:200px 0 0;
-    display:block;
-    position:relative;
-    background-color: rgba(#A47C4B, 0.2);
 
-}
+// .tijdSlot {
+//     display: flex;
+//     flex:100% 1 1;
+//     position: relative;
+//     border-left: 1px solid rgba(0, 0, 0, 0.1);
+//     border-right: 1px solid rgba(0, 0, 0, 0.1);
+//     border-top: 1px solid rgba(0, 0, 0, 0.1);
+//     justify-content: center;
+//     padding: 7px;
+// }
 
-.overzichtBanen .baanRij .baanBeschikbaarheid {
-    display:flex;
-    flex:100% 1 1;
-
-}
-
-.overzichtBanen .baanRij .baanBeschikbaarheid .baanSlot {
+.baanSlot {
+    display: flex;
     flex:100% 1 1;
     position: relative;
+    justify-content: center;
+    border-right:1px solid rgba($color-primary, 0.6);
+}
+
+.dateButton {
+    border-radius: 5px;
+    margin: 7px;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 1.12em;
+    border: 1px solid  rgba(0, 0, 0, 0.1);
+}
+
+.dateButton:hover {
+    background-color: lightblue;
+}
+
+.dateButton.disabled {
+    color:#fff;
+    background-color:#A47C4B;
+    /* border: 1px solid  rgba(0, 0, 0, 1); */
+    cursor: default;
+}
+
+.dateButton.self {
+    color:#fff;
+    background-color:#B6D094;
+    cursor: default;
+}
+
+.reservering {
+    margin: 10 0 10 0;
+    padding: 10px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    border: 1px solid black;
+    display: flex;
+    justify-content: space-evenly;
+}
+.reserveringlabel {
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+
+
+form {
+    label {
+        display:block;
+    }
+
+    input[type=text],
+    input[type=password] {
+        -webkit-appearance: none;
+        display:block;
+        border-radius:5px;
+        padding:0 5px;
+        line-height:30px;
+        border:1px solid rgba(0,0,0,0.4);
+        margin-bottom:10px;
+        width:300px;
+    
+        
+    }
 }
