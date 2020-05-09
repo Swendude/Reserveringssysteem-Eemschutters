@@ -37,4 +37,4 @@ Om lokaal te draaien:
     - [ ] Bestiging modal bij reserveren
     - [ ] Login form
 - [ ] Wachtwoord wijzigen
-= [ ] Overzicht voor baancommandant/sleutelhouder
+- [ ] Overzicht voor baancommandant/sleutelhouder
