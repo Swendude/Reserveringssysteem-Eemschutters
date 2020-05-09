@@ -36,5 +36,7 @@ Om lokaal te draaien:
 - [ ] Ux verbeteren
     - [ ] Bestiging modal bij reserveren
     - [ ] Login form
+- [ ] Responsive maken
 - [ ] Wachtwoord wijzigen
 - [ ] Overzicht voor baancommandant/sleutelhouder
+- [ ] Terug naar gekozen datum na toevoegen van een reservering

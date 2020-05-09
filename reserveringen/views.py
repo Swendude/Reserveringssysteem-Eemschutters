@@ -11,7 +11,7 @@ from collections import namedtuple
 from .forms import ReserveringForm
 from django.contrib.auth.decorators import login_required
 
-Slot = namedtuple("Slot", ["datum", "starttijd", "eindtijd", "baan", "status", 'form'])
+Slot = namedtuple("Slot", ["datum", "starttijd", "eindtijd", "baan", "status", 'form', 'zelf'])
 
 
 def next_datetime_with_weekday(current, target):
@@ -81,16 +81,19 @@ def reserveringen(request):
                                                      schietdag=gekozen_schietdag,
                                                      start=slot_start,
                                                      eind=slot_eind)
+            zelf = False
             if reservering:
                 status = "Bezet"
+                if reservering[0].gebruiker == request.user:
+                    zelf=True
             slot_form = ReserveringForm(initial={
                 'start':slot_start,
                 'eind':slot_eind,
                 'baan':baan.pk,
                 'schietdag':gekozen_schietdag.pk})
             slots_per_baan[baan].append(
-                Slot(gekozen_schietdag_datum, slot_tijd[0], slot_tijd[1], baan, status, slot_form))
-
+                Slot(gekozen_schietdag_datum, slot_tijd[0], slot_tijd[1], baan, status, slot_form, zelf))
+    
     return render(request, 'reserveringen/reserveringen.html', {'view_date': view_date,
                                                                 'schietdagen': schietdagen,
                                                                 'gekozen_schietdag_datum': gekozen_schietdag_datum,
