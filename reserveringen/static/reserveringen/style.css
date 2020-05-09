@@ -22,11 +22,46 @@
             font-family: 'Montserrat', sans-serif;
             font-weight: bold;
         }
-
         .wrapper {
-            width:1200px;
+            width: 100%;
+            max-width:1200px;
             margin: 0 auto;
         }
+
+        .headerrow {
+            width: 100%;
+            display:inline-flex;
+            align-items: flex-end;
+            margin: auto;
+        }
+        .username {
+            font-weight: light;
+        }
+        /* .logo {
+            flex: 1;
+        } */
+        .menuitems {
+            flex: 1;
+            display: inline-flex;
+            justify-content: flex-end;
+
+        }
+
+        .menuitem {
+            color: #A47C4B;
+            background-color: white;
+            border: 1px solid white;
+            text-align: center;
+            padding: 5px;
+            margin: 10 15 10 5;
+        }
+
+        .userinfo {
+            display: flex;
+            flex-direction: column;
+        }
+
+        
 
         header {
             height:200px;
@@ -40,7 +75,6 @@
             margin-top:-100px;
             padding:40px;
             box-sizing:border-box;
-
             box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
 
@@ -118,3 +152,18 @@
             /* border: 1px solid  rgba(0, 0, 0, 1); */
             cursor: default;
         }
+
+        .reservering {
+            margin: 10 0 10 0;
+            padding: 10px;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            border: 1px solid black;
+            display: flex;
+            justify-content: space-evenly;
+        }
+        .reserveringlabel {
+            font-size: 12px;
+            color: rgba(0, 0, 0, 0.6);
+        }
+        

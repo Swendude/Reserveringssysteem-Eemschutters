@@ -1,0 +1,33 @@
+{% extends 'reserveringen/base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<h1>Hier zijn jou geplande reserveringen:</h1>
+    {% for reservering in reserveringen %}
+    <div class='reservering'>
+        <div>
+            <h3 class="reserveringlabel">Datum:</h3>
+            <h3>{{ reservering.start | date }}</h3>
+        </div>
+        <div>
+            <h3 class="reserveringlabel">Tijd:</h3>
+            <h4>{{ reservering.start | time }} - {{ reservering.eind | time }}</h4>
+        </div>
+        <div>
+            <h3 class="reserveringlabel">Opbouw:</h3>
+            <h4>{{ reservering.schietdag.opbouw_minutes }} minuten</h4>
+        </div>
+        <div>
+            <h3 class="reserveringlabel">Afbouw:</h3>
+            <h4>{{ reservering.schietdag.afbouw_minutes }} minuten</h4>
+        </div>
+        <div>
+            <h3 class="reserveringlabel">Baan:</h3>
+            <h4>{{reservering.baan }} </h4>
+        </div>
+        
+    </div>
+    {% endfor %}
+{% endblock %}

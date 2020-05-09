@@ -1,0 +1,50 @@
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eemschutters Reserveringssysteem</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'reserveringen/style.css' %}">
+</head>
+
+<body>
+
+    <header>
+        <div class="wrapper">
+            <div class="headerrow">
+                <div class="logo">
+                    <h1>Reserveringssysteem</h1>
+                    <h2>Eemschutters</h2>
+                </div>
+                {% if user.is_authenticated %}
+                <div class="menuitems">
+                    <div>
+                        <a href="{% url 'reserveringen' %}"><button class="dateButton">Reserveren</button></a>
+                    </div>
+                    
+                    <div>
+                        <a href="{% url 'mijn_reserveringen' %}"><button class="dateButton">Mijn reserveringen</button></a>
+                    </div>
+                    <div class="userinfo">
+                        <a href="{% url 'logout' %}"><button class="datebutton">Log uit</button></a>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        </div>
+    </header>
+
+    <div class="content">
+        <div class="wrapper">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+
+</body>
+
+</html>

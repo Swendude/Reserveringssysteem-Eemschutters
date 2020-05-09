@@ -22,8 +22,16 @@ def next_datetime_with_weekday(current, target):
         datetime.timedelta(((target-current.weekday()) % 7))
     return target
 
-@login_required(login_url='/admin/')
-def index(request):
+@login_required(login_url='/login/')
+def mijn_reserveringen(request):
+    view_date = timezone.now()
+    reservering = Reservering.objects.filter(start__gt=view_date,
+                                                gebruiker=request.user)
+    return render(request, 'reserveringen/mijn_reserveringen.html', {'reserveringen':reservering})
+
+
+@login_required(login_url='/login/')
+def reserveringen(request):
     if request.method == 'POST':
         # Create a reservation
         form = ReserveringForm(request.POST)

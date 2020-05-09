@@ -67,6 +67,14 @@ class Schietdag(models.Model):
         assert(len(times) == self.aantal_slots)
         return times
 
+    @property
+    def opbouw_minutes(self):
+        return self.opstart_duur.seconds // 60
+
+    @property
+    def afbouw_minutes(self):
+        return self.afbouw_duur.seconds // 60
+
     def clean(self):
         """
         Valideer dat het aantal slots een rond getal is.
