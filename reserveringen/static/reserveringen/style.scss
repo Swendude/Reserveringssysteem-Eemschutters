@@ -168,15 +168,17 @@ header {
 
     .baanRij {
         display:flex;
-        border-bottom:1px solid red;
+        border-bottom:1px solid rgba($color-primary, 0.4);
 
         .baanLabel {
             flex:200px 0 0;
             display:block;
             position:relative;
-            background-color: rgba(#A47C4B, 0.2);        
-            border-bottom:1px solid red;
-            border-right:1px solid red;
+            background-color: rgba($color-primary, 0.1);       
+            border-right:1px solid rgba($color-primary, 1);
+
+            // border-bottom:1px solid red;
+            // border-right:1px solid red;
             padding: 12px 0px 12px 6px;
 
         }
@@ -191,6 +193,15 @@ header {
                 position: relative;            
             }
         
+        }
+
+        &.baanRijHeader {
+            font-weight: bold;
+            background-color: rgba($color-primary, 0.3);   
+            line-height:40px;
+
+            
+
         }
 
     }
@@ -226,25 +237,23 @@ header {
 }
 
 
-.tijdSlot {
-    display: flex;
-    flex:100% 1 1;
-    position: relative;
-    border-left: 1px solid rgba(0, 0, 0, 0.1);
-    border-right: 1px solid rgba(0, 0, 0, 0.1);
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    justify-content: center;
-    padding: 7px;
-}
+// .tijdSlot {
+//     display: flex;
+//     flex:100% 1 1;
+//     position: relative;
+//     border-left: 1px solid rgba(0, 0, 0, 0.1);
+//     border-right: 1px solid rgba(0, 0, 0, 0.1);
+//     border-top: 1px solid rgba(0, 0, 0, 0.1);
+//     justify-content: center;
+//     padding: 7px;
+// }
 
 .baanSlot {
     display: flex;
     flex:100% 1 1;
     position: relative;
     justify-content: center;
-    border:1px solid rgba(0, 0, 0, 0.1);
-    border-left: 1px solid rgba(0, 0, 0, 0.1);
-    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    border-right:1px solid rgba($color-primary, 0.6);
 }
 
 .dateButton {
@@ -285,4 +294,26 @@ header {
 .reserveringlabel {
     font-size: 12px;
     color: rgba(0, 0, 0, 0.6);
+}
+
+
+
+form {
+    label {
+        display:block;
+    }
+
+    input[type=text],
+    input[type=password] {
+        -webkit-appearance: none;
+        display:block;
+        border-radius:5px;
+        padding:0 5px;
+        line-height:30px;
+        border:1px solid rgba(0,0,0,0.4);
+        margin-bottom:10px;
+        width:300px;
+    
+        
+    }
 }

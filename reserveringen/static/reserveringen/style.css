@@ -126,14 +126,13 @@ header {
   position: relative; }
   .overzichtBanen .baanRij {
     display: flex;
-    border-bottom: 1px solid red; }
+    border-bottom: 1px solid rgba(0, 102, 204, 0.4); }
     .overzichtBanen .baanRij .baanLabel {
       flex: 200px 0 0;
       display: block;
       position: relative;
-      background-color: rgba(164, 124, 75, 0.2);
-      border-bottom: 1px solid red;
-      border-right: 1px solid red;
+      background-color: rgba(0, 102, 204, 0.1);
+      border-right: 1px solid #0066cc;
       padding: 12px 0px 12px 6px; }
     .overzichtBanen .baanRij .baanBeschikbaarheid {
       display: flex;
@@ -142,6 +141,10 @@ header {
       .overzichtBanen .baanRij .baanBeschikbaarheid .baanSlot {
         flex: 100% 1 1;
         position: relative; }
+    .overzichtBanen .baanRij.baanRijHeader {
+      font-weight: bold;
+      background-color: rgba(0, 102, 204, 0.3);
+      line-height: 40px; }
 
 .dateSelector {
   display: inline-block;
@@ -160,24 +163,12 @@ header {
     background: #0066CC;
     color: #fff; }
 
-.tijdSlot {
-  display: flex;
-  flex: 100% 1 1;
-  position: relative;
-  border-left: 1px solid rgba(0, 0, 0, 0.1);
-  border-right: 1px solid rgba(0, 0, 0, 0.1);
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  justify-content: center;
-  padding: 7px; }
-
 .baanSlot {
   display: flex;
   flex: 100% 1 1;
   position: relative;
   justify-content: center;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-left: 1px solid rgba(0, 0, 0, 0.1);
-  border-right: 1px solid rgba(0, 0, 0, 0.1); }
+  border-right: 1px solid rgba(0, 102, 204, 0.6); }
 
 .dateButton {
   border-radius: 5px;
@@ -213,3 +204,17 @@ header {
 .reserveringlabel {
   font-size: 12px;
   color: rgba(0, 0, 0, 0.6); }
+
+form label {
+  display: block; }
+
+form input[type=text],
+form input[type=password] {
+  -webkit-appearance: none;
+  display: block;
+  border-radius: 5px;
+  padding: 0 5px;
+  line-height: 30px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  margin-bottom: 10px;
+  width: 300px; }

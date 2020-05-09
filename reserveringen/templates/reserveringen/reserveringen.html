@@ -21,17 +21,12 @@
 <h2>Welke baan, wil je hoelaat reserveren op {{ gekozen_schietdag_datum | date:"l j b Y" }}?</h2>
 
 <div class="overzichtBanen">
-    <div class="baanRij">
+    <div class="baanRij baanRijHeader">
         <div class="baanLabel"></div>
         <div class="baanBeschikbaarheid">
             {% for slot_start, slot_eind in slot_tijden  %}
             <div class="baanSlot">
-                <!-- <div class="tijdSlot"> -->
-                <div>
-                    <strong>
-                        {{slot_start}} - {{slot_eind}}
-                    </strong>
-                </div>
+                {{slot_start}} - {{slot_eind}}
             </div>
             {% endfor %}
         </div>
