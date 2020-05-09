@@ -39,6 +39,7 @@ def reserveringen(request):
         form = ReserveringForm(request.POST)
         if form.is_valid():
             args = {**{'gebruiker': request.user}, **form.cleaned_data}
+            # TODO: Bestaat Reservering al?!
             Reservering(**args).save()
         return HttpResponseRedirect(request.path_info)
             

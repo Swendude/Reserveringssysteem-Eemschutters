@@ -16,12 +16,12 @@
             <h4>{{ reservering.start | time }} - {{ reservering.eind | time }}</h4>
         </div>
         <div>
-            <h3 class="reserveringlabel">Opbouw:</h3>
-            <h4>{{ reservering.schietdag.opbouw_minutes }} minuten</h4>
+            <h3 class="reserveringlabel">Kom aan na:</h3>
+            <h4>{{ reservering.aankomst | time }} </h4>
         </div>
         <div>
-            <h3 class="reserveringlabel">Afbouw:</h3>
-            <h4>{{ reservering.schietdag.afbouw_minutes }} minuten</h4>
+            <h3 class="reserveringlabel">Vertrek voor:</h3>
+            <h4>{{ reservering.vertrek | time }}</h4>
         </div>
         <div>
             <h3 class="reserveringlabel">Baan:</h3>
