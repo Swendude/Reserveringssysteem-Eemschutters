@@ -1,97 +1,67 @@
+{% extends 'reserveringen/base.html' %}
 {% load static %}
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eemschutters Reserveringssysteem</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{% static 'reserveringen/style.css' %}">
-</head>
-
-<body>
-
-    <header>
-        <div class="wrapper">
-            <h1>Reserveringssysteem</h1>
-            <h2>Eemschutters</h2>
-        </div>
-    </header>
-
-    <div class="content">
-        <div class="wrapper">
-            <h1>Voor wanneer wil je reserveren?</h1>
-
-            {% for datum, schietdag in schietdagen %}
-            {% if forloop.counter0 == choice %}
-            <button class="dateButton disabled">&#128197;{{ datum | date:"l j b Y" }}</button>
-            {% else %}
-            <a href="{% url 'reserveringen' %}?next={{ forloop.counter0 }}"><button
-                    class="dateButton">&#128197;{{ datum | date:"l j b Y" }}</button></a>
-            {% endif %}
-            {% endfor %}
-            <!-- {% if not eerste %}
-            <a href="{% url 'reserveringen' %}?next={{prev_offset}}">vorige schietdag</a>
-            {% endif %}
-            {% if not laatste %}
-            <a href="{% url 'reserveringen' %}?next={{next_offset}}">volgende schietdag</a>
-            {% endif %} -->
 
 
-            <h3>Welke baan, wil je hoelaat reserveren op {{ gekozen_schietdag_datum | date:"l j b Y" }}?</h3>
+{% block content %}
 
-            <div class="overzichtBanen">
-                <div class="baanRij">
-                    <div class="baanlabel"></div>
-                    <div class="baanBeschikbaarheid">
-                        {% for slot_start, slot_eind in slot_tijden  %}
-                        <div class="tijdSlot">
-                            <div>
-                                <strong>
-                                    {{slot_start}} - {{slot_eind}}
-                                </strong>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
+<h1>Voor wanneer wil je reserveren?</h1>
+
+{% for datum, schietdag in schietdagen %}
+{% if forloop.counter0 == choice %}
+<button class="dateButton disabled">&#128197;{{ datum | date:"l j b Y" }}</button>
+{% else %}
+<a href="{% url 'reserveringen' %}?next={{ forloop.counter0 }}"><button
+        class="dateButton">&#128197;{{ datum | date:"l j b Y" }}</button></a>
+{% endif %}
+{% endfor %}
+
+<h3>Welke baan, wil je hoelaat reserveren op {{ gekozen_schietdag_datum | date:"l j b Y" }}?</h3>
+
+<div class="overzichtBanen">
+    <div class="baanRij">
+        <div class="baanlabel"></div>
+        <div class="baanBeschikbaarheid">
+            {% for slot_start, slot_eind in slot_tijden  %}
+            <div class="tijdSlot">
+                <div>
+                    <strong>
+                        {{slot_start}} - {{slot_eind}}
+                    </strong>
                 </div>
-
-
-                {% for baan, slots in slots_per_baan.items  %}
-                <div class="baanRij">
-                    <div class="baanLabel">
-                        <strong>{{baan}}</strong><br />
-                    </div>
-                    <div class="baanBeschikbaarheid">
-                        {% for slot in slots  %}
-                        <div class="baanSlot">
-
-                            {% if slot.status == 'Vrij'%}
-                            <div>
-                                <form action="{% url 'reserveringen' %}" method="post">
-                                    {% csrf_token %}
-                                    {{ slot.form }}
-                                    <button class="dateButton" type="submit">Reserveer</button>
-                                </form>
-                            </div>
-                            {% else %}
-                            <div>
-                                    <button class="dateButton disabled">Bezet</button>
-                                </form>
-                            </div>
-                            {% endif %}
-
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-                {% endfor %}
             </div>
-
+            {% endfor %}
         </div>
     </div>
 
-</body>
 
-</html>
+    {% for baan, slots in slots_per_baan.items  %}
+    <div class="baanRij">
+        <div class="baanLabel">
+            <strong>{{baan}}</strong><br />
+        </div>
+        <div class="baanBeschikbaarheid">
+            {% for slot in slots  %}
+            <div class="baanSlot">
+
+                {% if slot.status == 'Vrij'%}
+                <div>
+                    <form action="{% url 'reserveringen' %}" method="post">
+                        {% csrf_token %}
+                        {{ slot.form }}
+                        <button class="dateButton" type="submit">Reserveer</button>
+                    </form>
+                </div>
+                {% else %}
+                <div>
+                    <button class="dateButton disabled">Bezet</button>
+                    </form>
+                </div>
+                {% endif %}
+
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
