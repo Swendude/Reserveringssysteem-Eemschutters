@@ -28,3 +28,13 @@ Om lokaal te draaien:
 ```bash
     $ python manage.py runserver
 ```
+
+## Todos
+
+- [ ] Reserveringen annuleren
+- [ ] Maximaal aantal reserveringen per week
+- [ ] Ux verbeteren
+    - [ ] Bestiging modal bij reserveren
+    - [ ] Login form
+- [ ] Wachtwoord wijzigen
+= [ ] Overzicht voor baancommandant/sleutelhouder
