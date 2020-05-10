@@ -201,6 +201,10 @@ header {
           cursor: not-allowed;
           background: rgba(52, 152, 219, 0.2);
           color: #3498db; }
+        .overzichtBanen .baanRij .baanBeschikbaarheid .baanSlot.baanSlotVerlopen {
+          cursor: not-allowed;
+          background: rgba(0, 0, 0, 0.1);
+          color: rgba(0, 0, 0, 0.6); }
         .overzichtBanen .baanRij .baanBeschikbaarheid .baanSlot .tijdSlotMobiel {
           display: block; }
           @media (min-width: 1200px) {
@@ -300,19 +304,21 @@ header {
         flex: 300px 1 1; }
       .reservering .reserveringInhoud {
         margin-bottom: unset; } }
-  .reservering .reserveringActies .annuleer {
-    display: inline-block;
-    -webkit-appearance: none;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
-    font-size: 12px;
-    border: none;
-    background: #6844D5;
-    color: #fff;
-    border-radius: 5px;
-    padding: 0 30px;
-    line-height: 30px;
-    cursor: pointer; }
+  .reservering .reserveringActies {
+    text-align: right; }
+    .reservering .reserveringActies .annuleer {
+      display: inline-block;
+      -webkit-appearance: none;
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: bold;
+      font-size: 12px;
+      border: none;
+      background: #6844D5;
+      color: #fff;
+      border-radius: 5px;
+      padding: 0 30px;
+      line-height: 30px;
+      cursor: pointer; }
   .reservering h2 {
     color: #000000;
     margin-bottom: 10px; }
