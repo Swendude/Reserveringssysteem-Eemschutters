@@ -28,7 +28,8 @@ def next_datetime_with_weekday(current, target):
 def mijn_reserveringen(request):
     view_date = timezone.now()
     reservering = Reservering.objects.filter(start__gt=view_date,
-                                                gebruiker=request.user)
+                                                gebruiker=request.user).order_by('schietdag')
+
     return render(request, 'reserveringen/mijn_reserveringen.html', {'reserveringen':reservering})
 
 
@@ -90,8 +91,6 @@ def overzicht(request):
                                                                 'slot_tijden': slot_tijden,
                                                                 'slots_per_baan': slots_per_baan,
                                                                 'choice': dagkeuze})
-
-    # return render(request, 'reserveringen/reserveringen_overzicht.html', {})
 
 
 @login_required(login_url='/login/')

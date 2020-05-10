@@ -37,7 +37,7 @@ Om lokaal te draaien:
 **Mijn reserveringen**
 - [ ] Reserveringen annuleren
 - [ ] Maximaal aantal reserveringen per week
-- [ ] Volgorde omdraaien (eerstvolgende reservering bovenaan)
+- [x] Volgorde omdraaien (eerstvolgende reservering bovenaan)
 - [ ] Reserveringen van de huidige dag tonen
 
 **Opmaak**
