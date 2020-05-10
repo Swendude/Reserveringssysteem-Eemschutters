@@ -261,24 +261,15 @@ header {
                     }
 
                     cursor: not-allowed;
-                    background: repeating-linear-gradient( -45deg,
-                    rgba($color-bezet, 0.1),
-                    rgba($color-bezet, 0.1) 10px,
-                    rgba($color-bezet, 0.2) 10px,
-                    rgba($color-bezet, 0.2) 20px
-                    );
+                    background: rgba($color-bezet, 0.2);
 
                     color: $color-bezet;
                 }
 
                 &.baanSlotGereserveerd {
                     cursor: not-allowed;
-                    background: repeating-linear-gradient( -45deg,
-                    rgba($color-gereserveerd, 0.1),
-                    rgba($color-gereserveerd, 0.1) 10px,
-                    rgba($color-gereserveerd, 0.2) 10px,
-                    rgba($color-gereserveerd, 0.2) 20px
-                    );
+
+                    background: rgba($color-gereserveerd, 0.2);
                     color: $color-gereserveerd;
 
                 }
@@ -592,9 +583,12 @@ form {
 
         // }
 
-        // &.notAvailable {
+        &.notAvailable {
+            strong {
+                color: $color-bezet;
+            }
 
-        // }
+        }
 
     }
 
