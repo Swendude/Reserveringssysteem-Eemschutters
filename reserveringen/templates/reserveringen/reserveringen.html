@@ -39,7 +39,8 @@
         <div class="baanBeschikbaarheid">
             {% for slot in slots  %}
                 {% if slot.status == 'Vrij'%}
-                <div class="baanSlot">
+                <div class="baanSlot">            
+                    <div class="tijdSlotMobiel">{{ slot.starttijd }} - {{ slot.eindtijd }}</div>
                     <form action="{% url 'reserveringen' %}" method="post" onsubmit="disableButton(this)">
                         {% csrf_token %}
                         {{ slot.form }}
@@ -49,10 +50,12 @@
                 {% else %}
                     {% if slot.zelf %}
                     <div class="baanSlot baanSlotBezet baanSlotGereserveerd">
+                        <div class="tijdSlotMobiel">{{ slot.starttijd }} - {{ slot.eindtijd }}</div>
                         Bezet door jou!
                     </div>
                     {% else %}
                     <div class="baanSlot baanSlotBezet">
+                        <div class="tijdSlotMobiel">{{ slot.starttijd }} - {{ slot.eindtijd }}</div>
                         Bezet
                     </div>
                     {% endif %}

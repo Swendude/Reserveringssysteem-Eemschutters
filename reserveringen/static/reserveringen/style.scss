@@ -103,14 +103,22 @@ header {
     }
 
 
+    .logo {
+
+        font-size:20px;
+
+        @include for-desktop-up() {
+            font-size:24px;
+        }
+
+        font-family: $font-header;
+        line-height:1.6em;
+    }
 
     .systeemNaam,
     .systeemBedrijfsnaam {
         display:inline-block;
-        font-size:24px;
-        font-family: $font-header;
         font-weight: bold;
-        line-height:1.6em;
     }
 
     .systeemNaam {
@@ -178,10 +186,14 @@ header {
 
     .baanRij {
         display:block;
+        border:1px solid rgba(#000, 0.2);
+        margin-bottom:20px;
 
         @include for-desktop-up() {
             display:flex;
+            border:unset;
             border-bottom:1px solid rgba($color-primary, 0.4);
+            margin-bottom: unset;
         }
 
         .baanLabel {
@@ -208,22 +220,34 @@ header {
 
             .baanSlot {
                 display:flex;
-                height:50px;
                 flex:100% 1 1;
                 position: relative;     
                 justify-content: center;
                 align-items: center;
                 font-weight: bold;
+                flex-direction: column;
 
                 @include for-desktop-up() {
+                    flex-direction: row;
                     border-right:1px solid rgba($color-primary, 0.6);
                 }
 
                 form {
                     height:100%;
+
+                    input {
+                        height:50px;
+
+                    }
                 }
 
-                &.baanSlotBezet {
+                &.baanSlotBezet {            
+                    height:50px;
+
+                    @include for-desktop-up() {
+                        height:unset;
+                    }
+
                     cursor: not-allowed;
                     background: repeating-linear-gradient( -45deg,
                     rgba($color-bezet, 0.1),
@@ -247,6 +271,15 @@ header {
 
                 }
 
+                .tijdSlotMobiel {
+                    display:block;
+
+                    @include for-desktop-up() {
+                        display:none;
+                    }
+                }
+
+
             }
         
         }
@@ -263,10 +296,11 @@ header {
             line-height:40px;
         }
 
-        &:nth-child(2n) {
-            background:rgba($color-primary, 0.05);
+        @include for-desktop-up() {
+            &:nth-child(2n) {
+                background:rgba($color-primary, 0.05);
+            }
         }
-
         // &:hover {
         //     background:rgba($color-primary, 0.5);
         //     .baanLabel {

@@ -90,13 +90,17 @@ header {
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); }
   header .wrapper {
     padding: 0; }
+  header .logo {
+    font-size: 20px;
+    font-family: "Montserrat", sans-serif;
+    line-height: 1.6em; }
+    @media (min-width: 1200px) {
+      header .logo {
+        font-size: 24px; } }
   header .systeemNaam,
   header .systeemBedrijfsnaam {
     display: inline-block;
-    font-size: 24px;
-    font-family: "Montserrat", sans-serif;
-    font-weight: bold;
-    line-height: 1.6em; }
+    font-weight: bold; }
   header .systeemNaam {
     font-weight: normal; }
   header .systeemBedrijfsnaam {
@@ -136,11 +140,15 @@ header {
   display: block;
   position: relative; }
   .overzichtBanen .baanRij {
-    display: block; }
+    display: block;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px; }
     @media (min-width: 1200px) {
       .overzichtBanen .baanRij {
         display: flex;
-        border-bottom: 1px solid rgba(104, 68, 213, 0.4); } }
+        border: unset;
+        border-bottom: 1px solid rgba(104, 68, 213, 0.4);
+        margin-bottom: unset; } }
     .overzichtBanen .baanRij .baanLabel {
       flex: 200px 0 0;
       display: block;
@@ -158,25 +166,37 @@ header {
           flex: 100% 1 1; } }
       .overzichtBanen .baanRij .baanBeschikbaarheid .baanSlot {
         display: flex;
-        height: 50px;
         flex: 100% 1 1;
         position: relative;
         justify-content: center;
         align-items: center;
-        font-weight: bold; }
+        font-weight: bold;
+        flex-direction: column; }
         @media (min-width: 1200px) {
           .overzichtBanen .baanRij .baanBeschikbaarheid .baanSlot {
+            flex-direction: row;
             border-right: 1px solid rgba(104, 68, 213, 0.6); } }
         .overzichtBanen .baanRij .baanBeschikbaarheid .baanSlot form {
           height: 100%; }
+          .overzichtBanen .baanRij .baanBeschikbaarheid .baanSlot form input {
+            height: 50px; }
         .overzichtBanen .baanRij .baanBeschikbaarheid .baanSlot.baanSlotBezet {
+          height: 50px;
           cursor: not-allowed;
           background: repeating-linear-gradient(-45deg, rgba(231, 76, 60, 0.1), rgba(231, 76, 60, 0.1) 10px, rgba(231, 76, 60, 0.2) 10px, rgba(231, 76, 60, 0.2) 20px);
           color: #e74c3c; }
+          @media (min-width: 1200px) {
+            .overzichtBanen .baanRij .baanBeschikbaarheid .baanSlot.baanSlotBezet {
+              height: unset; } }
         .overzichtBanen .baanRij .baanBeschikbaarheid .baanSlot.baanSlotGereserveerd {
           cursor: not-allowed;
           background: repeating-linear-gradient(-45deg, rgba(52, 152, 219, 0.1), rgba(52, 152, 219, 0.1) 10px, rgba(52, 152, 219, 0.2) 10px, rgba(52, 152, 219, 0.2) 20px);
           color: #3498db; }
+        .overzichtBanen .baanRij .baanBeschikbaarheid .baanSlot .tijdSlotMobiel {
+          display: block; }
+          @media (min-width: 1200px) {
+            .overzichtBanen .baanRij .baanBeschikbaarheid .baanSlot .tijdSlotMobiel {
+              display: none; } }
     .overzichtBanen .baanRij.baanRijHeader {
       display: none;
       font-weight: bold;
@@ -185,8 +205,9 @@ header {
       @media (min-width: 1200px) {
         .overzichtBanen .baanRij.baanRijHeader {
           display: flex; } }
-    .overzichtBanen .baanRij:nth-child(2n) {
-      background: rgba(104, 68, 213, 0.05); }
+    @media (min-width: 1200px) {
+      .overzichtBanen .baanRij:nth-child(2n) {
+        background: rgba(104, 68, 213, 0.05); } }
 
 .dateSelector {
   display: block;
