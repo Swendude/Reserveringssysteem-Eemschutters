@@ -6,34 +6,40 @@
 <div class="content">
     <div class="wrapper">
         <h1>Mijn reserveringen</h1>
-        <p>Hier zijn jouw geplande reserveringen:</p>
-        {% for reservering in reserveringen %}
-        <div class='reservering'>
-            <div class='reserveringContainer'>
-                <div class="reserveringInhoud">
-                    <h2>Reservering {{ reservering.start | date }}</h2>
-                    <div class="reserveringDetails">
-                        <div class="rdTijd">
-                            <img src="{% static 'reserveringen/clock.svg' %}"
-                                alt="clock" /><span>{{ reservering.start | time }} uur - {{ reservering.eind | time }}
-                                uur</span>
-                        </div>
-                        <div class="rdBaan">
-                            <img src="{% static 'reserveringen/map-sign.svg' %}"
-                                alt="location" /><span>{{ reservering.baan }}</span>
+
+        {% if reserveringen %}
+
+            <p>Hier zijn jouw geplande reserveringen:</p>
+            {% for reservering in reserveringen %}
+            <div class='reservering'>
+                <div class='reserveringContainer'>
+                    <div class="reserveringInhoud">
+                        <h2>Reservering {{ reservering.start | date }}</h2>
+                        <div class="reserveringDetails">
+                            <div class="rdTijd">
+                                <img src="{% static 'reserveringen/clock.svg' %}"
+                                    alt="clock" /><span>{{ reservering.start | time }} uur - {{ reservering.eind | time }}
+                                    uur</span>
+                            </div>
+                            <div class="rdBaan">
+                                <img src="{% static 'reserveringen/map-sign.svg' %}"
+                                    alt="location" /><span>{{ reservering.baan }}</span>
+                            </div>
                         </div>
                     </div>
+                    <div class="reserveringActies">
+                        <input type="submit" value="Annuleer" class="annuleer" />
+                    </div>
                 </div>
-                <div class="reserveringActies">
-                    <input type="submit" value="Annuleer" class="annuleer" />
+                <div class="reserveringOpmerking">
+                    Kom aan na <strong>{{ reservering.aankomst | time }} uur</strong> en vertrek voor
+                    <strong>{{ reservering.vertrek | time }} uur</strong>
                 </div>
             </div>
-            <div class="reserveringOpmerking">
-                Kom aan na <strong>{{ reservering.aankomst | time }} uur</strong> en vertrek voor
-                <strong>{{ reservering.vertrek | time }} uur</strong>
-            </div>
-        </div>
-        {% endfor %}
+            {% endfor %}
+        {% else %}
+            <p>Je hebt nog geen reserveringen</p>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
