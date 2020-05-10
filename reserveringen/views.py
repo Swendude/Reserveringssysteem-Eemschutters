@@ -61,8 +61,10 @@ def reserveringen(request, overzicht=False):
         form = ReserveringForm(request.POST)
         if form.is_valid():
             args = {**{'gebruiker': request.user}, **form.cleaned_data}
+            # Is de reservering al verlopen?
+
             # Heeft deze gebruiker al teveel reserveringen deze week?
-            # reserveringsweek = args['start'].date.isocalendar()[1]
+            reserveringsweek = args['start'].date().isocalendar()[1]
             # TODO: Bestaat Reservering al?!
             Reservering(**args).save()
         if 'next' in request.GET:
@@ -74,10 +76,10 @@ def reserveringen(request, overzicht=False):
     view_date = timezone.now()
     # Set our time to UTC 12:00:00, this should work with the math we do in `next_datetime_with_weekdays`
     # without being bothered with timezone. I think we can handle timezones up to UTC +/- 12(ish).
-    view_date = view_date + datetime.timedelta(days=0,
-                                               hours=12 - view_date.time().hour,
-                                               minutes=-view_date.time().minute,
-                                               seconds=-view_date.time().second)
+    # view_date = view_date + datetime.timedelta(days=0,
+    #                                            hours=12 - view_date.time().hour,
+    #                                            minutes=-view_date.time().minute,
+    #                                            seconds=-view_date.time().second)
 
     dagkeuze = 0
     if request.GET.get('next'):
@@ -120,7 +122,7 @@ def reserveringen(request, overzicht=False):
                 if reservering[0].gebruiker == request.user:
                     status = "Zelf"
             else:
-                if slot_start < view_date:
+                if slot_eind < view_date:
                     status = "Verlopen"
                 else:
                     status = "Vrij"
