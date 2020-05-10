@@ -56,30 +56,38 @@ Slot = namedtuple("Slot", ["datum",
 
 @login_required(login_url='/login/')
 def reserveringen(request, overzicht=False):
+    view_date = timezone.now()
+
     if request.method == 'POST':
         # Create a reservation
         form = ReserveringForm(request.POST)
         if form.is_valid():
-            args = {**{'gebruiker': request.user}, **form.cleaned_data}
             # Is de reservering al verlopen?
-
-            # Heeft deze gebruiker al teveel reserveringen deze week?
-            reserveringsweek = args['start'].date().isocalendar()[1]
-            # TODO: Bestaat Reservering al?!
-            Reservering(**args).save()
+            args = form.cleaned_data
+            if args['eind'] < view_date:
+                pass
+            else:
+                # Heeft deze gebruiker al teveel reserveringen deze week?
+                reservering_weekstart = args['start'] - \
+                    datetime.timedelta(args['start'].weekday())
+                reservering_weekeind = args['start'] + \
+                    datetime.timedelta(6 - args['start'].weekday())
+                week_reserveringen = Reservering.objects.filter(start__date__gte=reservering_weekstart.date(),
+                                           start__date__lte=reservering_weekeind.date())
+                if len(week_reserveringen) >= global_settings.reserveringen_per_week:
+                    pass
+                else:
+                    # Bestaat deze Reservering al?
+                    slot_reserveringen = Reservering.objects.filter(**args)
+                    if slot_reserveringen:
+                        pass
+                    else:                                
+                        args = {**{'gebruiker': request.user}, **form.cleaned_data}
+                        Reservering(**args).save()
         if 'next' in request.GET:
             return HttpResponseRedirect(request.path_info + f"?next={request.GET['next']}")
         else:
             return HttpResponseRedirect(request.path_info)
-
-    # Determine our date based on an optional GET parameter 'next' that offsets to the next available day
-    view_date = timezone.now()
-    # Set our time to UTC 12:00:00, this should work with the math we do in `next_datetime_with_weekdays`
-    # without being bothered with timezone. I think we can handle timezones up to UTC +/- 12(ish).
-    # view_date = view_date + datetime.timedelta(days=0,
-    #                                            hours=12 - view_date.time().hour,
-    #                                            minutes=-view_date.time().minute,
-    #                                            seconds=-view_date.time().second)
 
     dagkeuze = 0
     if request.GET.get('next'):
@@ -102,11 +110,11 @@ def reserveringen(request, overzicht=False):
     banen = Baan.objects.all()
 
     slots_per_baan = {}
-    
+
     for baan in banen:
-        
+
         slots_per_baan[baan] = []
-        
+
         for slot_tijd in slot_tijden:
             slot_start = timezone.make_aware(
                 datetime.datetime.combine(gekozen_schietdag_datum, slot_tijd[0]))
@@ -126,13 +134,13 @@ def reserveringen(request, overzicht=False):
                     status = "Verlopen"
                 else:
                     status = "Vrij"
-            
+
             slot_form = ReserveringForm(initial={
                 'start': slot_start,
                 'eind': slot_eind,
                 'baan': baan.pk,
                 'schietdag': gekozen_schietdag.pk})
-            
+
             slots_per_baan[baan].append(
                 Slot(gekozen_schietdag_datum,
                      slot_tijd[0],
