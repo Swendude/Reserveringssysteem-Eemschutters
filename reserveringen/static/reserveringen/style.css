@@ -278,13 +278,16 @@ header {
   cursor: default; }
 
 .reservering {
-  display: flex;
-  border-bottom: 1px solid red;
   padding: 20px;
   margin-bottom: 20px;
   border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
-  flex-direction: column; }
+  border-radius: 5px; }
+  .reservering .reserveringContainer,
+  .reservering .reserveringOpmerking {
+    display: block; }
+  .reservering .reserveringContainer {
+    display: flex;
+    margin-bottom: 10px; }
   .reservering .reserveringInhoud,
   .reservering .reserveringActies {
     flex: 100% 1 1; }
@@ -297,6 +300,19 @@ header {
         flex: 300px 1 1; }
       .reservering .reserveringInhoud {
         margin-bottom: unset; } }
+  .reservering .reserveringActies .annuleer {
+    display: inline-block;
+    -webkit-appearance: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 12px;
+    border: none;
+    background: #6844D5;
+    color: #fff;
+    border-radius: 5px;
+    padding: 0 30px;
+    line-height: 30px;
+    cursor: pointer; }
   .reservering h2 {
     color: #000000;
     margin-bottom: 10px; }
@@ -311,8 +327,9 @@ header {
       flex: 100% 1 1;
       line-height: 20px; }
   .reservering .reserveringOpmerking {
-    background: rgba(231, 76, 60, 0.1);
-    color: #e74c3c;
+    flex: 100% 1 1;
+    background: rgba(52, 152, 219, 0.1);
+    color: #3498db;
     padding: 10px;
     border-radius: 4px; }
 
