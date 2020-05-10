@@ -3,66 +3,80 @@
 
 
 {% block content %}
+<div class="content">
+    <div class="wrapper">
+        <h1>Maak een reservering</h1>
 
-<h1>Maak een reservering</h1>
+        <h2>Voor wanneer wil je reserveren?</h2>
 
-<h2>Voor wanneer wil je reserveren?</h2>
-
-{% for datum, schietdag in schietdagen %}
-{% if forloop.counter0 == choice %}
-<div class="dateSelector active"><div class="icon">&#128197;</div>{{ datum | date:"l j b Y" }}</div>
-{% else %}
-<a href="{% url 'reserveringen' %}?next={{ forloop.counter0 }}" class="dateSelector"><div class="icon">&#128197;</div>{{ datum | date:"l j b Y" }}</a>
-{% endif %}
-{% endfor %}
-<br /><br />
-<h2>Welke baan, wil je hoelaat reserveren op {{ gekozen_schietdag_datum | date:"l j b Y" }}?</h2>
-
-<div class="overzichtBanen">
-    <div class="baanRij baanRijHeader">
-        <div class="baanLabel"></div>
-        <div class="baanBeschikbaarheid">
-            {% for slot_start, slot_eind in slot_tijden  %}
-            <div class="baanSlot">
-                {{slot_start}} - {{slot_eind}}
-            </div>
-            {% endfor %}
+        {% for datum, schietdag in schietdagen %}
+        {% if forloop.counter0 == dagkeuze %}
+        <div class="dateSelector active">
+            <div class="icon">&#128197;</div>{{ datum | date:"l j b Y" }}
         </div>
-    </div>
+        {% else %}
+        <a href="{% url 'reserveringen' %}?next={{ forloop.counter0 }}" class="dateSelector">
+            <div class="icon">&#128197;</div>{{ datum | date:"l j b Y" }}
+        </a>
+        {% endif %}
+        {% endfor %}
+        <br /><br />
+        <h2>Welke baan, wil je hoelaat reserveren op {{ gekozen_schietdag_datum | date:"l j b Y" }}?</h2>
 
-
-    {% for baan, slots in slots_per_baan.items  %}
-    <div class="baanRij">
-        <div class="baanLabel">
-            <strong>{{baan}}</strong><br />
-        </div>
-        <div class="baanBeschikbaarheid">
-            {% for slot in slots  %}
-                {% if slot.status == 'Vrij'%}
-                <div class="baanSlot">            
-                    <div class="tijdSlotMobiel">{{ slot.starttijd }} - {{ slot.eindtijd }}</div>
-                    <form action="{% url 'reserveringen' %}?next={{choice}}" method="post" onsubmit="disableButton(this)">
-                        {% csrf_token %}
-                        {{ slot.form }}
-                        <input type="submit" class="reserveerButton" name="reserveerButton" value="Reserveer" />
-                    </form>
+        <div class="overzichtBanen">
+            <div class="baanRij baanRijHeader">
+                <div class="baanLabel"></div>
+                <div class="baanBeschikbaarheid">
+                    {% for slot_start, slot_eind in slot_tijden  %}
+                    <div class="baanSlot">
+                        {{slot_start}} - {{slot_eind}}
+                    </div>
+                    {% endfor %}
                 </div>
-                {% else %}
-                    {% if slot.zelf %}
+            </div>
+
+
+            {% for baan, slots in slots_per_baan.items  %}
+            <div class="baanRij">
+                <div class="baanLabel">
+                    <strong>{{baan}}</strong><br />
+                </div>
+                <div class="baanBeschikbaarheid">
+                    {% for slot in slots  %}
+                    {% if slot.status == 'Vrij'%}
+                    <div class="baanSlot">
+                        <div class="tijdSlotMobiel">{{ slot.starttijd }} - {{ slot.eindtijd }}</div>
+                        <form action="{% url 'reserveringen' %}?next={{dagkeuze}}" method="post"
+                            onsubmit="disableButton(this)">
+                            {% csrf_token %}
+                            {{ slot.form }}
+                            <input type="submit" class="reserveerButton" name="reserveerButton" value="Reserveer" />
+                        </form>
+                    </div>
+                    {% endif %}
+                    {% if slot.status == 'Zelf'%}
                     <div class="baanSlot baanSlotBezet baanSlotGereserveerd">
                         <div class="tijdSlotMobiel">{{ slot.starttijd }} - {{ slot.eindtijd }}</div>
                         Bezet door jou!
                     </div>
-                    {% else %}
+                    {% endif %}
+                    {% if slot.status == 'Verlopen'%}
+                    <div class="baanSlot baanSlotVerlopen">
+                        <div class="tijdSlotMobiel">{{ slot.starttijd }} - {{ slot.eindtijd }}</div>
+                        Verlopen
+                    </div>
+                    {% endif %}
+                    {% if slot.status == 'Bezet'%}
                     <div class="baanSlot baanSlotBezet">
                         <div class="tijdSlotMobiel">{{ slot.starttijd }} - {{ slot.eindtijd }}</div>
                         Bezet
                     </div>
                     {% endif %}
-                {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
             {% endfor %}
         </div>
     </div>
-    {% endfor %}
 </div>
 {% endblock %}

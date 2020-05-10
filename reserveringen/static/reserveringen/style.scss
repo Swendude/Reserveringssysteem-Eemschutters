@@ -261,25 +261,23 @@ header {
                     }
 
                     cursor: not-allowed;
-                    background: repeating-linear-gradient( -45deg,
-                    rgba($color-bezet, 0.1),
-                    rgba($color-bezet, 0.1) 10px,
-                    rgba($color-bezet, 0.2) 10px,
-                    rgba($color-bezet, 0.2) 20px
-                    );
+                    background: rgba($color-bezet, 0.2);
 
                     color: $color-bezet;
                 }
 
                 &.baanSlotGereserveerd {
                     cursor: not-allowed;
-                    background: repeating-linear-gradient( -45deg,
-                    rgba($color-gereserveerd, 0.1),
-                    rgba($color-gereserveerd, 0.1) 10px,
-                    rgba($color-gereserveerd, 0.2) 10px,
-                    rgba($color-gereserveerd, 0.2) 20px
-                    );
+
+                    background: rgba($color-gereserveerd, 0.2);
                     color: $color-gereserveerd;
+
+                }
+
+                &.baanSlotVerlopen {
+                    cursor: not-allowed;
+                    background: rgba(#000000, 0.1);
+                    color: rgba(#000000, 0.6);                   
 
                 }
 
@@ -403,14 +401,21 @@ header {
 
 .reservering {
 
-    display:flex;
-    border-bottom:1px solid red;
     padding:20px;
     margin-bottom:20px;
     border:1px solid rgba(#000, 0.2);
     border-radius:5px;
 
-    flex-direction: column;
+
+    .reserveringContainer,
+    .reserveringOpmerking {
+        display:block;
+    }
+
+    .reserveringContainer {
+        display:flex;
+        margin-bottom:10px;    
+    }
 
     .reserveringInhoud,
     .reserveringActies {
@@ -432,6 +437,30 @@ header {
         .reserveringInhoud {
             margin-bottom: unset;
         }
+    }
+
+    .reserveringActies {
+        text-align:right;
+
+        .annuleer {
+            display:inline-block;
+            -webkit-appearance: none;
+            
+            font-family: $font-default;
+            font-weight:bold;
+            font-size:12px;
+            border:none;
+    
+            background: $color-primary;
+            color: #fff;
+            border-radius:5px;
+            padding:0 30px;
+            line-height:30px;
+    
+            cursor: pointer;
+                
+        }
+
     }
 
 
@@ -460,8 +489,9 @@ header {
     }
 
     .reserveringOpmerking {
-        background: rgba($color-bezet, 0.1);
-        color: $color-bezet;
+        flex:100% 1 1;
+        background: rgba($color-gereserveerd, 0.1);
+        color: $color-gereserveerd;
         padding:10px;
         border-radius:4px;
 
@@ -533,7 +563,6 @@ form {
         padding-left:40px;
         flex:200px 0 0;
         font-weight: bold;
-        // box-shadow: 10px 0 10px -2px #888;
         @include dropShadow();
         position: relative;
         z-index:300;
@@ -592,9 +621,12 @@ form {
 
         // }
 
-        // &.notAvailable {
+        &.notAvailable {
+            strong {
+                color: $color-bezet;
+            }
 
-        // }
+        }
 
     }
 
