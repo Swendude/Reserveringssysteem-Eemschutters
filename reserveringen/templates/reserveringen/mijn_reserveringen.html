@@ -4,30 +4,27 @@
 
 {% block content %}
 
-<h1>Hier zijn jou geplande reserveringen:</h1>
+<h1>Mijn reserveringen</h1>
+<p>Hier zijn jouw geplande reserveringen:</p>
     {% for reservering in reserveringen %}
     <div class='reservering'>
-        <div>
-            <h3 class="reserveringlabel">Datum:</h3>
-            <h3>{{ reservering.start | date }}</h3>
+        <div class="reserveringInhoud">
+            <h2>Reservering {{ reservering.start | date }}</h2>
+            <div class="reserveringDetails">
+                <div class="rdTijd">
+                    <img src="{% static 'reserveringen/clock.svg' %}" alt="clock" /><span>{{ reservering.start | time }} uur - {{ reservering.eind | time }} uur</span>
+                </div>
+                <div class="rdBaan">
+                    <img src="{% static 'reserveringen/map-sign.svg' %}" alt="location" /><span>{{ reservering.baan }}</span>
+                </div>
+            </div>
+            <div class="reserveringOpmerking">
+                Kom aan na <strong>{{ reservering.aankomst | time }} uur</strong> en vertrek voor <strong>{{ reservering.vertrek | time }} uur</strong>
+            </div>  
         </div>
-        <div>
-            <h3 class="reserveringlabel">Tijd:</h3>
-            <h4>{{ reservering.start | time }} - {{ reservering.eind | time }}</h4>
+        <div class="reserveringActies">
+            Annuleer
         </div>
-        <div>
-            <h3 class="reserveringlabel">Kom aan na:</h3>
-            <h4>{{ reservering.aankomst | time }} </h4>
-        </div>
-        <div>
-            <h3 class="reserveringlabel">Vertrek voor:</h3>
-            <h4>{{ reservering.vertrek | time }}</h4>
-        </div>
-        <div>
-            <h3 class="reserveringlabel">Baan:</h3>
-            <h4>{{reservering.baan }} </h4>
-        </div>
-        
     </div>
     {% endfor %}
 {% endblock %}

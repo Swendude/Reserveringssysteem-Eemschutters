@@ -14,7 +14,8 @@
 <body>
 
     <header>
-        <div class="wrapper">
+        
+        <div {% if request.resolver_match.url_name != "overzicht" %} class="wrapper" {% else %} class="wrapper wide" {% endif %}>    
             <div class="headerrow">
                 <div class="logo">
                     <div class="systeemNaam">Reserveringssysteem</div>
@@ -24,19 +25,23 @@
                 <nav>
                     <a href="{% url 'reserveringen' %}" {% if request.resolver_match.url_name == "reserveringen" %}class="actief"{% endif %}>Reserveren</a>
                     <a href="{% url 'mijn_reserveringen' %}" {% if request.resolver_match.url_name == "mijn_reserveringen" %}class="actief"{% endif %}>Mijn reserveringen</a>
+                    <a href="{% url 'overzicht' %}" {% if request.resolver_match.url_name == "overzicht" %}class="actief"{% endif %}>Overzicht</a>
                     <a href="{% url 'logout' %}" {% if request.resolver_match.url_name == "logout" %}class="actief"{% endif %}>Log uit</a>
                 </nav>    
                 {% endif %}
             </div>
         </div>
     </header>
-
+    {% if request.resolver_match.url_name != "overzicht" %}
     <div class="content">
         <div class="wrapper">
+    {% endif %}
             {% block content %}
             {% endblock %}
+    {% if request.resolver_match.url_name != "overzicht" %}
         </div>
     </div>
+    {% endif %}
 
 </body>
 <script type="text/javascript">
