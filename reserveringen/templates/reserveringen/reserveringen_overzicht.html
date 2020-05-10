@@ -1,0 +1,49 @@
+{% extends 'reserveringen/base.html' %}
+{% load static %}
+
+
+{% block content %}
+</div>
+</div>
+
+<div class="overview">
+    <div class="overviewTimes">
+        <div class="row rowTime rowHeader">&nbsp;</div>
+        {% for slot_start, slot_eind in slot_tijden  %}
+        <div class="row rowTime">
+            {{slot_start}} - {{slot_eind}}
+        </div>
+        {% endfor %}
+    </div>
+    <div class="overviewScrollable">
+        <div class="cols">
+            {% for baan, slots in slots_per_baan.items  %}
+
+            <div class="col colLocation">
+                <div class="row rowHeader rowLocationName">{{baan}}</div>
+                {% for slot in slots  %}
+                    {% if slot.status == 'Vrij'%}
+                        <div class="row rowStatus">
+                            <!-- <div class="block available">Beschikbaar</div> -->
+                        </div>
+                    {% else %}
+                        <div class="row rowStatus">
+                            <div class="block notAvailable">Bezet: Coen van de Bovenkamp</div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Deze twee zijn nodig omdat in base 2 div's worden gesloten -->
+<div>
+<div>
+
+
+{% endblock %}

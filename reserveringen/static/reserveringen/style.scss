@@ -31,6 +31,12 @@ $font-header: 'Montserrat', sans-serif;
 
 $animationTime: 200ms;
 
+html,
+body {
+    width:100%;
+    min-height:100%;
+}
+
 body {
     font-family: $font-default;
     color: #000000;
@@ -90,6 +96,8 @@ b {
 }
 
 header {
+    position: relative;
+    z-index:400;
     min-height:80px;
     background: #ffffff;
     padding:20px 0;
@@ -506,4 +514,85 @@ form {
 
 
     }
+}
+
+.overview {
+    position:relative;
+    
+    margin-top:-40px;
+    display:flex;
+    min-height:400px;
+    overflow:hidden;
+
+    .overviewTimes {
+        padding-top:50px;
+        flex:200px 0 0;
+        font-weight: bold;
+        // box-shadow: 10px 0 10px -2px #888;
+        @include dropShadow();
+        position: relative;
+        z-index:300;
+        background: #ffffff;
+    }
+
+
+    .overviewScrollable {
+        padding-top:50px;
+
+        flex:100% 1 1;
+        overflow-x:scroll;
+
+        .rowHeader {
+            color: $color-primary;
+            font-size:20px;
+        }
+
+    }
+
+    .row {
+        display:block;
+        height:80px;
+        padding:10px;
+        box-sizing:border-box;
+        border-bottom:1px solid rgba(0,0,0,0.2);
+
+        &.rowHeader {
+            height:60px;
+            font-weight:bold;
+        }
+    }
+
+
+    .cols {
+        display:flex;
+        padding-left:30px;
+
+        .col {
+            flex:300px 0 0;
+            margin-right:30px;
+
+        }
+    }
+
+    .block {
+        position: relative;
+        z-index:200;
+        display:block;
+        background: #fff;
+        padding:10px;
+        box-sizing: border-box;
+        border-radius:5px;
+        border:1px solid rgba(0,0,0,0.2);
+
+        // &.available {
+
+        // }
+
+        // &.notAvailable {
+
+        // }
+
+    }
+
+
 }
