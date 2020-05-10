@@ -63,9 +63,7 @@ def overzicht(request):
     dagkeuze = 0
 
     schietdagen = Schietdag.objects.order_by('dag')
-    schietdagen = list(map(lambda schietdag: (next_datetime_with_weekday(
-        view_date, schietdag.dag), schietdag), schietdagen))
-    schietdagen.sort(key=lambda t: (t[0] - view_date).total_seconds())
+    schietdagen = alle_schietdagen_in_venster(view_date, global_settings.reserveer_venster, schietdagen)
 
     if dagkeuze > len(schietdagen) - 1:
         dagkeuze = len(schietdagen)
