@@ -12,14 +12,14 @@
             <h2>Reservering {{ reservering.start | date }}</h2>
             <div class="reserveringDetails">
                 <div class="rdTijd">
-                    <img src="{% static 'reserveringen/clock.svg' %}" alt="clock" /><span>{{ reservering.start | time }} - {{ reservering.eind | time }}</span>
+                    <img src="{% static 'reserveringen/clock.svg' %}" alt="clock" /><span>{{ reservering.start | time }} uur - {{ reservering.eind | time }} uur</span>
                 </div>
                 <div class="rdBaan">
-                    <img src="{% static 'reserveringen/map-sign.svg' %}" alt="clock" /><span>{{reservering.baan }}</span>
+                    <img src="{% static 'reserveringen/map-sign.svg' %}" alt="location" /><span>{{ reservering.baan }}</span>
                 </div>
             </div>
             <div class="reserveringOpmerking">
-                Kom aan na <strong>{{ reservering.aankomst | time }}</strong> en vertrek voor <strong>{{ reservering.vertrek | time }}</strong>
+                Kom aan na <strong>{{ reservering.aankomst | time }} uur</strong> en vertrek voor <strong>{{ reservering.vertrek | time }} uur</strong>
             </div>  
         </div>
         <div class="reserveringActies">

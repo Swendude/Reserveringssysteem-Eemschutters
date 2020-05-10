@@ -31,12 +31,21 @@ Om lokaal te draaien:
 
 ## Todos
 
+**Maak reservering**
+- [ ] Terug naar gekozen datum na toevoegen van een reservering
+
+**Mijn reserveringen**
 - [ ] Reserveringen annuleren
 - [ ] Maximaal aantal reserveringen per week
+- [ ] Volgorde omdraaien (eerstvolgende reservering bovenaan)
+- [ ] Reserveringen van de huidige dag tonen
+
+**Opmaak**
 - [ ] Ux verbeteren
     - [ ] Bestiging modal bij reserveren
     - [ ] Login form
 - [ ] Responsive maken
+
+**Diverse**
 - [ ] Wachtwoord wijzigen
 - [ ] Overzicht voor baancommandant/sleutelhouder
-- [ ] Terug naar gekozen datum na toevoegen van een reservering
