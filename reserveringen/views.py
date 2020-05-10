@@ -2,7 +2,7 @@
 Nederlands en engels mixen niet.
 English and dutch don't mix
 """
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, Http404
 from django.utils import timezone
 from .models import Schietdag, Baan, Reservering
 import datetime
@@ -12,7 +12,8 @@ from .forms import ReserveringForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from reserveringssysteem_eemschutters import global_settings
-
+from django.views.decorators.http import require_http_methods
+from django.urls import reverse
 
 def daterange(start_date, end_date):
     """
@@ -43,6 +44,14 @@ def mijn_reserveringen(request):
     reservering = Reservering.objects.filter(start__gte=view_date,
                                              gebruiker=request.user).order_by('start')
     return render(request, 'reserveringen/mijn_reserveringen.html', {'reserveringen': reservering})
+
+@login_required(login_url='/login/')
+@require_http_methods(['POST'])
+def verwijder_reserveringen(request):
+    Reservering.objects.filter(id = request.POST['reservering_id'], gebruiker=request.user).delete()
+    return HttpResponseRedirect(reverse('mijn_reserveringen'))
+    
+        
 
 
 Slot = namedtuple("Slot", ["datum",

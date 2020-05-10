@@ -28,7 +28,13 @@
                         </div>
                     </div>
                     <div class="reserveringActies">
+                        <form method="post" action="{% url 'verwijder_reserveringen' %}"
+                        onsubmit="return confirm('Weet je zeker dat je deze reservering wilt annuleren?');">
+                        {% csrf_token %}
+                        <input type="hidden" name='reservering_id' value='{{reservering.id}}'>
                         <input type="submit" value="Annuleer" class="annuleer" />
+                        </form>
+                        
                     </div>
                 </div>
                 <div class="reserveringOpmerking">
