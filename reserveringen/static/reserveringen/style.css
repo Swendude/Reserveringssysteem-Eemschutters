@@ -222,6 +222,10 @@ header {
       .overzichtBanen .baanRij:nth-child(2n) {
         background: rgba(104, 68, 213, 0.05); } }
 
+.dateSelectors {
+  margin-top: -40px;
+  padding: 20px 40px; }
+
 .dateSelector {
   display: block;
   border: 2px solid #6844D5;
@@ -374,7 +378,6 @@ form {
 
 .overview {
   position: relative;
-  margin-top: -40px;
   display: flex;
   min-height: calc(100% - 82px);
   overflow: hidden; }

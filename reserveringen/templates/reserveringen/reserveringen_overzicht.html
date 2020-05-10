@@ -3,7 +3,18 @@
 
 
 {% block content %}
-</div>
+<div class="dateSelectors">
+    {% for datum, schietdag in schietdagen %}
+    {% if forloop.counter0 == dagkeuze %}
+    <div class="dateSelector active">
+        <div class="icon">&#128197;</div>{{ datum | date:"l j b Y" }}
+    </div>
+    {% else %}
+    <a href="{% url 'overzicht' %}?next={{ forloop.counter0 }}" class="dateSelector">
+        <div class="icon">&#128197;</div>{{ datum | date:"l j b Y" }}
+    </a>
+    {% endif %}
+    {% endfor %}
 </div>
 
 <div class="overview">
