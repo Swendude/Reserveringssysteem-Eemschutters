@@ -11,9 +11,7 @@
 {% for datum, schietdag in schietdagen %}
 {% if forloop.counter0 == choice %}
 <div class="dateSelector active"><div class="icon">&#128197;</div>{{ datum | date:"l j b Y" }}</div>
-<!-- <button class="dateButton disabled">&#128197; {{ datum | date:"l j b Y" }}</button> -->
 {% else %}
-<!-- <div active"><div class="icon">&#128197;</div>{{ datum | date:"l j b Y" }}</div> -->
 <a href="{% url 'reserveringen' %}?next={{ forloop.counter0 }}" class="dateSelector"><div class="icon">&#128197;</div>{{ datum | date:"l j b Y" }}</a>
 {% endif %}
 {% endfor %}
@@ -40,32 +38,25 @@
         </div>
         <div class="baanBeschikbaarheid">
             {% for slot in slots  %}
-            <!-- <div class="baanSlot"> -->
-
                 {% if slot.status == 'Vrij'%}
                 <div class="baanSlot">
                     <form action="{% url 'reserveringen' %}" method="post" onsubmit="disableButton(this)">
                         {% csrf_token %}
                         {{ slot.form }}
-                        <!-- <button class="reserveerButton" name="reserveerButton" type="submit">Reserveer</button> -->
                         <input type="submit" class="reserveerButton" name="reserveerButton" value="Reserveer" />
                     </form>
                 </div>
                 {% else %}
                     {% if slot.zelf %}
                     <div class="baanSlot baanSlotBezet baanSlotGereserveerd">
-                        <!-- <button class="dateButton self disabled">Bezet door jou!</button> -->
                         Bezet door jou!
                     </div>
                     {% else %}
                     <div class="baanSlot baanSlotBezet">
-                        <!-- <button class="dateButton disabled">Bezet</button> -->
                         Bezet
                     </div>
                     {% endif %}
                 {% endif %}
-
-            <!-- </div> -->
             {% endfor %}
         </div>
     </div>

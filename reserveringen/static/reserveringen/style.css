@@ -65,6 +65,13 @@ h1 {
 h2 {
   font-size: 16px; }
 
+p {
+  margin-bottom: 20px; }
+
+strong,
+b {
+  font-weight: bold; }
+
 .wrapper {
   width: 100%;
   padding: 0 20px; }
@@ -221,13 +228,35 @@ header {
   cursor: default; }
 
 .reservering {
-  margin: 10 0 10 0;
-  padding: 10px;
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  border: 1px solid black;
   display: flex;
-  justify-content: space-evenly; }
+  border-bottom: 1px solid red;
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 5px; }
+  .reservering .reserveringInhoud,
+  .reservering .reserveringActies {
+    flex: 100% 1 1; }
+  .reservering .reserveringActies {
+    flex: 300px 1 1; }
+  .reservering h2 {
+    color: #000000;
+    margin-bottom: 10px; }
+  .reservering img {
+    width: 20px;
+    margin-right: 10px; }
+  .reservering .reserveringDetails {
+    display: flex;
+    margin-bottom: 10px; }
+    .reservering .reserveringDetails .rdTijd,
+    .reservering .reserveringDetails .rdBaan {
+      flex: 100% 1 1;
+      line-height: 20px; }
+  .reservering .reserveringOpmerking {
+    background: rgba(231, 76, 60, 0.1);
+    color: #e74c3c;
+    padding: 10px;
+    border-radius: 4px; }
 
 .reserveringlabel {
   font-size: 12px;

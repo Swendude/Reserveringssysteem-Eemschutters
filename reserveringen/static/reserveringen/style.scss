@@ -67,6 +67,15 @@ h2 {
     font-size:16px;
 }
 
+p {
+    margin-bottom:20px;
+}
+
+strong,
+b {
+    font-weight: bold;
+}
+
 
 .wrapper {
 
@@ -334,20 +343,62 @@ header {
     cursor: default;
 }
 
-// .dateButton.self {
-//     color:#fff;
-//     background-color:#B6D094;
-//     cursor: default;
-// }
 
 .reservering {
-    margin: 10 0 10 0;
-    padding: 10px;
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    border: 1px solid black;
-    display: flex;
-    justify-content: space-evenly;
+
+    display:flex;
+    border-bottom:1px solid red;
+    padding:20px;
+    margin-bottom:20px;
+    border:1px solid rgba(#000, 0.2);
+    border-radius:5px;
+
+    .reserveringInhoud,
+    .reserveringActies {
+        flex:100% 1 1;
+    }
+
+    .reserveringActies {
+        flex:300px 1 1;
+    }
+
+    h2 {
+        color: #000000;
+        margin-bottom:10px;
+    }
+
+    img {
+        width:20px;
+        margin-right:10px;
+    }
+
+    .reserveringDetails {
+        display:flex;
+        margin-bottom:10px;
+
+        .rdTijd,
+        .rdBaan {
+            flex:100% 1 1;
+            line-height:20px;
+        }
+
+    }
+
+    .reserveringOpmerking {
+        background: rgba($color-bezet, 0.1);
+        color: $color-bezet;
+        padding:10px;
+        border-radius:4px;
+
+    }
+
+    // margin: 10 0 10 0;
+    // padding: 10px;
+    // box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    // border-radius: 10px;
+    // border: 1px solid black;
+    // display: flex;
+    // justify-content: space-evenly;
 }
 
 .reserveringlabel {
