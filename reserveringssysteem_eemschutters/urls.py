@@ -20,6 +20,7 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('', reserveringen.views.reserveringen, name='reserveringen'),
+    path('overzicht', reserveringen.views.overzicht, name='overzicht'),
     path('mijn_reservereringen', reserveringen.views.mijn_reserveringen, name='mijn_reserveringen'),
     path('admin/', admin.site.urls),
     path('login/', auth_views.LoginView.as_view(template_name='reserveringen/login.html'), name='login'),
