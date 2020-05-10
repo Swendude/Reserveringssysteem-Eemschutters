@@ -44,7 +44,7 @@ Om lokaal te draaien:
 - [x] Bestiging modal bij reserveren
 - [x] Login form
 - [x] Responsive maken
-- [ ] Error Messages
+- [x] Error Messages
 
 **Diverse**
 - [ ] Wachtwoord wijzigen
