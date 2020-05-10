@@ -20,7 +20,17 @@
         </a>
         {% endif %}
         {% endfor %}
-        <br /><br />
+
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li class="{{ message.tags }}_message">
+                {{ message }}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
         <h2>Welke baan, wil je hoelaat reserveren op {{ gekozen_schietdag_datum | date:"l j b Y" }}?</h2>
 
         <div class="overzichtBanen">

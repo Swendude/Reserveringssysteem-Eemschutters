@@ -186,6 +186,18 @@ header {
 
 }
 
+.error_message {
+    border:2px solid black;
+    color: white;
+    border-radius:5px;
+    padding:10px;
+    font-weight: bold;
+    text-decoration: none;
+    margin-right:10px;
+    margin-bottom:10px;
+    background-color: red;
+}
+
 .content {
     .wrapper {
         background: #fff;

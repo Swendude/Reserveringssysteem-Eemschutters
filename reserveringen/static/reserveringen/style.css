@@ -138,6 +138,17 @@ header {
         header .headerrow nav a.actief, header .headerrow nav a:hover {
           color: #6844D5; }
 
+.error_message {
+  border: 2px solid black;
+  color: white;
+  border-radius: 5px;
+  padding: 10px;
+  font-weight: bold;
+  text-decoration: none;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  background-color: red; }
+
 .content .wrapper {
   background: #fff;
   padding: 40px;
@@ -424,3 +435,5 @@ form {
     border: 1px solid rgba(0, 0, 0, 0.2); }
     .overview .block.notAvailable strong {
       color: #e74c3c; }
+
+/*# sourceMappingURL=style.css.map */

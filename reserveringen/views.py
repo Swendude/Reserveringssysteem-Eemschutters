@@ -14,6 +14,7 @@ from django.http import HttpResponseRedirect
 from reserveringssysteem_eemschutters import global_settings
 from django.views.decorators.http import require_http_methods
 from django.urls import reverse
+from django.contrib import messages
 
 def daterange(start_date, end_date):
     """
@@ -84,6 +85,7 @@ def reserveringen(request, overzicht=False):
                 week_reserveringen = Reservering.objects.filter(start__date__gte=reservering_weekstart.date(),
                                            start__date__lte=reservering_weekeind.date())
                 if len(week_reserveringen) >= global_settings.reserveringen_per_week:
+                    messages.error(request, f'Je hebt het maximum({global_settings.reserveringen_per_week}) aantal reserveringen voor deze week')
                     pass
                 else:
                     # Bestaat deze Reservering al?
