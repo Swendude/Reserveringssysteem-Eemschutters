@@ -26,9 +26,12 @@ def next_datetime_with_weekday(current, target):
 
 @login_required(login_url='/login/')
 def mijn_reserveringen(request):
-    view_date = timezone.now()
+    # view_date = timezone.now()
+
+    # Ik heb hier een dag vanaf gehaald, zodat ook de huidige dag getoond wordt.
+    view_date = timezone.now() + datetime.timedelta(days=-1)
     reservering = Reservering.objects.filter(start__gt=view_date,
-                                                gebruiker=request.user).order_by('schietdag')
+                                                gebruiker=request.user).order_by('start')
 
     return render(request, 'reserveringen/mijn_reserveringen.html', {'reserveringen':reservering})
 

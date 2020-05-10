@@ -14,7 +14,8 @@
 <body>
 
     <header>
-        <div class="wrapper">
+        
+        <div {% if request.resolver_match.url_name != "overzicht" %} class="wrapper" {% else %} class="wrapper wide" {% endif %}>    
             <div class="headerrow">
                 <div class="logo">
                     <div class="systeemNaam">Reserveringssysteem</div>
