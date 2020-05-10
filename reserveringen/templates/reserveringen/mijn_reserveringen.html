@@ -3,28 +3,35 @@
 
 
 {% block content %}
-
-<h1>Mijn reserveringen</h1>
-<p>Hier zijn jouw geplande reserveringen:</p>
-    {% for reservering in reserveringen %}
-    <div class='reservering'>
-        <div class="reserveringInhoud">
-            <h2>Reservering {{ reservering.start | date }}</h2>
-            <div class="reserveringDetails">
-                <div class="rdTijd">
-                    <img src="{% static 'reserveringen/clock.svg' %}" alt="clock" /><span>{{ reservering.start | time }} uur - {{ reservering.eind | time }} uur</span>
+<div class="content">
+    <div class="wrapper">
+        <h1>Mijn reserveringen</h1>
+        <p>Hier zijn jouw geplande reserveringen:</p>
+        {% for reservering in reserveringen %}
+        <div class='reservering'>
+            <div class="reserveringInhoud">
+                <h2>Reservering {{ reservering.start | date }}</h2>
+                <div class="reserveringDetails">
+                    <div class="rdTijd">
+                        <img src="{% static 'reserveringen/clock.svg' %}"
+                            alt="clock" /><span>{{ reservering.start | time }} uur - {{ reservering.eind | time }}
+                            uur</span>
+                    </div>
+                    <div class="rdBaan">
+                        <img src="{% static 'reserveringen/map-sign.svg' %}"
+                            alt="location" /><span>{{ reservering.baan }}</span>
+                    </div>
                 </div>
-                <div class="rdBaan">
-                    <img src="{% static 'reserveringen/map-sign.svg' %}" alt="location" /><span>{{ reservering.baan }}</span>
+                <div class="reserveringOpmerking">
+                    Kom aan na <strong>{{ reservering.aankomst | time }} uur</strong> en vertrek voor
+                    <strong>{{ reservering.vertrek | time }} uur</strong>
                 </div>
             </div>
-            <div class="reserveringOpmerking">
-                Kom aan na <strong>{{ reservering.aankomst | time }} uur</strong> en vertrek voor <strong>{{ reservering.vertrek | time }} uur</strong>
-            </div>  
+            <div class="reserveringActies">
+                Annuleer
+            </div>
         </div>
-        <div class="reserveringActies">
-            Annuleer
-        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
+</div>
 {% endblock %}

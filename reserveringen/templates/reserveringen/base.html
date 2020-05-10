@@ -32,17 +32,8 @@
             </div>
         </div>
     </header>
-    {% if request.resolver_match.url_name != "overzicht" %}
-    <div class="content">
-        <div class="wrapper">
-    {% endif %}
-            {% block content %}
-            {% endblock %}
-    {% if request.resolver_match.url_name != "overzicht" %}
-        </div>
-    </div>
-    {% endif %}
-
+    {% block content %}
+    {% endblock %}
 </body>
 <script type="text/javascript">
 

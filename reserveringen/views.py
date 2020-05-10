@@ -13,7 +13,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from reserveringssysteem_eemschutters import global_settings
 
-Slot = namedtuple("Slot", ["datum", "starttijd", "eindtijd", "baan", "status", 'form', 'zelf'])
+Slot = namedtuple("Slot", ["datum", "starttijd",
+                           "eindtijd", "baan", "status", 'form', 'zelf'])
 
 
 def daterange(start_date, end_date):
@@ -21,9 +22,8 @@ def daterange(start_date, end_date):
     Generator voor dagen in range. 
     Credits: https://stackoverflow.com/a/1060330
     """
-    for n in range(int ((end_date - start_date).days)):
+    for n in range(int((end_date - start_date).days)):
         yield start_date + datetime.timedelta(n)
-
 
 
 def alle_schietdagen_in_venster(current, venster, schietdagen):
@@ -35,7 +35,7 @@ def alle_schietdagen_in_venster(current, venster, schietdagen):
     schietdagen_in_venster = []
     for dag in daterange(current, current + venster):
         if dag.weekday() in schietdagen:
-            schietdagen_in_venster.append((dag,schietdagen[dag.weekday()]))
+            schietdagen_in_venster.append((dag, schietdagen[dag.weekday()]))
     return schietdagen_in_venster
 
 
@@ -44,8 +44,8 @@ def mijn_reserveringen(request):
     # Ik heb hier een dag vanaf gehaald, zodat ook de huidige dag getoond wordt.
     view_date = timezone.now() + datetime.timedelta(days=-1)
     reservering = Reservering.objects.filter(start__gte=view_date,
-                                                gebruiker=request.user).order_by('start')
-    return render(request, 'reserveringen/mijn_reserveringen.html', {'reserveringen':reservering})
+                                             gebruiker=request.user).order_by('start')
+    return render(request, 'reserveringen/mijn_reserveringen.html', {'reserveringen': reservering})
 
 
 @login_required(login_url='/login/')
@@ -61,7 +61,7 @@ def reserveringen(request, overzicht=False):
             return HttpResponseRedirect(request.path_info + f"?next={request.GET['next']}")
         else:
             return HttpResponseRedirect(request.path_info)
-            
+
     # Determine our date based on an optional GET parameter 'next' that offsets to the next available day
     view_date = timezone.now()
     # Set our time to UTC 12:00:00, this should work with the math we do in `next_datetime_with_weekdays`
@@ -81,7 +81,8 @@ def reserveringen(request, overzicht=False):
             dagkeuze = 0
 
     schietdagen = Schietdag.objects.order_by('dag')
-    schietdagen = alle_schietdagen_in_venster(view_date, global_settings.reserveer_venster, schietdagen)
+    schietdagen = alle_schietdagen_in_venster(
+        view_date, global_settings.reserveer_venster, schietdagen)
 
     if dagkeuze > len(schietdagen) - 1:
         dagkeuze = len(schietdagen)
@@ -107,28 +108,24 @@ def reserveringen(request, overzicht=False):
             if reservering:
                 status = "Bezet"
                 if reservering[0].gebruiker == request.user:
-                    zelf=True
+                    zelf = True
             slot_form = ReserveringForm(initial={
-                'start':slot_start,
-                'eind':slot_eind,
-                'baan':baan.pk,
-                'schietdag':gekozen_schietdag.pk})
+                'start': slot_start,
+                'eind': slot_eind,
+                'baan': baan.pk,
+                'schietdag': gekozen_schietdag.pk})
             slots_per_baan[baan].append(
                 Slot(gekozen_schietdag_datum, slot_tijd[0], slot_tijd[1], baan, status, slot_form, zelf))
-    
+
+    context = {'view_date': view_date,
+               'schietdagen': schietdagen,
+               'gekozen_schietdag_datum': gekozen_schietdag_datum,
+               'banen': banen,
+               'slot_tijden': slot_tijden,
+               'slots_per_baan': slots_per_baan,
+               'dagkeuze': dagkeuze}
+
     if not overzicht:
-        return render(request, 'reserveringen/reserveringen.html', {'view_date': view_date,
-                                                                    'schietdagen': schietdagen,
-                                                                    'gekozen_schietdag_datum': gekozen_schietdag_datum,
-                                                                    'banen': banen,
-                                                                    'slot_tijden': slot_tijden,
-                                                                    'slots_per_baan': slots_per_baan,
-                                                                    'choice': dagkeuze})
+        return render(request, 'reserveringen/reserveringen.html', context)
     else:
-        return render(request, 'reserveringen/reserveringen_overzicht.html', {'view_date': view_date,
-                                                                    'schietdagen': schietdagen,
-                                                                    'gekozen_schietdag_datum': gekozen_schietdag_datum,
-                                                                    'banen': banen,
-                                                                    'slot_tijden': slot_tijden,
-                                                                    'slots_per_baan': slots_per_baan,
-                                                                    'choice': dagkeuze})
+        return render(request, 'reserveringen/reserveringen_overzicht.html', context)
