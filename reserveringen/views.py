@@ -13,9 +13,6 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from reserveringssysteem_eemschutters import global_settings
 
-Slot = namedtuple("Slot", ["datum", "starttijd",
-                           "eindtijd", "baan", "status", "reservering_eigenaar", 'form', 'zelf'])
-
 
 def daterange(start_date, end_date):
     """
@@ -48,6 +45,15 @@ def mijn_reserveringen(request):
     return render(request, 'reserveringen/mijn_reserveringen.html', {'reserveringen': reservering})
 
 
+Slot = namedtuple("Slot", ["datum",
+                           "starttijd",
+                           "eindtijd",
+                           "baan",
+                           "status",
+                           "reservering_eigenaar",
+                           'form'])
+
+
 @login_required(login_url='/login/')
 def reserveringen(request, overzicht=False):
     if request.method == 'POST':
@@ -56,7 +62,7 @@ def reserveringen(request, overzicht=False):
         if form.is_valid():
             args = {**{'gebruiker': request.user}, **form.cleaned_data}
             # Heeft deze gebruiker al teveel reserveringen deze week?
-            reserveringsweek = args['start'].date.isocalendar()[1]
+            # reserveringsweek = args['start'].date.isocalendar()[1]
             # TODO: Bestaat Reservering al?!
             Reservering(**args).save()
         if 'next' in request.GET:
@@ -94,10 +100,12 @@ def reserveringen(request, overzicht=False):
     banen = Baan.objects.all()
 
     slots_per_baan = {}
+    
     for baan in banen:
+        
         slots_per_baan[baan] = []
+        
         for slot_tijd in slot_tijden:
-            status = "Vrij"
             slot_start = timezone.make_aware(
                 datetime.datetime.combine(gekozen_schietdag_datum, slot_tijd[0]))
             slot_eind = timezone.make_aware(datetime.datetime.combine(
@@ -106,16 +114,23 @@ def reserveringen(request, overzicht=False):
                                                      schietdag=gekozen_schietdag,
                                                      start=slot_start,
                                                      eind=slot_eind)
-            zelf = False
             if reservering:
                 status = "Bezet"
+
                 if reservering[0].gebruiker == request.user:
-                    zelf = True
+                    status = "Zelf"
+            else:
+                if slot_start < view_date:
+                    status = "Verlopen"
+                else:
+                    status = "Vrij"
+            
             slot_form = ReserveringForm(initial={
                 'start': slot_start,
                 'eind': slot_eind,
                 'baan': baan.pk,
                 'schietdag': gekozen_schietdag.pk})
+            
             slots_per_baan[baan].append(
                 Slot(gekozen_schietdag_datum,
                      slot_tijd[0],
@@ -123,8 +138,7 @@ def reserveringen(request, overzicht=False):
                      baan,
                      status,
                      reservering[0].gebruiker.username if reservering else None,
-                     slot_form,
-                     zelf))
+                     slot_form))
 
     context = {'view_date': view_date,
                'schietdagen': schietdagen,
