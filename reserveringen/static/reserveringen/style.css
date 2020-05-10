@@ -192,14 +192,14 @@ header {
         .overzichtBanen .baanRij .baanBeschikbaarheid .baanSlot.baanSlotBezet {
           height: 50px;
           cursor: not-allowed;
-          background: repeating-linear-gradient(-45deg, rgba(231, 76, 60, 0.1), rgba(231, 76, 60, 0.1) 10px, rgba(231, 76, 60, 0.2) 10px, rgba(231, 76, 60, 0.2) 20px);
+          background: rgba(231, 76, 60, 0.2);
           color: #e74c3c; }
           @media (min-width: 1200px) {
             .overzichtBanen .baanRij .baanBeschikbaarheid .baanSlot.baanSlotBezet {
               height: unset; } }
         .overzichtBanen .baanRij .baanBeschikbaarheid .baanSlot.baanSlotGereserveerd {
           cursor: not-allowed;
-          background: repeating-linear-gradient(-45deg, rgba(52, 152, 219, 0.1), rgba(52, 152, 219, 0.1) 10px, rgba(52, 152, 219, 0.2) 10px, rgba(52, 152, 219, 0.2) 20px);
+          background: rgba(52, 152, 219, 0.2);
           color: #3498db; }
         .overzichtBanen .baanRij .baanBeschikbaarheid .baanSlot .tijdSlotMobiel {
           display: block; }
@@ -395,3 +395,5 @@ form {
     box-sizing: border-box;
     border-radius: 5px;
     border: 1px solid rgba(0, 0, 0, 0.2); }
+    .overview .block.notAvailable strong {
+      color: #e74c3c; }
