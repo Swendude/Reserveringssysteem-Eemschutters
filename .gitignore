@@ -4,3 +4,5 @@ venv
 .env
 db.sqlite3
 __pycache__/
+reserveringen/static/reserveringen/style.css.map
+reserveringen/static/reserveringen/.sass-cache/

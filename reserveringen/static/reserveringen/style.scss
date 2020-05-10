@@ -19,6 +19,11 @@ $font-header: 'Montserrat', sans-serif;
     @media (min-width: 1200px) { @content; }
 }
 
+@mixin for-mobile-up {
+    @media (min-width: 800px) { @content; }
+}
+
+
 @mixin dropShadow {
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
 }
@@ -119,7 +124,7 @@ header {
 
         font-size:20px;
 
-        @include for-desktop-up() {
+        @include for-mobile-up() {
             font-size:24px;
         }
 
@@ -148,7 +153,7 @@ header {
 
         display:block;
 
-        @include for-desktop-up() {
+        @include for-mobile-up() {
             display:flex;
         }
 
@@ -181,6 +186,18 @@ header {
 
 }
 
+.error_message {
+    border:2px solid black;
+    color: white;
+    border-radius:5px;
+    padding:10px;
+    font-weight: bold;
+    text-decoration: none;
+    margin-right:10px;
+    margin-bottom:10px;
+    background-color: red;
+}
+
 .content {
     .wrapper {
         background: #fff;
@@ -201,7 +218,7 @@ header {
         border:1px solid rgba(#000, 0.2);
         margin-bottom:20px;
 
-        @include for-desktop-up() {
+        @include for-mobile-up() {
             display:flex;
             border:unset;
             border-bottom:1px solid rgba($color-primary, 0.4);
@@ -215,7 +232,7 @@ header {
             position:relative;
             padding: 12px 0px 12px 6px;
 
-            @include for-desktop-up() {
+            @include for-mobile-up() {
                 border-right:1px solid rgba($color-primary, 1);
             }
 
@@ -224,7 +241,7 @@ header {
         .baanBeschikbaarheid {
 
             display:block;
-            @include for-desktop-up() {
+            @include for-mobile-up() {
                 display:flex;
                 flex:100% 1 1;
             }
@@ -239,7 +256,7 @@ header {
                 font-weight: bold;
                 flex-direction: column;
 
-                @include for-desktop-up() {
+                @include for-mobile-up() {
                     flex-direction: row;
                     border-right:1px solid rgba($color-primary, 0.6);
                 }
@@ -256,37 +273,35 @@ header {
                 &.baanSlotBezet {            
                     height:50px;
 
-                    @include for-desktop-up() {
+                    @include for-mobile-up() {
                         height:unset;
                     }
 
                     cursor: not-allowed;
-                    background: repeating-linear-gradient( -45deg,
-                    rgba($color-bezet, 0.1),
-                    rgba($color-bezet, 0.1) 10px,
-                    rgba($color-bezet, 0.2) 10px,
-                    rgba($color-bezet, 0.2) 20px
-                    );
+                    background: rgba($color-bezet, 0.2);
 
                     color: $color-bezet;
                 }
 
                 &.baanSlotGereserveerd {
                     cursor: not-allowed;
-                    background: repeating-linear-gradient( -45deg,
-                    rgba($color-gereserveerd, 0.1),
-                    rgba($color-gereserveerd, 0.1) 10px,
-                    rgba($color-gereserveerd, 0.2) 10px,
-                    rgba($color-gereserveerd, 0.2) 20px
-                    );
+
+                    background: rgba($color-gereserveerd, 0.2);
                     color: $color-gereserveerd;
+
+                }
+
+                &.baanSlotVerlopen {
+                    cursor: not-allowed;
+                    background: rgba(#000000, 0.1);
+                    color: rgba(#000000, 0.6);                   
 
                 }
 
                 .tijdSlotMobiel {
                     display:block;
 
-                    @include for-desktop-up() {
+                    @include for-mobile-up() {
                         display:none;
                     }
                 }
@@ -299,7 +314,7 @@ header {
         &.baanRijHeader {
             display:none;
             
-            @include for-desktop-up() {
+            @include for-mobile-up() {
                 display:flex;
             }
 
@@ -308,7 +323,7 @@ header {
             line-height:40px;
         }
 
-        @include for-desktop-up() {
+        @include for-mobile-up() {
             &:nth-child(2n) {
                 background:rgba($color-primary, 0.05);
             }
@@ -321,6 +336,12 @@ header {
         // }
 
     }
+}
+
+.dateSelectors {
+    margin-top:-40px;
+    padding:20px 40px 10px;
+    border-bottom:1px solid rgba(0, 0, 0, 0.1);
 }
 
 .dateSelector {
@@ -338,7 +359,7 @@ header {
 
     @include animateEase($animationTime);
 
-    @include for-desktop-up() {
+    @include for-mobile-up() {
         display: inline-block;
     }
 
@@ -403,14 +424,21 @@ header {
 
 .reservering {
 
-    display:flex;
-    border-bottom:1px solid red;
     padding:20px;
     margin-bottom:20px;
     border:1px solid rgba(#000, 0.2);
     border-radius:5px;
 
-    flex-direction: column;
+
+    .reserveringContainer,
+    .reserveringOpmerking {
+        display:block;
+    }
+
+    .reserveringContainer {
+        display:flex;
+        margin-bottom:10px;    
+    }
 
     .reserveringInhoud,
     .reserveringActies {
@@ -421,17 +449,42 @@ header {
         margin-bottom:20px;
     }
 
+    .reserveringActies {
+        flex:120px 1 1;
+    }
 
-    @include for-desktop-up() {
+
+    @include for-mobile-up() {
         flex-direction: row;
 
-        .reserveringActies {
-            flex:300px 1 1;
-        }
 
         .reserveringInhoud {
             margin-bottom: unset;
         }
+    }
+
+    .reserveringActies {
+        text-align:right;
+
+        .annuleer {
+            display:inline-block;
+            -webkit-appearance: none;
+            
+            font-family: $font-default;
+            font-weight:bold;
+            font-size:12px;
+            border:none;
+    
+            background: $color-primary;
+            color: #fff;
+            border-radius:5px;
+            padding:0 30px;
+            line-height:30px;
+    
+            cursor: pointer;
+                
+        }
+
     }
 
 
@@ -460,8 +513,9 @@ header {
     }
 
     .reserveringOpmerking {
-        background: rgba($color-bezet, 0.1);
-        color: $color-bezet;
+        flex:100% 1 1;
+        background: rgba($color-gereserveerd, 0.1);
+        color: $color-gereserveerd;
         padding:10px;
         border-radius:4px;
 
@@ -523,7 +577,6 @@ form {
 .overview {
     position:relative;
     
-    margin-top:-40px;
     display:flex;
     min-height: calc(100% - 82px);
     overflow:hidden;
@@ -533,7 +586,6 @@ form {
         padding-left:40px;
         flex:200px 0 0;
         font-weight: bold;
-        // box-shadow: 10px 0 10px -2px #888;
         @include dropShadow();
         position: relative;
         z-index:300;
@@ -592,9 +644,12 @@ form {
 
         // }
 
-        // &.notAvailable {
+        &.notAvailable {
+            strong {
+                color: $color-bezet;
+            }
 
-        // }
+        }
 
     }
 

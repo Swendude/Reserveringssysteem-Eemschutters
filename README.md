@@ -35,16 +35,16 @@ Om lokaal te draaien:
 - [x] Terug naar gekozen datum na toevoegen van een reservering
 
 **Mijn reserveringen**
-- [ ] Reserveringen annuleren
-- [ ] Maximaal aantal reserveringen per week
+- [x] Reserveringen annuleren
+- [x] Maximaal aantal reserveringen per week
 - [x] Volgorde omdraaien (eerstvolgende reservering bovenaan)
 - [x] Reserveringen van de huidige dag tonen
 
 **Opmaak**
-- [ ] Ux verbeteren
-    - [ ] Bestiging modal bij reserveren
-    - [ ] Login form
+- [x] Bestiging modal bij reserveren
+- [x] Login form
 - [x] Responsive maken
+- [x] Error Messages
 
 **Diverse**
 - [ ] Wachtwoord wijzigen
