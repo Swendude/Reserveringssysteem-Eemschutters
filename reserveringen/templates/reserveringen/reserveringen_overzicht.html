@@ -22,15 +22,24 @@
             <div class="col colLocation">
                 <div class="row rowHeader rowLocationName">{{baan}}</div>
                 {% for slot in slots  %}
-                    {% if slot.status == 'Vrij'%}
+                
+                    {% if slot.status == 'Vrij' %}
                         <div class="row rowStatus">
                             <!-- <div class="block available">Beschikbaar</div> -->
                         </div>
-                    {% else %}
+                    {% endif %}
+
+                    {% if slot.status == 'Zelf' or slot.status == 'Bezet'  %}
                         <div class="row rowStatus">
                             <div class="block notAvailable"><strong>Bezet</strong><br />{{ slot.reservering_eigenaar }}</div>
                         </div>
                     {% endif %}
+                    {% if slot.status == 'Verlopen' %}
+                        <div class="row rowStatus">
+                            <!-- <div class="block available">Beschikbaar</div> -->
+                        </div>
+                    {% endif %}
+
                 {% endfor %}
             </div>
 
