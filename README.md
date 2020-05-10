@@ -32,7 +32,7 @@ Om lokaal te draaien:
 ## Todos
 
 **Maak reservering**
-- [ ] Terug naar gekozen datum na toevoegen van een reservering
+- [x] Terug naar gekozen datum na toevoegen van een reservering
 
 **Mijn reserveringen**
 - [ ] Reserveringen annuleren

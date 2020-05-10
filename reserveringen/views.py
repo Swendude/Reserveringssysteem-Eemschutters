@@ -11,23 +11,38 @@ from collections import namedtuple
 from .forms import ReserveringForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-
+from reserveringssysteem_eemschutters import global_settings
 
 Slot = namedtuple("Slot", ["datum", "starttijd", "eindtijd", "baan", "status", 'form', 'zelf'])
 
 
-def next_datetime_with_weekday(current, target):
+def daterange(start_date, end_date):
     """
-    credits: https://stackoverflow.com/questions/8801084/how-to-calculate-next-friday/8801540
+    Generator voor dagen in range. 
+    Credits: https://stackoverflow.com/a/1060330
     """
-    target = current + \
-        datetime.timedelta(((target-current.weekday()) % 7))
-    return target
+    for n in range(int ((end_date - start_date).days)):
+        yield start_date + datetime.timedelta(n)
+
+
+
+def alle_schietdagen_in_venster(current, venster, schietdagen):
+    """
+    Verkrijg alle dagen die schietdagen zijn binnen het huidige venster (timedelta). 
+    Geeft een lijst van tuples (datum, schietdag) terug.
+    """
+    schietdagen = {schietdag.dag: schietdag for schietdag in schietdagen}
+    schietdagen_in_venster = []
+    for dag in daterange(current, current + venster):
+        if dag.weekday() in schietdagen:
+            schietdagen_in_venster.append((dag,schietdagen[dag.weekday()]))
+    return schietdagen_in_venster
+
 
 @login_required(login_url='/login/')
 def mijn_reserveringen(request):
     view_date = timezone.now()
-    reservering = Reservering.objects.filter(start__gt=view_date,
+    reservering = Reservering.objects.filter(eind__gt=view_date,
                                                 gebruiker=request.user)
     return render(request, 'reserveringen/mijn_reserveringen.html', {'reserveringen':reservering})
 
@@ -41,7 +56,10 @@ def reserveringen(request):
             args = {**{'gebruiker': request.user}, **form.cleaned_data}
             # TODO: Bestaat Reservering al?!
             Reservering(**args).save()
-        return HttpResponseRedirect(request.path_info)
+        if 'next' in request.GET:
+            return HttpResponseRedirect(request.path_info + f"?next={request.GET['next']}")
+        else:
+            return HttpResponseRedirect(request.path_info)
             
     # Determine our date based on an optional GET parameter 'next' that offsets to the next available day
     view_date = timezone.now()
@@ -62,12 +80,11 @@ def reserveringen(request):
             dagkeuze = 0
 
     schietdagen = Schietdag.objects.order_by('dag')
-    schietdagen = list(map(lambda schietdag: (next_datetime_with_weekday(
-        view_date, schietdag.dag), schietdag), schietdagen))
-    schietdagen.sort(key=lambda t: (t[0] - view_date).total_seconds())
+    schietdagen = alle_schietdagen_in_venster(view_date, global_settings.reserveer_venster, schietdagen)
 
     if dagkeuze > len(schietdagen) - 1:
         dagkeuze = len(schietdagen)
+
     gekozen_schietdag_datum, gekozen_schietdag = schietdagen[dagkeuze]
     slot_tijden = gekozen_schietdag.slot_tijden()
     banen = Baan.objects.all()
