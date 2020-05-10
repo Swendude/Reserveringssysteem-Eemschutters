@@ -88,6 +88,8 @@ header {
   box-sizing: border-box;
   margin-bottom: 40px;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); }
+  header .wrapper {
+    padding: 0; }
   header .systeemNaam,
   header .systeemBedrijfsnaam {
     display: inline-block;
@@ -134,26 +136,37 @@ header {
   display: block;
   position: relative; }
   .overzichtBanen .baanRij {
-    display: flex;
-    border-bottom: 1px solid rgba(104, 68, 213, 0.4); }
+    display: block; }
+    @media (min-width: 1200px) {
+      .overzichtBanen .baanRij {
+        display: flex;
+        border-bottom: 1px solid rgba(104, 68, 213, 0.4); } }
     .overzichtBanen .baanRij .baanLabel {
       flex: 200px 0 0;
       display: block;
       position: relative;
-      border-right: 1px solid #6844d5;
       padding: 12px 0px 12px 6px; }
+      @media (min-width: 1200px) {
+        .overzichtBanen .baanRij .baanLabel {
+          border-right: 1px solid #6844d5; } }
     .overzichtBanen .baanRij .baanBeschikbaarheid {
-      display: flex;
-      flex: 100% 1 1;
+      display: block;
       position: relative; }
+      @media (min-width: 1200px) {
+        .overzichtBanen .baanRij .baanBeschikbaarheid {
+          display: flex;
+          flex: 100% 1 1; } }
       .overzichtBanen .baanRij .baanBeschikbaarheid .baanSlot {
+        display: flex;
+        height: 50px;
         flex: 100% 1 1;
         position: relative;
-        display: flex;
         justify-content: center;
         align-items: center;
-        font-weight: bold;
-        border-right: 1px solid rgba(104, 68, 213, 0.6); }
+        font-weight: bold; }
+        @media (min-width: 1200px) {
+          .overzichtBanen .baanRij .baanBeschikbaarheid .baanSlot {
+            border-right: 1px solid rgba(104, 68, 213, 0.6); } }
         .overzichtBanen .baanRij .baanBeschikbaarheid .baanSlot form {
           height: 100%; }
         .overzichtBanen .baanRij .baanBeschikbaarheid .baanSlot.baanSlotBezet {
@@ -165,14 +178,18 @@ header {
           background: repeating-linear-gradient(-45deg, rgba(52, 152, 219, 0.1), rgba(52, 152, 219, 0.1) 10px, rgba(52, 152, 219, 0.2) 10px, rgba(52, 152, 219, 0.2) 20px);
           color: #3498db; }
     .overzichtBanen .baanRij.baanRijHeader {
+      display: none;
       font-weight: bold;
       background-color: rgba(104, 68, 213, 0.3);
       line-height: 40px; }
+      @media (min-width: 1200px) {
+        .overzichtBanen .baanRij.baanRijHeader {
+          display: flex; } }
     .overzichtBanen .baanRij:nth-child(2n) {
       background: rgba(104, 68, 213, 0.05); }
 
 .dateSelector {
-  display: inline-block;
+  display: block;
   border: 2px solid #6844D5;
   color: #6844D5;
   border-radius: 5px;
@@ -184,6 +201,9 @@ header {
   -webkit-transition: all 200ms ease;
   -moz-transition: all 200ms ease;
   transition: all 200ms ease; }
+  @media (min-width: 1200px) {
+    .dateSelector {
+      display: inline-block; } }
   .dateSelector .icon {
     display: inline-block;
     margin-right: 10px; }
@@ -233,12 +253,20 @@ header {
   padding: 20px;
   margin-bottom: 20px;
   border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 5px; }
+  border-radius: 5px;
+  flex-direction: column; }
   .reservering .reserveringInhoud,
   .reservering .reserveringActies {
     flex: 100% 1 1; }
-  .reservering .reserveringActies {
-    flex: 300px 1 1; }
+  .reservering .reserveringInhoud {
+    margin-bottom: 20px; }
+  @media (min-width: 1200px) {
+    .reservering {
+      flex-direction: row; }
+      .reservering .reserveringActies {
+        flex: 300px 1 1; }
+      .reservering .reserveringInhoud {
+        margin-bottom: unset; } }
   .reservering h2 {
     color: #000000;
     margin-bottom: 10px; }
@@ -277,3 +305,16 @@ form {
     border: 1px solid rgba(0, 0, 0, 0.4);
     margin-bottom: 10px;
     width: 300px; }
+  form button.inloggen {
+    display: inline-block;
+    -webkit-appearance: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 12px;
+    border: none;
+    background: #6844D5;
+    color: #fff;
+    border-radius: 5px;
+    padding: 0 30px;
+    line-height: 30px;
+    cursor: pointer; }

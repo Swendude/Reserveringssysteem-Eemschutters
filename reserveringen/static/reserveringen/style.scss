@@ -89,8 +89,6 @@ b {
     }
 }
 
-
-
 header {
     min-height:80px;
     background: #ffffff;
@@ -99,6 +97,11 @@ header {
     margin-bottom:40px;
 
     @include dropShadow();
+
+    .wrapper {
+        padding:0;
+    }
+
 
 
     .systeemNaam,
@@ -129,7 +132,6 @@ header {
             display:flex;
         }
 
-        // align-items: flex-end;
 
         .logo,
         nav {
@@ -157,24 +159,6 @@ header {
 
     }
 
-    // .menuitems {
-    //     flex: 1;
-    //     display: inline-flex;
-    //     justify-content: flex-end;
-    // }
-    // .menuitem {
-    //     color: $color-primary;
-    //     background-color: white;
-    //     border: 1px solid white;
-    //     text-align: center;
-    //     padding: 5px;
-    //     margin: 10 15 10 5;
-    // }    
-    // .userinfo {
-    //     display: flex;
-    //     flex-direction: column;
-    // }
-    
 }
 
 .content {
@@ -193,32 +177,47 @@ header {
     position:relative;
 
     .baanRij {
-        display:flex;
-        border-bottom:1px solid rgba($color-primary, 0.4);
+        display:block;
+
+        @include for-desktop-up() {
+            display:flex;
+            border-bottom:1px solid rgba($color-primary, 0.4);
+        }
 
         .baanLabel {
+
             flex:200px 0 0;
             display:block;
             position:relative;
-            // background-color: rgba($color-primary, 0.1);       
-            border-right:1px solid rgba($color-primary, 1);
             padding: 12px 0px 12px 6px;
+
+            @include for-desktop-up() {
+                border-right:1px solid rgba($color-primary, 1);
+            }
 
         }
 
         .baanBeschikbaarheid {
-            display:flex;
-            flex:100% 1 1;
+
+            display:block;
+            @include for-desktop-up() {
+                display:flex;
+                flex:100% 1 1;
+            }
             position: relative;
 
             .baanSlot {
+                display:flex;
+                height:50px;
                 flex:100% 1 1;
                 position: relative;     
-                display:flex;
                 justify-content: center;
                 align-items: center;
                 font-weight: bold;
-                border-right:1px solid rgba($color-primary, 0.6);
+
+                @include for-desktop-up() {
+                    border-right:1px solid rgba($color-primary, 0.6);
+                }
 
                 form {
                     height:100%;
@@ -253,6 +252,12 @@ header {
         }
 
         &.baanRijHeader {
+            display:none;
+            
+            @include for-desktop-up() {
+                display:flex;
+            }
+
             font-weight: bold;
             background-color: rgba($color-primary, 0.3);   
             line-height:40px;
@@ -274,7 +279,8 @@ header {
 
 .dateSelector {
 
-    display: inline-block;
+    display:block;
+
     border:2px solid $color-primary;
     color: $color-primary;
     border-radius:5px;
@@ -283,7 +289,12 @@ header {
     text-decoration: none;
     margin-right:10px;
     margin-bottom:10px;
+
     @include animateEase($animationTime);
+
+    @include for-desktop-up() {
+        display: inline-block;
+    }
 
     .icon {
         display:inline-block;
@@ -353,14 +364,32 @@ header {
     border:1px solid rgba(#000, 0.2);
     border-radius:5px;
 
+    flex-direction: column;
+
     .reserveringInhoud,
     .reserveringActies {
         flex:100% 1 1;
     }
 
-    .reserveringActies {
-        flex:300px 1 1;
+    .reserveringInhoud {
+        margin-bottom:20px;
     }
+
+
+    @include for-desktop-up() {
+        flex-direction: row;
+
+        .reserveringActies {
+            flex:300px 1 1;
+        }
+
+        .reserveringInhoud {
+            margin-bottom: unset;
+        }
+    }
+
+
+
 
     h2 {
         color: #000000;
@@ -392,13 +421,6 @@ header {
 
     }
 
-    // margin: 10 0 10 0;
-    // padding: 10px;
-    // box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-    // border-radius: 10px;
-    // border: 1px solid black;
-    // display: flex;
-    // justify-content: space-evenly;
 }
 
 .reserveringlabel {
@@ -428,5 +450,26 @@ form {
         width:300px;
     
         
+    }
+
+    button.inloggen {
+    // input[type=submit] {
+        display:inline-block;
+        -webkit-appearance: none;
+        
+        font-family: $font-default;
+        font-weight:bold;
+        font-size:12px;
+        border:none;
+
+        background: $color-primary;
+        color: #fff;
+        border-radius:5px;
+        padding:0 30px;
+        line-height:30px;
+
+        cursor: pointer;
+
+
     }
 }
