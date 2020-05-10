@@ -1,10 +1,19 @@
 @import "partials/reset";
 
-// $color-primary: #6844D5;
+/* Standaard kleuren en typografie */
 $color-primary: #0066CC;
 
+$color-bezet: #e74c3c;
+$color-gereserveerd: #3498db;
+$color-vrij: #27ae60;
+
 $color-background: #F5F6FA;
+$font-default: Arial, Helvetica, sans-serif;
 $font-header: 'Montserrat', sans-serif;
+
+/* Kleuren en typografie inladen vanuit project scss */
+@import "partials/project";
+
 
 @mixin for-desktop-up {
     @media (min-width: 1200px) { @content; }
@@ -14,8 +23,16 @@ $font-header: 'Montserrat', sans-serif;
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
 }
 
+@mixin animateEase($seconds) {
+  -webkit-transition: all $seconds ease;
+  -moz-transition: all $seconds ease;
+  transition: all $seconds ease;
+}
+
+$animationTime: 200ms;
+
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: $font-default;
     color: #000000;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
@@ -174,11 +191,8 @@ header {
             flex:200px 0 0;
             display:block;
             position:relative;
-            background-color: rgba($color-primary, 0.1);       
+            // background-color: rgba($color-primary, 0.1);       
             border-right:1px solid rgba($color-primary, 1);
-
-            // border-bottom:1px solid red;
-            // border-right:1px solid red;
             padding: 12px 0px 12px 6px;
 
         }
@@ -190,7 +204,41 @@ header {
 
             .baanSlot {
                 flex:100% 1 1;
-                position: relative;            
+                position: relative;     
+                display:flex;
+                justify-content: center;
+                align-items: center;
+                font-weight: bold;
+                border-right:1px solid rgba($color-primary, 0.6);
+
+                form {
+                    height:100%;
+                }
+
+                &.baanSlotBezet {
+                    cursor: not-allowed;
+                    background: repeating-linear-gradient( -45deg,
+                    rgba($color-bezet, 0.1),
+                    rgba($color-bezet, 0.1) 10px,
+                    rgba($color-bezet, 0.2) 10px,
+                    rgba($color-bezet, 0.2) 20px
+                    );
+
+                    color: $color-bezet;
+                }
+
+                &.baanSlotGereserveerd {
+                    cursor: not-allowed;
+                    background: repeating-linear-gradient( -45deg,
+                    rgba($color-gereserveerd, 0.1),
+                    rgba($color-gereserveerd, 0.1) 10px,
+                    rgba($color-gereserveerd, 0.2) 10px,
+                    rgba($color-gereserveerd, 0.2) 20px
+                    );
+                    color: $color-gereserveerd;
+
+                }
+
             }
         
         }
@@ -199,10 +247,18 @@ header {
             font-weight: bold;
             background-color: rgba($color-primary, 0.3);   
             line-height:40px;
-
-            
-
         }
+
+        &:nth-child(2n) {
+            background:rgba($color-primary, 0.05);
+        }
+
+        // &:hover {
+        //     background:rgba($color-primary, 0.5);
+        //     .baanLabel {
+        //         font-weight:bold;
+        //     }
+        // }
 
     }
 }
@@ -218,42 +274,45 @@ header {
     text-decoration: none;
     margin-right:10px;
     margin-bottom:10px;
+    @include animateEase($animationTime);
 
     .icon {
         display:inline-block;
         margin-right:10px;
     }
 
-
     &.active,
     &:hover {
-
         background: $color-primary;
         color:#fff;
-
     }
 
 
 }
 
+.reserveerButton {
+    -webkit-appearance: none;
+    -moz-appearance: none;
 
-// .tijdSlot {
-//     display: flex;
-//     flex:100% 1 1;
-//     position: relative;
-//     border-left: 1px solid rgba(0, 0, 0, 0.1);
-//     border-right: 1px solid rgba(0, 0, 0, 0.1);
-//     border-top: 1px solid rgba(0, 0, 0, 0.1);
-//     justify-content: center;
-//     padding: 7px;
-// }
+    display:inline-block;
+    width: calc(100% - 10px);
+    height: calc(100% - 10px);
+    background: rgba($color-vrij, 0.6);
+    color:#fff;
+    border:none;
+    margin:5px;
+    font-weight:bold;
+    font-size:14px;
+    border-radius:5px;
+    cursor:pointer;
+ 
+    @include animateEase($animationTime);
 
-.baanSlot {
-    display: flex;
-    flex:100% 1 1;
-    position: relative;
-    justify-content: center;
-    border-right:1px solid rgba($color-primary, 0.6);
+    &:hover {
+        background: rgba($color-vrij, 1);
+
+    }
+
 }
 
 .dateButton {
@@ -272,15 +331,14 @@ header {
 .dateButton.disabled {
     color:#fff;
     background-color:#A47C4B;
-    /* border: 1px solid  rgba(0, 0, 0, 1); */
     cursor: default;
 }
 
-.dateButton.self {
-    color:#fff;
-    background-color:#B6D094;
-    cursor: default;
-}
+// .dateButton.self {
+//     color:#fff;
+//     background-color:#B6D094;
+//     cursor: default;
+// }
 
 .reservering {
     margin: 10 0 10 0;
@@ -291,6 +349,7 @@ header {
     display: flex;
     justify-content: space-evenly;
 }
+
 .reserveringlabel {
     font-size: 12px;
     color: rgba(0, 0, 0, 0.6);
@@ -299,6 +358,9 @@ header {
 
 
 form {
+    position: relative;
+    width: 100%;
+
     label {
         display:block;
     }

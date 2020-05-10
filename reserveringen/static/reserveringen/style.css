@@ -33,6 +33,8 @@ table {
   border-spacing: 0; }
 
 /* CSS Reset Einde */
+/* Standaard kleuren en typografie */
+/* Kleuren en typografie inladen vanuit project scss */
 body {
   font-family: Arial, Helvetica, sans-serif;
   color: #000000;
@@ -58,7 +60,7 @@ h4 {
 
 h1 {
   font-size: 24px;
-  color: #0066CC; }
+  color: #6844D5; }
 
 h2 {
   font-size: 16px; }
@@ -89,7 +91,7 @@ header {
   header .systeemNaam {
     font-weight: normal; }
   header .systeemBedrijfsnaam {
-    color: #0066CC; }
+    color: #6844D5; }
   header .headerrow {
     padding: 0 40px;
     width: 100%;
@@ -112,7 +114,7 @@ header {
         text-decoration: none;
         padding: 10px; }
         header .headerrow nav a.actief, header .headerrow nav a:hover {
-          color: #0066CC; }
+          color: #6844D5; }
 
 .content .wrapper {
   background: #fff;
@@ -126,13 +128,12 @@ header {
   position: relative; }
   .overzichtBanen .baanRij {
     display: flex;
-    border-bottom: 1px solid rgba(0, 102, 204, 0.4); }
+    border-bottom: 1px solid rgba(104, 68, 213, 0.4); }
     .overzichtBanen .baanRij .baanLabel {
       flex: 200px 0 0;
       display: block;
       position: relative;
-      background-color: rgba(0, 102, 204, 0.1);
-      border-right: 1px solid #0066cc;
+      border-right: 1px solid #6844d5;
       padding: 12px 0px 12px 6px; }
     .overzichtBanen .baanRij .baanBeschikbaarheid {
       display: flex;
@@ -140,35 +141,68 @@ header {
       position: relative; }
       .overzichtBanen .baanRij .baanBeschikbaarheid .baanSlot {
         flex: 100% 1 1;
-        position: relative; }
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        border-right: 1px solid rgba(104, 68, 213, 0.6); }
+        .overzichtBanen .baanRij .baanBeschikbaarheid .baanSlot form {
+          height: 100%; }
+        .overzichtBanen .baanRij .baanBeschikbaarheid .baanSlot.baanSlotBezet {
+          cursor: not-allowed;
+          background: repeating-linear-gradient(-45deg, rgba(231, 76, 60, 0.1), rgba(231, 76, 60, 0.1) 10px, rgba(231, 76, 60, 0.2) 10px, rgba(231, 76, 60, 0.2) 20px);
+          color: #e74c3c; }
+        .overzichtBanen .baanRij .baanBeschikbaarheid .baanSlot.baanSlotGereserveerd {
+          cursor: not-allowed;
+          background: repeating-linear-gradient(-45deg, rgba(52, 152, 219, 0.1), rgba(52, 152, 219, 0.1) 10px, rgba(52, 152, 219, 0.2) 10px, rgba(52, 152, 219, 0.2) 20px);
+          color: #3498db; }
     .overzichtBanen .baanRij.baanRijHeader {
       font-weight: bold;
-      background-color: rgba(0, 102, 204, 0.3);
+      background-color: rgba(104, 68, 213, 0.3);
       line-height: 40px; }
+    .overzichtBanen .baanRij:nth-child(2n) {
+      background: rgba(104, 68, 213, 0.05); }
 
 .dateSelector {
   display: inline-block;
-  border: 2px solid #0066CC;
-  color: #0066CC;
+  border: 2px solid #6844D5;
+  color: #6844D5;
   border-radius: 5px;
   padding: 10px;
   font-weight: bold;
   text-decoration: none;
   margin-right: 10px;
-  margin-bottom: 10px; }
+  margin-bottom: 10px;
+  -webkit-transition: all 200ms ease;
+  -moz-transition: all 200ms ease;
+  transition: all 200ms ease; }
   .dateSelector .icon {
     display: inline-block;
     margin-right: 10px; }
   .dateSelector.active, .dateSelector:hover {
-    background: #0066CC;
+    background: #6844D5;
     color: #fff; }
 
-.baanSlot {
-  display: flex;
-  flex: 100% 1 1;
-  position: relative;
-  justify-content: center;
-  border-right: 1px solid rgba(0, 102, 204, 0.6); }
+.reserveerButton {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  display: inline-block;
+  width: calc(100% - 10px);
+  height: calc(100% - 10px);
+  background: rgba(39, 174, 96, 0.6);
+  color: #fff;
+  border: none;
+  margin: 5px;
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  -webkit-transition: all 200ms ease;
+  -moz-transition: all 200ms ease;
+  transition: all 200ms ease; }
+  .reserveerButton:hover {
+    background: #27ae60; }
 
 .dateButton {
   border-radius: 5px;
@@ -184,12 +218,6 @@ header {
 .dateButton.disabled {
   color: #fff;
   background-color: #A47C4B;
-  /* border: 1px solid  rgba(0, 0, 0, 1); */
-  cursor: default; }
-
-.dateButton.self {
-  color: #fff;
-  background-color: #B6D094;
   cursor: default; }
 
 .reservering {
@@ -205,16 +233,18 @@ header {
   font-size: 12px;
   color: rgba(0, 0, 0, 0.6); }
 
-form label {
-  display: block; }
-
-form input[type=text],
-form input[type=password] {
-  -webkit-appearance: none;
-  display: block;
-  border-radius: 5px;
-  padding: 0 5px;
-  line-height: 30px;
-  border: 1px solid rgba(0, 0, 0, 0.4);
-  margin-bottom: 10px;
-  width: 300px; }
+form {
+  position: relative;
+  width: 100%; }
+  form label {
+    display: block; }
+  form input[type=text],
+  form input[type=password] {
+    -webkit-appearance: none;
+    display: block;
+    border-radius: 5px;
+    padding: 0 5px;
+    line-height: 30px;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    margin-bottom: 10px;
+    width: 300px; }
