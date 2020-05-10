@@ -14,7 +14,7 @@ from django.http import HttpResponseRedirect
 from reserveringssysteem_eemschutters import global_settings
 
 Slot = namedtuple("Slot", ["datum", "starttijd",
-                           "eindtijd", "baan", "status", 'form', 'zelf'])
+                           "eindtijd", "baan", "status", "reservering_eigenaar", 'form', 'zelf'])
 
 
 def daterange(start_date, end_date):
@@ -55,6 +55,8 @@ def reserveringen(request, overzicht=False):
         form = ReserveringForm(request.POST)
         if form.is_valid():
             args = {**{'gebruiker': request.user}, **form.cleaned_data}
+            # Heeft deze gebruiker al teveel reserveringen deze week?
+            reserveringsweek = args['start'].date.isocalendar()[1]
             # TODO: Bestaat Reservering al?!
             Reservering(**args).save()
         if 'next' in request.GET:
@@ -115,7 +117,14 @@ def reserveringen(request, overzicht=False):
                 'baan': baan.pk,
                 'schietdag': gekozen_schietdag.pk})
             slots_per_baan[baan].append(
-                Slot(gekozen_schietdag_datum, slot_tijd[0], slot_tijd[1], baan, status, slot_form, zelf))
+                Slot(gekozen_schietdag_datum,
+                     slot_tijd[0],
+                     slot_tijd[1],
+                     baan,
+                     status,
+                     reservering[0].gebruiker.username if reservering else None,
+                     slot_form,
+                     zelf))
 
     context = {'view_date': view_date,
                'schietdagen': schietdagen,
