@@ -55,6 +55,6 @@ Om lokaal te draaien:
 - [ ] Bij het wijzigen van een schietdag: Alle toekomstige reservaties verwijderen.
 
 **Datamodel/Validatie**
-- [ ] Geen twee slots op dezelfde avond
+- [x] Geen twee slots op dezelfde avond
 - [ ] X-de dag van de maand Schietdagen
-- [ ] Admin reserveringen verbeteren
+- [x] Admin reserveringen verbeteren

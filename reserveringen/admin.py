@@ -19,10 +19,9 @@ class SchietdagAdmin(admin.ModelAdmin):
 
 
 class ReserveringAdmin(admin.ModelAdmin):
-    pass
-    #  def has_add_permission(self, request):
-    #     return False
-
+    list_display = ['gebruiker','start','eind', 'baan']
+    list_filter = ['gebruiker', 'start']
+    
 admin.site.register(Baan)
 admin.site.register(Reservering, ReserveringAdmin)
 admin.site.register(Schietdag, SchietdagAdmin)
