@@ -47,8 +47,14 @@ Om lokaal te draaien:
 - [x] Login form
 - [x] Responsive maken
 - [x] Error Messages
+- [ ] Weeknummers bij 'Mijn reserveringen'
 
 **Diverse**
 - [ ] Wachtwoord wijzigen
 - [x] Overzicht voor baancommandant/sleutelhouder
 - [ ] Bij het wijzigen van een schietdag: Alle toekomstige reservaties verwijderen.
+
+**Datamodel/Validatie**
+- [ ] Geen twee slots op dezelfde avond
+- [ ] X-de dag van de maand Schietdagen
+- [ ] Admin reserveringen verbeteren

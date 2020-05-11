@@ -17,9 +17,11 @@ from django.urls import reverse
 from django.contrib import messages
 import pytz
 
+
 def get_view_date():
     return timezone.get_current_timezone().localize(datetime.datetime(year=2020, month=5, day=11, hour=0, minute=20, second=00), is_dst=None)
     # return timezone.now()
+
 
 def daterange(start_date, end_date):
     """
@@ -51,18 +53,19 @@ def mijn_reserveringen(request):
                                              gebruiker=request.user).order_by('start')
     return render(request, 'reserveringen/mijn_reserveringen.html', {'reserveringen': reservering})
 
+
 @login_required(login_url='/login/')
 @require_http_methods(['POST'])
 def verwijder_reserveringen(request):
     view_date = get_view_date()
-    target = Reservering.objects.get(id = request.POST['reservering_id'], gebruiker=request.user)
+    target = Reservering.objects.get(
+        id=request.POST['reservering_id'], gebruiker=request.user)
     if target.start - datetime.timedelta(hours=1) < view_date:
-        messages.error(request,'De reservering kan niet meer worden geannuleerd wanneer deze binnen een uur start.')
+        messages.error(
+            request, 'De reservering kan niet meer worden geannuleerd wanneer deze binnen een uur start.')
     else:
         target.delete()
     return HttpResponseRedirect(reverse('mijn_reserveringen'))
-    
-        
 
 
 Slot = namedtuple("Slot", ["datum",
@@ -86,25 +89,43 @@ def reserveringen(request, overzicht=False):
             args = form.cleaned_data
             if args['eind'] < view_date:
                 pass
+
             else:
-                # Heeft deze gebruiker al teveel reserveringen deze week?
-                reservering_weekstart = args['start'] - \
-                    datetime.timedelta(args['start'].weekday())
-                reservering_weekeind = args['start'] + \
-                    datetime.timedelta(6 - args['start'].weekday())
-                week_reserveringen = Reservering.objects.filter(start__date__gte=reservering_weekstart.date(),
-                                           start__date__lte=reservering_weekeind.date(), gebruiker=request.user)
-                if len(week_reserveringen) >= global_settings.reserveringen_per_week:
-                    messages.error(request, f'Je hebt het maximum({global_settings.reserveringen_per_week}) aantal reserveringen voor deze week. Je kan een reservering annuleren via "Mijn reserveringen"')
+                # Heeft deze gebruiker al een reservering deze avond?
+                dag_reserveringen = Reservering.objects.filter(start__date=args['start'].date(),
+                                                               gebruiker=request.user)
+                
+                if dag_reserveringen:
+                    messages.error(
+                            request, f"""Je hebt al een reservering voor deze dag. Je kan een reservering annuleren via <a href="{reverse('mijn_reserveringen')}">Mijn reserveringen</a>.""")
                     pass
+
                 else:
-                    # Bestaat deze Reservering al?
-                    slot_reserveringen = Reservering.objects.filter(**args)
-                    if slot_reserveringen:
+                    # Heeft deze gebruiker al teveel reserveringen deze week?
+                    reservering_weekstart = args['start'] - \
+                        datetime.timedelta(args['start'].weekday())
+                    reservering_weekeind = args['start'] + \
+                        datetime.timedelta(6 - args['start'].weekday())
+                    week_reserveringen = Reservering.objects.filter(start__date__gte=reservering_weekstart.date(),
+                                                                    start__date__lte=reservering_weekeind.date(), gebruiker=request.user)
+
+                    if len(week_reserveringen) >= global_settings.reserveringen_per_week:
+                        messages.error(
+                            request, f"""Je hebt het maximum({global_settings.reserveringen_per_week}) aantal reserveringen voor deze week. Je kan een reservering annuleren via <a href="{reverse('mijn_reserveringen')}">Mijn reserveringen</a>.""")
                         pass
-                    else:                                
-                        args = {**{'gebruiker': request.user}, **form.cleaned_data}
-                        Reservering(**args).save()
+
+                    else:
+                        # Bestaat deze Reservering al?
+                        slot_reserveringen = Reservering.objects.filter(**args)
+
+                        if slot_reserveringen:
+                            pass
+
+                        else:
+                            # Validation voltooid en geslaag
+                            args = {**{'gebruiker': request.user},
+                                    **form.cleaned_data}
+                            Reservering(**args).save()
         if 'next' in request.GET:
             return HttpResponseRedirect(request.path_info + f"?next={request.GET['next']}")
         else:
