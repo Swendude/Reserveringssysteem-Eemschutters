@@ -15,6 +15,11 @@ from reserveringssysteem_eemschutters import global_settings
 from django.views.decorators.http import require_http_methods
 from django.urls import reverse
 from django.contrib import messages
+import pytz
+
+def get_view_date():
+    return timezone.get_current_timezone().localize(datetime.datetime(year=2020, month=5, day=11, hour=0, minute=20, second=00), is_dst=None)
+    # return timezone.now()
 
 def daterange(start_date, end_date):
     """
@@ -41,7 +46,7 @@ def alle_schietdagen_in_venster(current, venster, schietdagen):
 @login_required(login_url='/login/')
 def mijn_reserveringen(request):
     # Ik heb hier een dag vanaf gehaald, zodat ook de huidige dag getoond wordt.
-    view_date = timezone.now() + datetime.timedelta(days=-1)
+    view_date = get_view_date() + datetime.timedelta(days=-1)
     reservering = Reservering.objects.filter(start__gte=view_date,
                                              gebruiker=request.user).order_by('start')
     return render(request, 'reserveringen/mijn_reserveringen.html', {'reserveringen': reservering})
@@ -49,7 +54,12 @@ def mijn_reserveringen(request):
 @login_required(login_url='/login/')
 @require_http_methods(['POST'])
 def verwijder_reserveringen(request):
-    Reservering.objects.filter(id = request.POST['reservering_id'], gebruiker=request.user).delete()
+    view_date = get_view_date()
+    target = Reservering.objects.get(id = request.POST['reservering_id'], gebruiker=request.user)
+    if target.start - datetime.timedelta(hours=1) < view_date:
+        messages.error(request,'De reservering kan niet meer worden geannuleerd wanneer deze binnen een uur start.')
+    else:
+        target.delete()
     return HttpResponseRedirect(reverse('mijn_reserveringen'))
     
         
@@ -66,7 +76,7 @@ Slot = namedtuple("Slot", ["datum",
 
 @login_required(login_url='/login/')
 def reserveringen(request, overzicht=False):
-    view_date = timezone.now()
+    view_date = get_view_date()
 
     if request.method == 'POST':
         # Create a reservation
@@ -83,9 +93,9 @@ def reserveringen(request, overzicht=False):
                 reservering_weekeind = args['start'] + \
                     datetime.timedelta(6 - args['start'].weekday())
                 week_reserveringen = Reservering.objects.filter(start__date__gte=reservering_weekstart.date(),
-                                           start__date__lte=reservering_weekeind.date())
+                                           start__date__lte=reservering_weekeind.date(), gebruiker=request.user)
                 if len(week_reserveringen) >= global_settings.reserveringen_per_week:
-                    messages.error(request, f'Je hebt het maximum({global_settings.reserveringen_per_week}) aantal reserveringen voor deze week')
+                    messages.error(request, f'Je hebt het maximum({global_settings.reserveringen_per_week}) aantal reserveringen voor deze week. Je kan een reservering annuleren via "Mijn reserveringen"')
                     pass
                 else:
                     # Bestaat deze Reservering al?
