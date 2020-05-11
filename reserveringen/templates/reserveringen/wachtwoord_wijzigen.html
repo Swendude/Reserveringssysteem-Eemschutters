@@ -1,0 +1,29 @@
+{% extends 'reserveringen/base.html' %}
+{% load static %}
+{% block content %}
+<div class="content">
+    <div class="wrapper">
+        <h1>Wachtwoord wijzigen</h1>
+        <p>Vul de velden hieronder om je wachtwoord te wijzigen.</p>
+        <form method="post" action="{% url 'wachtwoord_wijzigen' %}">
+            {% csrf_token %}
+            {% for field in form %}
+            <div>
+                {% if field.errors %}
+                <ol>
+                    {% for error in field.errors %}
+                    <li><strong>{{ error|escape }}</strong></li>
+                    {% endfor %}
+                </ol>
+                {% endif %}
+                <div>{{ field.label_tag }}</div>
+                <div>{{ field }}</div>
+            </div>
+            {% endfor %}
+            <div>
+                <button type='submit' class="inloggen">Wijzig wachtwoord</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

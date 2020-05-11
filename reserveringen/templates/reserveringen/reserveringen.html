@@ -25,7 +25,7 @@
         <ul class="messages">
             {% for message in messages %}
             <li class="{{ message.tags }}_message">
-                {{ message }}
+                {{ message.message | safe }}
             </li>
             {% endfor %}
         </ul>

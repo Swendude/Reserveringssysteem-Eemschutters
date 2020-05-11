@@ -34,11 +34,13 @@ Om lokaal te draaien:
 **Maak reservering**
 - [x] Terug naar gekozen datum na toevoegen van een reservering
 
+
 **Mijn reserveringen**
 - [x] Reserveringen annuleren
 - [x] Maximaal aantal reserveringen per week
 - [x] Volgorde omdraaien (eerstvolgende reservering bovenaan)
 - [x] Reserveringen van de huidige dag tonen
+- [x] Reserveringen maximaal een uur van te voren annuleren
 
 **Opmaak**
 - [x] Bestiging modal bij reserveren
@@ -47,5 +49,11 @@ Om lokaal te draaien:
 - [x] Error Messages
 
 **Diverse**
-- [ ] Wachtwoord wijzigen
+- [x] Wachtwoord wijzigen
 - [x] Overzicht voor baancommandant/sleutelhouder
+- [x] Bij het wijzigen van een schietdag: Alle toekomstige reservaties verwijderen.
+
+**Datamodel/Validatie**
+- [x] Geen twee slots op dezelfde avond
+- [ ] X-de dag van de maand Schietdagen
+- [x] Admin reserveringen verbeteren
