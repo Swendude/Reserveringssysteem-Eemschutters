@@ -33,7 +33,7 @@
                         <a href="{% url 'logout' %}" {% if request.resolver_match.url_name == "logout" %}class="actief"{% endif %}>Log uit</a>
                     </div>
                     <div class="userdetails">
-                        <span class="username">Coen </span>
+                        <span class="username">{{ user.username | title }}</span>
                     </div>
                 </div>
                 {% endif %}
