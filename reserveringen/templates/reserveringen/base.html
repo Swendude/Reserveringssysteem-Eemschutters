@@ -25,7 +25,9 @@
                 <nav>
                     <a href="{% url 'reserveringen' %}" {% if request.resolver_match.url_name == "reserveringen" %}class="actief"{% endif %}>Reserveren</a>
                     <a href="{% url 'mijn_reserveringen' %}" {% if request.resolver_match.url_name == "mijn_reserveringen" %}class="actief"{% endif %}>Mijn reserveringen</a>
+                    {% if sleutelhouder %}
                     <a href="{% url 'overzicht' %}" {% if request.resolver_match.url_name == "overzicht" %}class="actief"{% endif %}>Overzicht</a>
+                    {% endif %}
                 </nav>    
                 <div class="user">
                     <div class="usermenu">
