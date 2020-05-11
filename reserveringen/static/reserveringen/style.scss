@@ -160,7 +160,29 @@ header {
 
         .logo,
         nav {
-            flex:50% 0 0;
+            flex:50% 1 1;
+        }
+
+        .user {
+            flex:100px 1 1;
+
+            .usermenu {
+                display:none;
+            }
+
+            .userdetails {
+                .username {
+
+                }
+            }
+
+            &:hover {
+                .usermenu {
+                    position: absolute;
+                    display:block;
+                }
+            }
+
         }
 
         nav {

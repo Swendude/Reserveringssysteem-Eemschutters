@@ -124,7 +124,14 @@ header {
         display: flex; } }
     header .headerrow .logo,
     header .headerrow nav {
-      flex: 50% 0 0; }
+      flex: 50% 1 1; }
+    header .headerrow .user {
+      flex: 100px 1 1; }
+      header .headerrow .user .usermenu {
+        display: none; }
+      header .headerrow .user:hover .usermenu {
+        position: absolute;
+        display: block; }
     header .headerrow nav {
       text-align: right;
       font-family: "Montserrat", sans-serif;
@@ -435,5 +442,3 @@ form {
     border: 1px solid rgba(0, 0, 0, 0.2); }
     .overview .block.notAvailable strong {
       color: #e74c3c; }
-
-/*# sourceMappingURL=style.css.map */
