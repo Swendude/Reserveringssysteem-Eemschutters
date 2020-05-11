@@ -44,6 +44,8 @@ class Schietdag(models.Model):
         return dict(DAGEN)[self.dag]
 
     def save(self, *args, **kwargs):
+        mijn_reserveringen = Reservering.objects.filter(schietdag=self)
+        mijn_reserveringen.delete()
         super().save(*args, **kwargs)
 
     @property

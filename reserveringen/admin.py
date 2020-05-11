@@ -21,7 +21,7 @@ class SchietdagAdmin(admin.ModelAdmin):
         # here we define a custom template
         self.change_form_template = 'reserveringen/wijziging_waarschuwing.html'
         extra = {
-            'help_text': """PAS OP: Het wijzigen van een schietdag instelling zal alle toekomstige reserverinen op deze schietdag 
+            'help_text': """PAS OP: Het wijzigen van een schietdag instelling zal alle (ook toekomstige) reserverinen op deze schietdag 
             verwijderen. Stel je gebruikers (tijdig) op de hoogte van een wijziging in schietdag instellingen."""
         }
 
