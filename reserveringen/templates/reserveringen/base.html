@@ -27,7 +27,6 @@
                     <a href="{% url 'mijn_reserveringen' %}" {% if request.resolver_match.url_name == "mijn_reserveringen" %}class="actief"{% endif %}>Mijn reserveringen</a>
                     <a href="{% url 'overzicht' %}" {% if request.resolver_match.url_name == "overzicht" %}class="actief"{% endif %}>Overzicht</a>
                 </nav>    
-                {% endif %}
                 <div class="user">
                     <div class="usermenu">
                         <a href="">Wachtwoord wijzigen</a>
@@ -37,6 +36,7 @@
                         <span class="username">Coen </span>
                     </div>
                 </div>
+                {% endif %}
             </div>
         </div>
     </header>
