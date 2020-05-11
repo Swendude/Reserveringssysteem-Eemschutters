@@ -40,7 +40,7 @@ Om lokaal te draaien:
 - [x] Maximaal aantal reserveringen per week
 - [x] Volgorde omdraaien (eerstvolgende reservering bovenaan)
 - [x] Reserveringen van de huidige dag tonen
-- [ ] Reserveringen maximaal een uur van te voren annuleren
+- [x] Reserveringen maximaal een uur van te voren annuleren
 
 **Opmaak**
 - [x] Bestiging modal bij reserveren

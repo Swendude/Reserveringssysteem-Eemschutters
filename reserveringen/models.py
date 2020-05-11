@@ -43,6 +43,9 @@ class Schietdag(models.Model):
     def __str__(self):
         return dict(DAGEN)[self.dag]
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
     @property
     def aantal_slots(self):
         """
