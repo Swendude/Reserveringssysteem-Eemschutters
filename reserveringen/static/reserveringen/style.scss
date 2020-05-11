@@ -7,6 +7,7 @@ $color-bezet: #e74c3c;
 $color-gereserveerd: #3498db;
 $color-vrij: #27ae60;
 
+$color-border: rgba(0,0,0,0.2);
 $color-background: #F5F6FA;
 $font-default: Arial, Helvetica, sans-serif;
 $font-header: 'Montserrat', sans-serif;
@@ -90,6 +91,7 @@ b {
 
 .wrapper {
 
+    position: relative;
     width:100%;
     padding:0 20px;
 
@@ -164,14 +166,45 @@ header {
         }
 
         .user {
-            flex:100px 1 1;
+            // flex:100px 1 1;
+            // background:red;
+            border-left:1px solid $color-border;
+            padding-left:20px;
+            margin-left:10px;            
 
             .usermenu {
                 display:none;
+                top:40px;
+                right:40px;
+                padding:0;
+                background:#ffffff;
+                border-radius:5px;
+
+                @include dropShadow();
+
+                a {
+                    display:block;
+                    text-decoration: none;
+                    padding:5px 10px;
+                    border-bottom:1px solid $color-border;
+                    color: #000000;
+
+                    &:last-child {
+                        border-bottom:none;
+                    }
+
+                    &:hover {
+                        color: $color-primary;
+                    }
+                }
             }
 
             .userdetails {
+                padding:10px 0;
                 .username {
+                    font-family: $font-header;
+                    font-weight: bold;
+                    
 
                 }
             }
