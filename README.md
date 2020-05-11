@@ -57,3 +57,4 @@ Om lokaal te draaien:
 - [x] Geen twee slots op dezelfde avond
 - [ ] X-de dag van de maand Schietdagen
 - [x] Admin reserveringen verbeteren
+- [ ] Alleen gebruikers in de groep sleutelhouders zien overzicht

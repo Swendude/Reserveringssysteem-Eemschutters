@@ -80,6 +80,10 @@ Slot = namedtuple("Slot", ["datum",
 @login_required(login_url='/login/')
 def reserveringen(request, overzicht=False):
     view_date = get_view_date()
+    sleutelhouder = request.user.groups.filter(name='Sleutelhouders').exists()
+    if overzicht and not(sleutelhouder):
+        raise Http404()
+    
 
     if request.method == 'POST':
         # Create a reservation
@@ -198,7 +202,8 @@ def reserveringen(request, overzicht=False):
                'banen': banen,
                'slot_tijden': slot_tijden,
                'slots_per_baan': slots_per_baan,
-               'dagkeuze': dagkeuze}
+               'dagkeuze': dagkeuze,
+               'sleutelhouder':sleutelhouder}
 
     if not overzicht:
         return render(request, 'reserveringen/reserveringen.html', context)
