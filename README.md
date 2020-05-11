@@ -49,7 +49,7 @@ Om lokaal te draaien:
 - [x] Error Messages
 
 **Diverse**
-- [ ] Wachtwoord wijzigen
+- [x] Wachtwoord wijzigen
 - [x] Overzicht voor baancommandant/sleutelhouder
 - [x] Bij het wijzigen van een schietdag: Alle toekomstige reservaties verwijderen.
 

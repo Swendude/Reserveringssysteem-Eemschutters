@@ -29,7 +29,7 @@
                 </nav>    
                 <div class="user">
                     <div class="usermenu">
-                        <a href="">Wachtwoord wijzigen</a>
+                        <a href="{% url 'wachtwoord_wijzigen'%}">Wachtwoord wijzigen</a>
                         <a href="{% url 'logout' %}" {% if request.resolver_match.url_name == "logout" %}class="actief"{% endif %}>Log uit</a>
                     </div>
                     <div class="userdetails">
