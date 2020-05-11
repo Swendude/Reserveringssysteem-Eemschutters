@@ -1,0 +1,63 @@
+{% extends 'reserveringen/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="dateSelectors">
+    {% for datum, schietdag in schietdagen %}
+    {% if forloop.counter0 == dagkeuze %}
+    <div class="dateSelector active">
+        <div class="icon">&#128197;</div>{{ datum | date:"l j b Y" }}
+    </div>
+    {% else %}
+    <a href="{% url 'overzicht' %}?next={{ forloop.counter0 }}" class="dateSelector">
+        <div class="icon">&#128197;</div>{{ datum | date:"l j b Y" }}
+    </a>
+    {% endif %}
+    {% endfor %}
+</div>
+
+<div class="overview">
+    <div class="overviewTimes">
+        <div class="row rowTime rowHeader">&nbsp;</div>
+        {% for slot_start, slot_eind in slot_tijden  %}
+        <div class="row rowTime">
+            {{slot_start}} - {{slot_eind}}
+        </div>
+        {% endfor %}
+    </div>
+    <div class="overviewScrollable">
+        <div class="cols">
+            {% for baan, slots in slots_per_baan.items  %}
+
+            <div class="col colLocation">
+                <div class="row rowHeader rowLocationName">{{baan}}</div>
+                {% for slot in slots  %}
+                
+                    {% if slot.status == 'Vrij' %}
+                        <div class="row rowStatus">
+                            <!-- <div class="block available">Beschikbaar</div> -->
+                        </div>
+                    {% endif %}
+
+                    {% if slot.status == 'Zelf' or slot.status == 'Bezet'  %}
+                        <div class="row rowStatus">
+                            <div class="block notAvailable"><strong>Bezet</strong><br />{{ slot.reservering_eigenaar }}</div>
+                        </div>
+                    {% endif %}
+                    {% if slot.status == 'Verlopen' %}
+                        <div class="row rowStatus">
+                            <!-- <div class="block available">Beschikbaar</div> -->
+                        </div>
+                    {% endif %}
+
+                {% endfor %}
+            </div>
+
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

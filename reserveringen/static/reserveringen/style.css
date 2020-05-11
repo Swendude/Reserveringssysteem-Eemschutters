@@ -1,120 +1,468 @@
+/* CSS Reset */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
 
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            color: #000000;
-            -moz-osx-font-smoothing: grayscale;
-            -webkit-font-smoothing: antialiased;
-            line-height:1.6em;
-            font-size:14px;    
-        }
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block; }
 
+body {
+  line-height: 1; }
 
-        table,
-        th,
-        td {
-            border: 1px solid black;
-        }
+ol, ul {
+  list-style: none; }
 
-        h1,
-        h2,
-        h3,
-        h4 { 
-            font-family: 'Montserrat', sans-serif;
-            font-weight: bold;
-        }
+blockquote, q {
+  quotes: none; }
 
-        .wrapper {
-            width:1200px;
-            margin: 0 auto;
-        }
+blockquote:before, blockquote:after {
+  content: '';
+  content: none; }
 
-        header {
-            height:200px;
-            background: #A47C4B;
-            padding-top:20px;
-            color:#fff;
-        }
+q:before, q:after {
+  content: '';
+  content: none; }
 
-        .content .wrapper {
-            background: #fff;
-            margin-top:-100px;
-            padding:40px;
-            box-sizing:border-box;
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
 
-            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
+/* CSS Reset Einde */
+/* Standaard kleuren en typografie */
+/* Kleuren en typografie inladen vanuit project scss */
+html,
+body {
+  width: 100%;
+  height: 100%; }
 
-        }
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #000000;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6em;
+  font-size: 14px;
+  background: #F5F6FA; }
 
-        .overzichtBanen {
-            display:block;
-            position:relative;
-        }
+table,
+th,
+td {
+  border: 1px solid black; }
 
-        .overzichtBanen .baanRij {
-            display:flex;
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: bold;
+  line-height: 1.6em;
+  margin-bottom: 16px; }
 
-        }
+h1 {
+  font-size: 24px;
+  color: #6844D5; }
 
+h2 {
+  font-size: 16px; }
+
+p {
+  margin-bottom: 20px; }
+
+strong,
+b {
+  font-weight: bold; }
+
+.wrapper {
+  position: relative;
+  width: 100%;
+  padding: 0 20px; }
+  @media (min-width: 1200px) {
+    .wrapper {
+      width: 1200px;
+      margin: 0 auto;
+      padding: unset; } }
+
+header {
+  position: relative;
+  z-index: 400;
+  min-height: 80px;
+  background: #ffffff;
+  padding: 20px 0;
+  box-sizing: border-box;
+  margin-bottom: 40px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); }
+  header .wrapper {
+    padding: 0; }
+    header .wrapper.wide {
+      width: 100%; }
+  header .logo {
+    font-size: 20px;
+    font-family: "Montserrat", sans-serif;
+    line-height: 1.6em; }
+    @media (min-width: 800px) {
+      header .logo {
+        font-size: 24px; } }
+  header .systeemNaam,
+  header .systeemBedrijfsnaam {
+    display: inline-block;
+    font-weight: bold; }
+  header .systeemNaam {
+    font-weight: normal; }
+  header .systeemBedrijfsnaam {
+    color: #6844D5; }
+  header .headerrow {
+    padding: 0 40px;
+    width: 100%;
+    box-sizing: border-box;
+    display: block; }
+    @media (min-width: 800px) {
+      header .headerrow {
+        display: flex; } }
+    header .headerrow .logo,
+    header .headerrow nav {
+      flex: 50% 1 1; }
+    header .headerrow .user {
+      border-left: 1px solid rgba(0, 0, 0, 0.2);
+      padding-left: 20px;
+      margin-left: 10px; }
+      header .headerrow .user .usermenu {
+        display: none;
+        top: 40px;
+        right: 40px;
+        padding: 0;
+        background: #ffffff;
+        border-radius: 5px;
+        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); }
+        header .headerrow .user .usermenu a {
+          display: block;
+          text-decoration: none;
+          padding: 5px 10px;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+          color: #000000; }
+          header .headerrow .user .usermenu a:last-child {
+            border-bottom: none; }
+          header .headerrow .user .usermenu a:hover {
+            color: #6844D5; }
+      header .headerrow .user .userdetails {
+        padding: 10px 0; }
+        header .headerrow .user .userdetails .username {
+          font-family: "Montserrat", sans-serif;
+          font-weight: bold; }
+      header .headerrow .user:hover .usermenu {
+        position: absolute;
+        display: block; }
+    header .headerrow nav {
+      text-align: right;
+      font-family: "Montserrat", sans-serif;
+      font-weight: bold; }
+      header .headerrow nav a {
+        color: #000;
+        display: inline-block;
+        text-align: center;
+        text-decoration: none;
+        padding: 10px; }
+        header .headerrow nav a.actief, header .headerrow nav a:hover {
+          color: #6844D5; }
+
+.error_message {
+  border: 2px solid black;
+  color: white;
+  border-radius: 5px;
+  padding: 10px;
+  font-weight: bold;
+  text-decoration: none;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  background-color: red; }
+
+.content .wrapper {
+  background: #fff;
+  padding: 40px;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 10px; }
+
+.overzichtBanen {
+  display: block;
+  position: relative; }
+  .overzichtBanen .baanRij {
+    display: block;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px; }
+    @media (min-width: 800px) {
+      .overzichtBanen .baanRij {
+        display: flex;
+        border: unset;
+        border-bottom: 1px solid rgba(104, 68, 213, 0.4);
+        margin-bottom: unset; } }
+    .overzichtBanen .baanRij .baanLabel {
+      flex: 200px 0 0;
+      display: block;
+      position: relative;
+      padding: 12px 0px 12px 6px; }
+      @media (min-width: 800px) {
         .overzichtBanen .baanRij .baanLabel {
-            flex:200px 0 0;
-            display:block;
-            position:relative;
-            background-color: rgba(164, 124, 75, 0.2);
-            border-bottom:1px solid red;
-            border-right:1px solid red;
-            padding: 12px 0px 12px 6px;
-        
-        }
-
+          border-right: 1px solid #6844d5; } }
+    .overzichtBanen .baanRij .baanBeschikbaarheid {
+      display: block;
+      position: relative; }
+      @media (min-width: 800px) {
         .overzichtBanen .baanRij .baanBeschikbaarheid {
-            display:flex;
-            flex:100% 1 1;  
+          display: flex;
+          flex: 100% 1 1; } }
+      .overzichtBanen .baanRij .baanBeschikbaarheid .baanSlot {
+        display: flex;
+        flex: 100% 1 1;
+        position: relative;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        flex-direction: column; }
+        @media (min-width: 800px) {
+          .overzichtBanen .baanRij .baanBeschikbaarheid .baanSlot {
+            flex-direction: row;
+            border-right: 1px solid rgba(104, 68, 213, 0.6); } }
+        .overzichtBanen .baanRij .baanBeschikbaarheid .baanSlot form {
+          height: 100%; }
+          .overzichtBanen .baanRij .baanBeschikbaarheid .baanSlot form input {
+            height: 50px; }
+        .overzichtBanen .baanRij .baanBeschikbaarheid .baanSlot.baanSlotBezet {
+          height: 50px;
+          cursor: not-allowed;
+          background: rgba(231, 76, 60, 0.2);
+          color: #e74c3c; }
+          @media (min-width: 800px) {
+            .overzichtBanen .baanRij .baanBeschikbaarheid .baanSlot.baanSlotBezet {
+              height: unset; } }
+        .overzichtBanen .baanRij .baanBeschikbaarheid .baanSlot.baanSlotGereserveerd {
+          cursor: not-allowed;
+          background: rgba(52, 152, 219, 0.2);
+          color: #3498db; }
+        .overzichtBanen .baanRij .baanBeschikbaarheid .baanSlot.baanSlotVerlopen {
+          cursor: not-allowed;
+          background: rgba(0, 0, 0, 0.1);
+          color: rgba(0, 0, 0, 0.6); }
+        .overzichtBanen .baanRij .baanBeschikbaarheid .baanSlot .tijdSlotMobiel {
+          display: block; }
+          @media (min-width: 800px) {
+            .overzichtBanen .baanRij .baanBeschikbaarheid .baanSlot .tijdSlotMobiel {
+              display: none; } }
+    .overzichtBanen .baanRij.baanRijHeader {
+      display: none;
+      font-weight: bold;
+      background-color: rgba(104, 68, 213, 0.3);
+      line-height: 40px; }
+      @media (min-width: 800px) {
+        .overzichtBanen .baanRij.baanRijHeader {
+          display: flex; } }
+    @media (min-width: 800px) {
+      .overzichtBanen .baanRij:nth-child(2n) {
+        background: rgba(104, 68, 213, 0.05); } }
 
-        }
+.dateSelectors {
+  margin-top: -40px;
+  padding: 20px 40px 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1); }
 
-        .overzichtBanen .baanRij .baanBeschikbaarheid {
-            flex:100% 1 1;
-            position: relative;
-        }
+.dateSelector {
+  display: block;
+  border: 2px solid #6844D5;
+  color: #6844D5;
+  border-radius: 5px;
+  padding: 10px;
+  font-weight: bold;
+  text-decoration: none;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  -webkit-transition: all 200ms ease;
+  -moz-transition: all 200ms ease;
+  transition: all 200ms ease; }
+  @media (min-width: 800px) {
+    .dateSelector {
+      display: inline-block; } }
+  .dateSelector .icon {
+    display: inline-block;
+    margin-right: 10px; }
+  .dateSelector.active, .dateSelector:hover {
+    background: #6844D5;
+    color: #fff; }
 
-        .tijdSlot {
-            display: flex;
-            flex:100% 1 1;
-            position: relative;
-            border-left: 1px solid rgba(0, 0, 0, 0.1);
-            border-right: 1px solid rgba(0, 0, 0, 0.1);
-            border-top: 1px solid rgba(0, 0, 0, 0.1);
-            justify-content: center;
-            padding: 7px;
-        }
+.reserveerButton {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  display: inline-block;
+  width: calc(100% - 10px);
+  height: calc(100% - 10px);
+  background: rgba(39, 174, 96, 0.6);
+  color: #fff;
+  border: none;
+  margin: 5px;
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  -webkit-transition: all 200ms ease;
+  -moz-transition: all 200ms ease;
+  transition: all 200ms ease; }
+  .reserveerButton:hover {
+    background: #27ae60; }
 
-        .baanSlot {
-            display: flex;
-            flex:100% 1 1;
-            position: relative;
-            justify-content: center;
-            border:1px solid rgba(0, 0, 0, 0.1);
-            border-left: 1px solid rgba(0, 0, 0, 0.1);
-            border-right: 1px solid rgba(0, 0, 0, 0.1);
-        }
+.dateButton {
+  border-radius: 5px;
+  margin: 7px;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 1.12em;
+  border: 1px solid rgba(0, 0, 0, 0.1); }
 
-        .dateButton {
-            border-radius: 5px;
-            margin: 7px;
-            padding: 10px;
-            cursor: pointer;
-            font-size: 1.12em;
-            border: 1px solid  rgba(0, 0, 0, 0.1);
-        }
+.dateButton:hover {
+  background-color: lightblue; }
 
-        .dateButton:hover {
-            background-color: lightblue;
-        }
+.dateButton.disabled {
+  color: #fff;
+  background-color: #A47C4B;
+  cursor: default; }
 
-        .dateButton.disabled {
-            color:#fff;
-            background-color:#A47C4B;
-            /* border: 1px solid  rgba(0, 0, 0, 1); */
-            cursor: default;
-        }
+.reservering {
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 5px; }
+  .reservering .reserveringContainer,
+  .reservering .reserveringOpmerking {
+    display: block; }
+  .reservering .reserveringContainer {
+    display: flex;
+    margin-bottom: 10px; }
+  .reservering .reserveringInhoud,
+  .reservering .reserveringActies {
+    flex: 100% 1 1; }
+  .reservering .reserveringInhoud {
+    margin-bottom: 20px; }
+  .reservering .reserveringActies {
+    flex: 120px 1 1; }
+  @media (min-width: 800px) {
+    .reservering {
+      flex-direction: row; }
+      .reservering .reserveringInhoud {
+        margin-bottom: unset; } }
+  .reservering .reserveringActies {
+    text-align: right; }
+    .reservering .reserveringActies .annuleer {
+      display: inline-block;
+      -webkit-appearance: none;
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: bold;
+      font-size: 12px;
+      border: none;
+      background: #6844D5;
+      color: #fff;
+      border-radius: 5px;
+      padding: 0 30px;
+      line-height: 30px;
+      cursor: pointer; }
+  .reservering h2 {
+    color: #000000;
+    margin-bottom: 10px; }
+  .reservering img {
+    width: 20px;
+    margin-right: 10px; }
+  .reservering .reserveringDetails {
+    display: flex;
+    margin-bottom: 10px; }
+    .reservering .reserveringDetails .rdTijd,
+    .reservering .reserveringDetails .rdBaan {
+      flex: 100% 1 1;
+      line-height: 20px; }
+  .reservering .reserveringOpmerking {
+    flex: 100% 1 1;
+    background: rgba(52, 152, 219, 0.1);
+    color: #3498db;
+    padding: 10px;
+    border-radius: 4px; }
+
+.reserveringlabel {
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.6); }
+
+form {
+  position: relative;
+  width: 100%; }
+  form label {
+    display: block; }
+  form input[type=text],
+  form input[type=password] {
+    -webkit-appearance: none;
+    display: block;
+    border-radius: 5px;
+    padding: 0 5px;
+    line-height: 30px;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    margin-bottom: 10px;
+    width: 300px; }
+  form button.inloggen {
+    display: inline-block;
+    -webkit-appearance: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 12px;
+    border: none;
+    background: #6844D5;
+    color: #fff;
+    border-radius: 5px;
+    padding: 0 30px;
+    line-height: 30px;
+    cursor: pointer; }
+
+.overview {
+  position: relative;
+  display: flex;
+  min-height: calc(100% - 82px);
+  overflow: hidden; }
+  .overview .overviewTimes {
+    padding-top: 50px;
+    padding-left: 40px;
+    flex: 200px 0 0;
+    font-weight: bold;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 300;
+    background: #ffffff; }
+  .overview .overviewScrollable {
+    padding-top: 50px;
+    flex: 100% 1 1;
+    overflow-x: scroll; }
+    .overview .overviewScrollable .rowHeader {
+      color: #6844D5;
+      font-size: 20px; }
+  .overview .row {
+    display: block;
+    height: 80px;
+    padding: 10px;
+    box-sizing: border-box;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2); }
+    .overview .row.rowHeader {
+      height: 60px;
+      font-weight: bold; }
+  .overview .cols {
+    display: flex;
+    padding-left: 30px; }
+    .overview .cols .col {
+      flex: 300px 0 0;
+      margin-right: 30px; }
+  .overview .block {
+    position: relative;
+    z-index: 200;
+    display: block;
+    background: #fff;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.2); }
+    .overview .block.notAvailable strong {
+      color: #e74c3c; }

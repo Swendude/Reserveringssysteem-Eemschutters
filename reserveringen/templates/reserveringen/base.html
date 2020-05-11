@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eemschutters Reserveringssysteem</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'reserveringen/style.css' %}">
+</head>
+
+<body>
+
+    <header>
+        
+        <div {% if request.resolver_match.url_name != "overzicht" %} class="wrapper" {% else %} class="wrapper wide" {% endif %}>    
+            <div class="headerrow">
+                <div class="logo">
+                    <div class="systeemNaam">Reserveringssysteem</div>
+                    <div class="systeemBedrijfsnaam">Eemschutters</div>
+                </div>
+                {% if user.is_authenticated %}
+                <nav>
+                    <a href="{% url 'reserveringen' %}" {% if request.resolver_match.url_name == "reserveringen" %}class="actief"{% endif %}>Reserveren</a>
+                    <a href="{% url 'mijn_reserveringen' %}" {% if request.resolver_match.url_name == "mijn_reserveringen" %}class="actief"{% endif %}>Mijn reserveringen</a>
+                    <a href="{% url 'overzicht' %}" {% if request.resolver_match.url_name == "overzicht" %}class="actief"{% endif %}>Overzicht</a>
+                </nav>    
+                <div class="user">
+                    <div class="usermenu">
+                        <a href="">Wachtwoord wijzigen</a>
+                        <a href="{% url 'logout' %}" {% if request.resolver_match.url_name == "logout" %}class="actief"{% endif %}>Log uit</a>
+                    </div>
+                    <div class="userdetails">
+                        <span class="username">{{ user.username | title }}</span>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+    {% block content %}
+    {% endblock %}
+</body>
+<script type="text/javascript">
+
+    function disableButton(form)
+    {
+      console.log("HOOI");
+      form.reserveerButton.disabled = true;
+      form.reserveerButton.value = "Bezig.."
+    }
+  
+</script>
+</html>

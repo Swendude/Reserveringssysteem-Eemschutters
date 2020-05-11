@@ -67,6 +67,14 @@ class Schietdag(models.Model):
         assert(len(times) == self.aantal_slots)
         return times
 
+    @property
+    def opbouw_minutes(self):
+        return self.opstart_duur.seconds // 60
+
+    @property
+    def afbouw_minutes(self):
+        return self.afbouw_duur.seconds // 60
+
     def clean(self):
         """
         Valideer dat het aantal slots een rond getal is.
@@ -92,6 +100,14 @@ class Reservering(models.Model):
 
     def __str__(self):
         return f"Reservering van {self.gebruiker.username} op {self.start}"
+
+    @property
+    def aankomst(self):
+        return self.start - self.schietdag.opstart_duur
+    
+    @property
+    def vertrek(self):
+        return self.eind + self.schietdag.afbouw_duur
 
     class Meta:
         verbose_name_plural = "Reserveringen"

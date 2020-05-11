@@ -28,3 +28,27 @@ Om lokaal te draaien:
 ```bash
     $ python manage.py runserver
 ```
+
+## Todos
+
+**Maak reservering**
+- [x] Terug naar gekozen datum na toevoegen van een reservering
+
+
+**Mijn reserveringen**
+- [x] Reserveringen annuleren
+- [x] Maximaal aantal reserveringen per week
+- [x] Volgorde omdraaien (eerstvolgende reservering bovenaan)
+- [x] Reserveringen van de huidige dag tonen
+- [ ] Reserveringen maximaal een uur van te voren annuleren
+
+**Opmaak**
+- [x] Bestiging modal bij reserveren
+- [x] Login form
+- [x] Responsive maken
+- [x] Error Messages
+
+**Diverse**
+- [ ] Wachtwoord wijzigen
+- [x] Overzicht voor baancommandant/sleutelhouder
+- [ ] Bij het wijzigen van een schietdag: Alle toekomstige reservaties verwijderen.

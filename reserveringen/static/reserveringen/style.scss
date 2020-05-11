@@ -1,13 +1,56 @@
 @import "partials/reset";
 
+/* Standaard kleuren en typografie */
+$color-primary: #0066CC;
+
+$color-bezet: #e74c3c;
+$color-gereserveerd: #3498db;
+$color-vrij: #27ae60;
+
+$color-border: rgba(0,0,0,0.2);
+$color-background: #F5F6FA;
+$font-default: Arial, Helvetica, sans-serif;
+$font-header: 'Montserrat', sans-serif;
+
+/* Kleuren en typografie inladen vanuit project scss */
+@import "partials/project";
+
+
+@mixin for-desktop-up {
+    @media (min-width: 1200px) { @content; }
+}
+
+@mixin for-mobile-up {
+    @media (min-width: 800px) { @content; }
+}
+
+
+@mixin dropShadow {
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+@mixin animateEase($seconds) {
+  -webkit-transition: all $seconds ease;
+  -moz-transition: all $seconds ease;
+  transition: all $seconds ease;
+}
+
+$animationTime: 200ms;
+
+html,
+body {
+    width:100%;
+    height:100%;
+}
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: $font-default;
     color: #000000;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
     line-height:1.6em;
     font-size:14px;    
+    background: $color-background;
 }
 
 
@@ -21,60 +64,649 @@ h1,
 h2,
 h3,
 h4 { 
-    font-family: 'Montserrat', sans-serif;
+    font-family: $font-header;
+    font-weight: bold;
+    line-height:1.6em;
+    margin-bottom:16px;
+}
+
+h1 {
+    font-size:24px;
+    color: $color-primary;
+}
+
+h2 {
+    font-size:16px;
+}
+
+p {
+    margin-bottom:20px;
+}
+
+strong,
+b {
     font-weight: bold;
 }
 
+
 .wrapper {
-    width:1200px;
-    margin: 0 auto;
+
+    position: relative;
+    width:100%;
+    padding:0 20px;
+
+    @include for-desktop-up() {
+        width:1200px;
+        margin: 0 auto;
+        padding:unset;
+    }
 }
 
 header {
-    height:300px;
-    background: #A47C4B;
-    padding-top:60px;
+    position: relative;
+    z-index:400;
+    min-height:80px;
+    background: #ffffff;
+    padding:20px 0;
+    box-sizing:border-box;
+    margin-bottom:40px;
 
-    color:#fff;
+    @include dropShadow();
+
+    .wrapper {
+        padding:0;
+        &.wide {
+            width:100%;
+
+        }
+    }
+
+
+    .logo {
+
+        font-size:20px;
+
+        @include for-mobile-up() {
+            font-size:24px;
+        }
+
+        font-family: $font-header;
+        line-height:1.6em;
+    }
+
+    .systeemNaam,
+    .systeemBedrijfsnaam {
+        display:inline-block;
+        font-weight: bold;
+    }
+
+    .systeemNaam {
+        font-weight: normal;
+    }
+    
+    .systeemBedrijfsnaam {
+        color: $color-primary;
+    }
+    
+    .headerrow {
+        padding: 0 40px;
+        width: 100%;
+        box-sizing:border-box;
+
+        display:block;
+
+        @include for-mobile-up() {
+            display:flex;
+        }
+
+
+        .logo,
+        nav {
+            flex:50% 1 1;
+        }
+
+        .user {
+            // flex:100px 1 1;
+            // background:red;
+            border-left:1px solid $color-border;
+            padding-left:20px;
+            margin-left:10px;            
+
+            .usermenu {
+                display:none;
+                top:40px;
+                right:40px;
+                padding:0;
+                background:#ffffff;
+                border-radius:5px;
+
+                @include dropShadow();
+
+                a {
+                    display:block;
+                    text-decoration: none;
+                    padding:5px 10px;
+                    border-bottom:1px solid $color-border;
+                    color: #000000;
+
+                    &:last-child {
+                        border-bottom:none;
+                    }
+
+                    &:hover {
+                        color: $color-primary;
+                    }
+                }
+            }
+
+            .userdetails {
+                padding:10px 0;
+                .username {
+                    font-family: $font-header;
+                    font-weight: bold;
+                    
+
+                }
+            }
+
+            &:hover {
+                .usermenu {
+                    position: absolute;
+                    display:block;
+                }
+            }
+
+        }
+
+        nav {
+            text-align:right;
+            font-family: $font-header;
+            font-weight: bold;
+
+            a {
+                color: #000;
+                display:inline-block;
+                text-align:center;
+                text-decoration: none;
+                padding:10px;
+
+                &.actief,
+                &:hover {
+                    color: $color-primary;
+                }
+            }
+        }
+
+    }
+
 }
 
-.content .wrapper {
-    background: #fff;
-    margin-top:-100px;
-    padding:40px;
-    box-sizing:border-box;
+.error_message {
+    border:2px solid black;
+    color: white;
+    border-radius:5px;
+    padding:10px;
+    font-weight: bold;
+    text-decoration: none;
+    margin-right:10px;
+    margin-bottom:10px;
+    background-color: red;
+}
 
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-
+.content {
+    .wrapper {
+        background: #fff;
+        // margin-top:-100px;
+        padding:40px;
+        box-sizing:border-box;
+        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    }
 }
 
 .overzichtBanen {
     display:block;
     position:relative;
+
+    .baanRij {
+        display:block;
+        border:1px solid rgba(#000, 0.2);
+        margin-bottom:20px;
+
+        @include for-mobile-up() {
+            display:flex;
+            border:unset;
+            border-bottom:1px solid rgba($color-primary, 0.4);
+            margin-bottom: unset;
+        }
+
+        .baanLabel {
+
+            flex:200px 0 0;
+            display:block;
+            position:relative;
+            padding: 12px 0px 12px 6px;
+
+            @include for-mobile-up() {
+                border-right:1px solid rgba($color-primary, 1);
+            }
+
+        }
+
+        .baanBeschikbaarheid {
+
+            display:block;
+            @include for-mobile-up() {
+                display:flex;
+                flex:100% 1 1;
+            }
+            position: relative;
+
+            .baanSlot {
+                display:flex;
+                flex:100% 1 1;
+                position: relative;     
+                justify-content: center;
+                align-items: center;
+                font-weight: bold;
+                flex-direction: column;
+
+                @include for-mobile-up() {
+                    flex-direction: row;
+                    border-right:1px solid rgba($color-primary, 0.6);
+                }
+
+                form {
+                    height:100%;
+
+                    input {
+                        height:50px;
+
+                    }
+                }
+
+                &.baanSlotBezet {            
+                    height:50px;
+
+                    @include for-mobile-up() {
+                        height:unset;
+                    }
+
+                    cursor: not-allowed;
+                    background: rgba($color-bezet, 0.2);
+
+                    color: $color-bezet;
+                }
+
+                &.baanSlotGereserveerd {
+                    cursor: not-allowed;
+
+                    background: rgba($color-gereserveerd, 0.2);
+                    color: $color-gereserveerd;
+
+                }
+
+                &.baanSlotVerlopen {
+                    cursor: not-allowed;
+                    background: rgba(#000000, 0.1);
+                    color: rgba(#000000, 0.6);                   
+
+                }
+
+                .tijdSlotMobiel {
+                    display:block;
+
+                    @include for-mobile-up() {
+                        display:none;
+                    }
+                }
+
+
+            }
+        
+        }
+
+        &.baanRijHeader {
+            display:none;
+            
+            @include for-mobile-up() {
+                display:flex;
+            }
+
+            font-weight: bold;
+            background-color: rgba($color-primary, 0.3);   
+            line-height:40px;
+        }
+
+        @include for-mobile-up() {
+            &:nth-child(2n) {
+                background:rgba($color-primary, 0.05);
+            }
+        }
+        // &:hover {
+        //     background:rgba($color-primary, 0.5);
+        //     .baanLabel {
+        //         font-weight:bold;
+        //     }
+        // }
+
+    }
 }
 
-.overzichtBanen .baanRij {
-    display:flex;
-    border-bottom:1px solid red;
-
+.dateSelectors {
+    margin-top:-40px;
+    padding:20px 40px 10px;
+    border-bottom:1px solid rgba(0, 0, 0, 0.1);
 }
 
-.overzichtBanen .baanRij .baanLabel {
-    flex:200px 0 0;
+.dateSelector {
+
     display:block;
-    position:relative;
-    background-color: rgba(#A47C4B, 0.2);
+
+    border:2px solid $color-primary;
+    color: $color-primary;
+    border-radius:5px;
+    padding:10px;
+    font-weight: bold;
+    text-decoration: none;
+    margin-right:10px;
+    margin-bottom:10px;
+
+    @include animateEase($animationTime);
+
+    @include for-mobile-up() {
+        display: inline-block;
+    }
+
+    .icon {
+        display:inline-block;
+        margin-right:10px;
+    }
+
+    &.active,
+    &:hover {
+        background: $color-primary;
+        color:#fff;
+    }
+
 
 }
 
-.overzichtBanen .baanRij .baanBeschikbaarheid {
-    display:flex;
-    flex:100% 1 1;
+.reserveerButton {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    display:inline-block;
+    width: calc(100% - 10px);
+    height: calc(100% - 10px);
+    background: rgba($color-vrij, 0.6);
+    color:#fff;
+    border:none;
+    margin:5px;
+    font-weight:bold;
+    font-size:14px;
+    border-radius:5px;
+    cursor:pointer;
+ 
+    @include animateEase($animationTime);
+
+    &:hover {
+        background: rgba($color-vrij, 1);
+
+    }
 
 }
 
-.overzichtBanen .baanRij .baanBeschikbaarheid .baanSlot {
-    flex:100% 1 1;
+.dateButton {
+    border-radius: 5px;
+    margin: 7px;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 1.12em;
+    border: 1px solid  rgba(0, 0, 0, 0.1);
+}
+
+.dateButton:hover {
+    background-color: lightblue;
+}
+
+.dateButton.disabled {
+    color:#fff;
+    background-color:#A47C4B;
+    cursor: default;
+}
+
+
+.reservering {
+
+    padding:20px;
+    margin-bottom:20px;
+    border:1px solid rgba(#000, 0.2);
+    border-radius:5px;
+
+
+    .reserveringContainer,
+    .reserveringOpmerking {
+        display:block;
+    }
+
+    .reserveringContainer {
+        display:flex;
+        margin-bottom:10px;    
+    }
+
+    .reserveringInhoud,
+    .reserveringActies {
+        flex:100% 1 1;
+    }
+
+    .reserveringInhoud {
+        margin-bottom:20px;
+    }
+
+    .reserveringActies {
+        flex:120px 1 1;
+    }
+
+
+    @include for-mobile-up() {
+        flex-direction: row;
+
+
+        .reserveringInhoud {
+            margin-bottom: unset;
+        }
+    }
+
+    .reserveringActies {
+        text-align:right;
+
+        .annuleer {
+            display:inline-block;
+            -webkit-appearance: none;
+            
+            font-family: $font-default;
+            font-weight:bold;
+            font-size:12px;
+            border:none;
+    
+            background: $color-primary;
+            color: #fff;
+            border-radius:5px;
+            padding:0 30px;
+            line-height:30px;
+    
+            cursor: pointer;
+                
+        }
+
+    }
+
+
+
+
+    h2 {
+        color: #000000;
+        margin-bottom:10px;
+    }
+
+    img {
+        width:20px;
+        margin-right:10px;
+    }
+
+    .reserveringDetails {
+        display:flex;
+        margin-bottom:10px;
+
+        .rdTijd,
+        .rdBaan {
+            flex:100% 1 1;
+            line-height:20px;
+        }
+
+    }
+
+    .reserveringOpmerking {
+        flex:100% 1 1;
+        background: rgba($color-gereserveerd, 0.1);
+        color: $color-gereserveerd;
+        padding:10px;
+        border-radius:4px;
+
+    }
+
+}
+
+.reserveringlabel {
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+
+
+form {
     position: relative;
+    width: 100%;
+
+    label {
+        display:block;
+    }
+
+    input[type=text],
+    input[type=password] {
+        -webkit-appearance: none;
+        display:block;
+        border-radius:5px;
+        padding:0 5px;
+        line-height:30px;
+        border:1px solid rgba(0,0,0,0.4);
+        margin-bottom:10px;
+        width:300px;
+    
+        
+    }
+
+    button.inloggen {
+    // input[type=submit] {
+        display:inline-block;
+        -webkit-appearance: none;
+        
+        font-family: $font-default;
+        font-weight:bold;
+        font-size:12px;
+        border:none;
+
+        background: $color-primary;
+        color: #fff;
+        border-radius:5px;
+        padding:0 30px;
+        line-height:30px;
+
+        cursor: pointer;
+
+
+    }
+}
+
+.overview {
+    position:relative;
+    
+    display:flex;
+    min-height: calc(100% - 82px);
+    overflow:hidden;
+
+    .overviewTimes {
+        padding-top:50px;
+        padding-left:40px;
+        flex:200px 0 0;
+        font-weight: bold;
+        @include dropShadow();
+        position: relative;
+        z-index:300;
+        background: #ffffff;
+    }
+
+
+    .overviewScrollable {
+        padding-top:50px;
+
+        flex:100% 1 1;
+        overflow-x:scroll;
+
+        .rowHeader {
+            color: $color-primary;
+            font-size:20px;
+        }
+
+    }
+
+    .row {
+        display:block;
+        height:80px;
+        padding:10px;
+        box-sizing:border-box;
+        border-bottom:1px solid rgba(0,0,0,0.2);
+
+        &.rowHeader {
+            height:60px;
+            font-weight:bold;
+        }
+    }
+
+    .cols {
+        display:flex;
+        padding-left:30px;
+
+        .col {
+            flex:300px 0 0;
+            margin-right:30px;
+
+        }
+    }
+
+    .block {
+        position: relative;
+        z-index:200;
+        display:block;
+        background: #fff;
+        padding:5px 10px;
+        box-sizing: border-box;
+        border-radius:5px;
+        border:1px solid rgba(0,0,0,0.2);
+
+        // &.available {
+
+        // }
+
+        &.notAvailable {
+            strong {
+                color: $color-bezet;
+            }
+
+        }
+
+    }
+
+
 }
