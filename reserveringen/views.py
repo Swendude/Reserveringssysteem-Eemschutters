@@ -19,8 +19,8 @@ import pytz
 
 
 def get_view_date():
-    return timezone.get_current_timezone().localize(datetime.datetime(year=2020, month=5, day=11, hour=0, minute=20, second=00), is_dst=None)
-    # return timezone.now()
+    # return timezone.get_current_timezone().localize(datetime.datetime(year=2020, month=5, day=11, hour=0, minute=20, second=00), is_dst=None)
+    return timezone.now()
 
 
 def daterange(start_date, end_date):
