@@ -62,15 +62,15 @@
 </div> -->
 
 <div class="overview">
-    {% for baan, slots in slots_per_baan.items  %}
+    {% for slot, banen in banen_per_slot.items  %}
     <div class="overviewGroup">
-        <h3>{{baan}}</h3> <!-- Nu nog de baan, straks de tijden -->
+        <h3>{{banen.0.starttijd}} - {{banen.0.eindtijd}}</h3>
 
         <div class="ogRows">
-            {% for slot in slots  %}        
+            {% for slot in banen  %}        
                 <div class="ogRow">
                     <div class="label"> <!-- Nu nog de tijden, straks de baan -->
-                        {{slot.starttijd}} - {{slot.eindtijd}}
+                        {{slot.baan}}
                     </div>
                     
                     {% if slot.status == 'Vrij' %}
