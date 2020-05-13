@@ -55,13 +55,17 @@
                 {% endif %}
             </div>
             <div class="panelMobile">
+                {% if user.is_authenticated %}
                 <nav class="menuMobile">
                     <a href="{% url 'reserveringen' %}" {% if request.resolver_match.url_name == "reserveringen" %}class="actief"{% endif %}>Reserveren</a>
                     <a href="{% url 'mijn_reserveringen' %}" {% if request.resolver_match.url_name == "mijn_reserveringen" %}class="actief"{% endif %}>Mijn reserveringen</a>
                     {% if sleutelhouder %}
                     <a href="{% url 'overzicht' %}" {% if request.resolver_match.url_name == "overzicht" %}class="actief"{% endif %}>Overzicht</a>
                     {% endif %}
+                    <a href="{% url 'wachtwoord_wijzigen'%}">Wachtwoord wijzigen</a>
+                    <a href="{% url 'logout' %}" {% if request.resolver_match.url_name == "logout" %}class="actief"{% endif %}>Log uit</a>
                 </nav>    
+                {% endif %}
             </div>
         </div>
     </header>
