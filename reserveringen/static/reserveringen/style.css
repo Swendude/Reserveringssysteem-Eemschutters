@@ -47,7 +47,8 @@ body {
   -webkit-font-smoothing: antialiased;
   line-height: 1.6em;
   font-size: 14px;
-  background: #F5F6FA; }
+  background: #F5F6FA;
+  padding-top: 120px; }
   @media print {
     body {
       font-size: 12px; } }
@@ -91,7 +92,10 @@ b {
       padding: unset; } }
 
 header {
-  position: relative;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
   z-index: 400;
   min-height: 80px;
   background: #ffffff;
@@ -311,9 +315,13 @@ header {
         background: rgba(104, 68, 213, 0.05); } }
 
 .dateSelectors {
-  margin-top: -40px;
+  position: fixed;
+  top: 80px;
+  left: 0;
+  right: 0;
   padding: 20px 40px 10px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1); }
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  background: #F5F6FA; }
   @media print {
     .dateSelectors {
       padding: 0 20px; } }
@@ -499,7 +507,7 @@ form {
     cursor: pointer; }
 
 .overview {
-  padding: 20px 40px; }
+  padding: 80px 40px 20px; }
   @media print {
     .overview {
       padding: 0; } }
