@@ -610,7 +610,7 @@ header {
     }
 
     .reserveringActies {
-        text-align:center;
+        text-align:left;
         
         @include for-mobile-up() {
             text-align:right;

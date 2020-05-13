@@ -411,7 +411,7 @@ header {
       .reservering .reserveringInhoud {
         margin-bottom: unset; } }
   .reservering .reserveringActies {
-    text-align: center; }
+    text-align: left; }
     @media (min-width: 800px) {
       .reservering .reserveringActies {
         text-align: right; } }
