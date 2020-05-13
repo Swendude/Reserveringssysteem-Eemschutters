@@ -15,9 +15,11 @@
             {% endfor %}
         </ul>
         {% endif %}
-        {% if reserveringen %}
+        {% if reserveringen_per_week %}
 
-        <p>Hier zijn jouw geplande reserveringen:</p>
+        <p>Hier zijn jouw reserveringen van de komende weken:</p>
+        {% for week, reserveringen in reserveringen_per_week.items %}
+        <h3>Week vanaf {{week | date}}</h3>
         {% for reservering in reserveringen %}
         <div class='reservering'>
             <div class='reserveringContainer'>
@@ -36,12 +38,16 @@
                     </div>
                 </div>
                 <div class="reserveringActies">
+                    {% if not reservering.verlopen %}
                     <form method="post" action="{% url 'verwijder_reserveringen' %}"
                         onsubmit="return confirm('Weet je zeker dat je deze reservering wilt annuleren?');">
                         {% csrf_token %}
                         <input type="hidden" name='reservering_id' value='{{reservering.id}}'>
                         <input type="submit" value="Annuleer" class="annuleer" />
                     </form>
+                    {% else %}
+                    <input type="submit" value="Verlopen" class="verlopen" />
+                    {% endif %}
 
                 </div>
             </div>
@@ -50,6 +56,7 @@
                 <strong>{{ reservering.vertrek | time }} uur</strong>
             </div>
         </div>
+        {% endfor %}
         {% endfor %}
         {% else %}
         <p>Je hebt nog geen reserveringen</p>

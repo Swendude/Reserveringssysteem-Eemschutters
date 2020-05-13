@@ -7,7 +7,7 @@ from django.utils import timezone
 from .models import Schietdag, Baan, Reservering
 import datetime
 from django.db.models import Max
-from collections import namedtuple
+from collections import namedtuple, defaultdict
 from .forms import ReserveringForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
@@ -45,15 +45,28 @@ def alle_schietdagen_in_venster(current, venster, schietdagen):
     return schietdagen_in_venster
 
 
+def week_start_eind(datum):
+    weekstart = datum - \
+        datetime.timedelta(datum.weekday())
+    weekeind = datum + \
+        datetime.timedelta(6 - datum.weekday())
+    return(weekstart,weekeind)
+
 @login_required(login_url='/login/')
 def mijn_reserveringen(request):
-    # Ik heb hier een dag vanaf gehaald, zodat ook de huidige dag getoond wordt.
-    view_date = get_view_date() + datetime.timedelta(days=-1)
-    reservering = Reservering.objects.filter(start__gte=view_date,
-                                             gebruiker=request.user).order_by('start')
-    sleutelhouder = request.user.groups.filter(name='Sleutelhouders').exists()
-
-    return render(request, 'reserveringen/mijn_reserveringen.html', {'reserveringen': reservering, 'sleutelhouder': sleutelhouder})
+    view_date = get_view_date()
+    reservering_weekstart, reservering_weekeind = week_start_eind(view_date)
+    reserveringen = Reservering.objects.filter(start__date__gte=reservering_weekstart.date()
+                                                        , gebruiker=request.user)
+    reserveringen_per_week = defaultdict(list)
+    for reservering in reserveringen:
+        reservering_weekstart, reservering_weekeind = week_start_eind(reservering.start)
+        if reservering.start < view_date:
+            reservering.verlopen = True
+        reserveringen_per_week[reservering_weekstart].append(reservering)
+    print(reserveringen_per_week)
+    sleutelhouder = request.user.groups.filter(name='Sleutelhouders').exists() 
+    return render(request, 'reserveringen/mijn_reserveringen.html', {'sleutelhouder':sleutelhouder, 'reserveringen_per_week': dict(reserveringen_per_week)})
 
 
 @login_required(login_url='/login/')
@@ -85,7 +98,6 @@ def reserveringen(request, overzicht=False):
     sleutelhouder = request.user.groups.filter(name='Sleutelhouders').exists()
     if overzicht and not(sleutelhouder):
         raise Http404()
-    
 
     if request.method == 'POST':
         # Create a reservation
@@ -100,10 +112,10 @@ def reserveringen(request, overzicht=False):
                 # Heeft deze gebruiker al een reservering deze avond?
                 dag_reserveringen = Reservering.objects.filter(start__date=args['start'].date(),
                                                                gebruiker=request.user)
-                
+
                 if dag_reserveringen:
                     messages.error(
-                            request, f"""Je hebt al een reservering voor deze dag. Je kan een reservering annuleren via <a href="{reverse('mijn_reserveringen')}">Mijn reserveringen</a>.""")
+                        request, f"""Je hebt al een reservering voor deze dag. Je kan een reservering annuleren via <a href="{reverse('mijn_reserveringen')}">Mijn reserveringen</a>.""")
                     pass
 
                 else:
@@ -164,7 +176,7 @@ def reserveringen(request, overzicht=False):
         slots_per_baan[baan] = []
 
         for slot_tijd in slot_tijden:
-            
+
             slot_start = timezone.make_aware(
                 datetime.datetime.combine(gekozen_schietdag_datum, slot_tijd[0]))
             slot_eind = timezone.make_aware(datetime.datetime.combine(
@@ -194,17 +206,15 @@ def reserveringen(request, overzicht=False):
                 'schietdag': gekozen_schietdag.pk})
 
             slot = Slot(gekozen_schietdag_datum,
-                     slot_tijd[0],
-                     slot_tijd[1],
-                     baan,
-                     status,
-                     reservering[0].gebruiker.username if reservering else None,
-                     slot_form)
+                        slot_tijd[0],
+                        slot_tijd[1],
+                        baan,
+                        status,
+                        reservering[0].gebruiker.username if reservering else None,
+                        slot_form)
 
             slots_per_baan[baan].append(slot)
             banen_per_slot[slot_tijd[0]].append(slot)
-    # {a:[1,2,3,4],b:[1,2,3,4] }
-    # {1:[a,b]}
     context = {'view_date': view_date,
                'schietdagen': schietdagen,
                'gekozen_schietdag_datum': gekozen_schietdag_datum,
@@ -213,7 +223,7 @@ def reserveringen(request, overzicht=False):
                'slots_per_baan': slots_per_baan,
                'banen_per_slot': banen_per_slot,
                'dagkeuze': dagkeuze,
-               'sleutelhouder':sleutelhouder}
+               'sleutelhouder': sleutelhouder}
 
     if not overzicht:
         return render(request, 'reserveringen/reserveringen.html', context)

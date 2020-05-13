@@ -635,6 +635,25 @@ header {
                 
         }
 
+        .verlopen {
+            display:inline-block;
+            -webkit-appearance: none;
+            
+            font-family: $font-default;
+            font-weight:bold;
+            font-size:12px;
+            border:none;
+    
+            background: $color-bezet;
+            color: #fff;
+            border-radius:5px;
+            padding:0 30px;
+            line-height:30px;
+    
+            cursor: not-allowed;
+                
+        }
+
     }
 
 
