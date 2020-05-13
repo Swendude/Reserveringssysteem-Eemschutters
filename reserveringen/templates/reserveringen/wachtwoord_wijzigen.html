@@ -4,7 +4,7 @@
 <div class="content">
     <div class="wrapper">
         <h1>Wachtwoord wijzigen</h1>
-        <p>Vul de velden hieronder om je wachtwoord te wijzigen. Let op, het wachtwoord moet uit minimaal 8 tekens bestaan</p>
+        <p>Vul de velden hieronder om je wachtwoord te wijzigen.</p>
         <form method="post" action="{% url 'wachtwoord_wijzigen' %}">
             {% csrf_token %}
             {% for field in form %}
@@ -17,6 +17,7 @@
                 </ul>
                 {% endif %}
                 <div>{{ field.label_tag }}</div>
+                <div class="help">{{ field.help_text|safe }}</div>
                 <div>{{ field }}</div>
             </div>
             {% endfor %}
