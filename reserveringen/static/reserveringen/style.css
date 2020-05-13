@@ -190,8 +190,11 @@ header {
         header .headerrow nav.menuDesktop a.actief, header .headerrow nav.menuDesktop a:hover {
           color: #6844D5; }
     header .headerrow .trigger {
-      flex: 40px 1 1;
-      text-align: right; }
+      flex: 30px 0 0;
+      text-align: right;
+      padding-top: 5px; }
+      header .headerrow .trigger img {
+        max-width: 20px; }
       @media (min-width: 800px) {
         header .headerrow .trigger {
           display: none; } }
