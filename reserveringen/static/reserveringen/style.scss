@@ -55,6 +55,7 @@ body {
     line-height:1.6em;
     font-size:14px;    
     background: $color-background;
+    padding-top:120px;
 
     @media print {
         font-size:12px;
@@ -111,7 +112,12 @@ b {
 }
 
 header {
-    position: relative;
+    position:fixed;
+    left:0;
+    top:0;
+    right:0;
+
+    // position: relative;
     z-index:400;
     min-height:80px;
     background: #ffffff;
@@ -464,9 +470,13 @@ header {
 }
 
 .dateSelectors {
-    margin-top:-40px;
+    position:fixed;
+    top:80px;
+    left:0;
+    right:0;
     padding:20px 40px 10px;
     border-bottom:1px solid rgba(0, 0, 0, 0.1);
+    background: $color-background;
 
     @media print {
         padding:0 20px;
@@ -837,7 +847,8 @@ form {
 
 .overview {
 
-    padding:20px 40px;
+
+    padding:80px 40px 20px;
 
     @media print {
         padding:0;
