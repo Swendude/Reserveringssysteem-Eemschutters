@@ -152,25 +152,26 @@ header {
         padding: 0 40px;
         width: 100%;
         box-sizing:border-box;
-
-        display:block;
-
-        @include for-mobile-up() {
-            display:flex;
-        }
+        display:flex;
 
 
         .logo,
         nav {
-            flex:50% 1 1;
+            flex:50% 1 1;            
         }
 
         .user {
-            // flex:100px 1 1;
-            // background:red;
+            display:none;   
+            @include for-mobile-up() {
+                display:block;
+            }
             border-left:1px solid $color-border;
             padding-left:20px;
             margin-left:10px;            
+
+            @media print {
+                display:none;
+            }
 
             .usermenu {
                 display:none;
@@ -218,10 +219,19 @@ header {
 
         }
 
-        nav {
+        nav.menuDesktop {     
+            display:none;   
+            @include for-mobile-up() {
+                display:block;
+            }
+            
             text-align:right;
             font-family: $font-header;
             font-weight: bold;
+
+            @media print {
+                display:none;
+            }
 
             a {
                 color: #000;
@@ -234,6 +244,42 @@ header {
                 &:hover {
                     color: $color-primary;
                 }
+            }
+        }
+
+        .trigger {
+            flex:40px 1 1;
+            text-align:right;
+
+            @include for-mobile-up() {
+                display:none;
+            }
+        }
+
+    }
+
+    .panelMobile {
+        display:none;
+        padding:10px 20px;
+        
+    }
+
+    .menuMobile {
+
+        border-top:1px solid rgba($color-primary, 0.3);
+        font-family: $font-header;
+        font-weight: bold;
+
+        a {
+            display:block;
+            text-align:center;
+            border-bottom:1px solid rgba($color-primary, 0.3);
+            padding:10px 0;
+            text-decoration: none;
+            color: #000000;
+
+            &.actief {
+                color: $color-primary;
             }
         }
 
@@ -485,13 +531,17 @@ header {
     border-radius:5px;
 
 
-    .reserveringContainer,
     .reserveringOpmerking {
         display:block;
     }
 
     .reserveringContainer {
-        display:flex;
+        display:block;
+        
+        @include for-mobile-up() {
+            display:flex;
+        }
+
         margin-bottom:10px;    
     }
 
@@ -505,7 +555,9 @@ header {
     }
 
     .reserveringActies {
-        flex:120px 1 1;
+        @include for-mobile-up() {
+            flex:120px 1 1;
+        }
     }
 
 
@@ -519,7 +571,11 @@ header {
     }
 
     .reserveringActies {
-        text-align:right;
+        text-align:center;
+        
+        @include for-mobile-up() {
+            text-align:right;
+        }
 
         .annuleer {
             display:inline-block;
@@ -558,6 +614,12 @@ header {
     .reserveringDetails {
         display:flex;
         margin-bottom:10px;
+
+        flex-direction:column;
+
+        @include for-mobile-up() {
+            flex-direction:row;
+        }
 
         .rdTijd,
         .rdBaan {
@@ -636,6 +698,12 @@ form {
     min-height: calc(100% - 82px);
     overflow:hidden;
 
+    @media print {
+        display:flex;
+        overflow:visible;
+        flex-direction: column;
+    }
+
     .overviewTimes {
         padding-top:50px;
         padding-left:40px;
@@ -645,6 +713,12 @@ form {
         position: relative;
         z-index:300;
         background: #ffffff;
+
+        @media print {
+            display:none;
+        }
+
+
     }
 
 
@@ -653,6 +727,10 @@ form {
 
         flex:100% 1 1;
         overflow-x:scroll;
+
+        @media print {
+            overflow:visible;
+        }
 
         .rowHeader {
             color: $color-primary;
@@ -678,9 +756,16 @@ form {
         display:flex;
         padding-left:30px;
 
+        @media print {
+            overflow:visible;
+            flex-direction: column;
+        }
+
+
         .col {
             flex:300px 0 0;
             margin-right:30px;
+            flex-direction: column;
 
         }
     }

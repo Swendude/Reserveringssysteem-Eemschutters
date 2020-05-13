@@ -119,17 +119,21 @@ header {
     padding: 0 40px;
     width: 100%;
     box-sizing: border-box;
-    display: block; }
-    @media (min-width: 800px) {
-      header .headerrow {
-        display: flex; } }
+    display: flex; }
     header .headerrow .logo,
     header .headerrow nav {
       flex: 50% 1 1; }
     header .headerrow .user {
+      display: none;
       border-left: 1px solid rgba(0, 0, 0, 0.2);
       padding-left: 20px;
       margin-left: 10px; }
+      @media (min-width: 800px) {
+        header .headerrow .user {
+          display: block; } }
+      @media print {
+        header .headerrow .user {
+          display: none; } }
       header .headerrow .user .usermenu {
         display: none;
         top: 40px;
@@ -156,18 +160,47 @@ header {
       header .headerrow .user:hover .usermenu {
         position: absolute;
         display: block; }
-    header .headerrow nav {
+    header .headerrow nav.menuDesktop {
+      display: none;
       text-align: right;
       font-family: "Montserrat", sans-serif;
       font-weight: bold; }
-      header .headerrow nav a {
+      @media (min-width: 800px) {
+        header .headerrow nav.menuDesktop {
+          display: block; } }
+      @media print {
+        header .headerrow nav.menuDesktop {
+          display: none; } }
+      header .headerrow nav.menuDesktop a {
         color: #000;
         display: inline-block;
         text-align: center;
         text-decoration: none;
         padding: 10px; }
-        header .headerrow nav a.actief, header .headerrow nav a:hover {
+        header .headerrow nav.menuDesktop a.actief, header .headerrow nav.menuDesktop a:hover {
           color: #6844D5; }
+    header .headerrow .trigger {
+      flex: 40px 1 1;
+      text-align: right; }
+      @media (min-width: 800px) {
+        header .headerrow .trigger {
+          display: none; } }
+  header .panelMobile {
+    display: none;
+    padding: 10px 20px; }
+  header .menuMobile {
+    border-top: 1px solid rgba(104, 68, 213, 0.3);
+    font-family: "Montserrat", sans-serif;
+    font-weight: bold; }
+    header .menuMobile a {
+      display: block;
+      text-align: center;
+      border-bottom: 1px solid rgba(104, 68, 213, 0.3);
+      padding: 10px 0;
+      text-decoration: none;
+      color: #000000; }
+      header .menuMobile a.actief {
+        color: #6844D5; }
 
 .error_message {
   border: 2px solid black;
@@ -333,26 +366,32 @@ header {
   margin-bottom: 20px;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 5px; }
-  .reservering .reserveringContainer,
   .reservering .reserveringOpmerking {
     display: block; }
   .reservering .reserveringContainer {
-    display: flex;
+    display: block;
     margin-bottom: 10px; }
+    @media (min-width: 800px) {
+      .reservering .reserveringContainer {
+        display: flex; } }
   .reservering .reserveringInhoud,
   .reservering .reserveringActies {
     flex: 100% 1 1; }
   .reservering .reserveringInhoud {
     margin-bottom: 20px; }
-  .reservering .reserveringActies {
-    flex: 120px 1 1; }
+  @media (min-width: 800px) {
+    .reservering .reserveringActies {
+      flex: 120px 1 1; } }
   @media (min-width: 800px) {
     .reservering {
       flex-direction: row; }
       .reservering .reserveringInhoud {
         margin-bottom: unset; } }
   .reservering .reserveringActies {
-    text-align: right; }
+    text-align: center; }
+    @media (min-width: 800px) {
+      .reservering .reserveringActies {
+        text-align: right; } }
     .reservering .reserveringActies .annuleer {
       display: inline-block;
       -webkit-appearance: none;
@@ -374,7 +413,11 @@ header {
     margin-right: 10px; }
   .reservering .reserveringDetails {
     display: flex;
-    margin-bottom: 10px; }
+    margin-bottom: 10px;
+    flex-direction: column; }
+    @media (min-width: 800px) {
+      .reservering .reserveringDetails {
+        flex-direction: row; } }
     .reservering .reserveringDetails .rdTijd,
     .reservering .reserveringDetails .rdBaan {
       flex: 100% 1 1;
@@ -424,6 +467,11 @@ form {
   display: flex;
   min-height: calc(100% - 82px);
   overflow: hidden; }
+  @media print {
+    .overview {
+      display: flex;
+      overflow: visible;
+      flex-direction: column; } }
   .overview .overviewTimes {
     padding-top: 50px;
     padding-left: 40px;
@@ -433,10 +481,16 @@ form {
     position: relative;
     z-index: 300;
     background: #ffffff; }
+    @media print {
+      .overview .overviewTimes {
+        display: none; } }
   .overview .overviewScrollable {
     padding-top: 50px;
     flex: 100% 1 1;
     overflow-x: scroll; }
+    @media print {
+      .overview .overviewScrollable {
+        overflow: visible; } }
     .overview .overviewScrollable .rowHeader {
       color: #6844D5;
       font-size: 20px; }
@@ -452,9 +506,14 @@ form {
   .overview .cols {
     display: flex;
     padding-left: 30px; }
+    @media print {
+      .overview .cols {
+        overflow: visible;
+        flex-direction: column; } }
     .overview .cols .col {
       flex: 300px 0 0;
-      margin-right: 30px; }
+      margin-right: 30px;
+      flex-direction: column; }
   .overview .block {
     position: relative;
     z-index: 200;

@@ -9,6 +9,19 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'reserveringen/style.css' %}">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+
+    <script>
+
+        $(document).ready(function() {
+
+            $(".trigger").on("click", function() {
+                $(".panelMobile").slideToggle();
+            });
+        });
+
+    </script>
 </head>
 
 <body>
@@ -22,7 +35,7 @@
                     <div class="systeemBedrijfsnaam">Eemschutters</div>
                 </div>
                 {% if user.is_authenticated %}
-                <nav>
+                <nav class="menuDesktop">
                     <a href="{% url 'reserveringen' %}" {% if request.resolver_match.url_name == "reserveringen" %}class="actief"{% endif %}>Reserveren</a>
                     <a href="{% url 'mijn_reserveringen' %}" {% if request.resolver_match.url_name == "mijn_reserveringen" %}class="actief"{% endif %}>Mijn reserveringen</a>
                     {% if sleutelhouder %}
@@ -38,7 +51,17 @@
                         <span class="username">{{ user.username | title }}</span>
                     </div>
                 </div>
+                <div class="trigger">Menu</div>
                 {% endif %}
+            </div>
+            <div class="panelMobile">
+                <nav class="menuMobile">
+                    <a href="{% url 'reserveringen' %}" {% if request.resolver_match.url_name == "reserveringen" %}class="actief"{% endif %}>Reserveren</a>
+                    <a href="{% url 'mijn_reserveringen' %}" {% if request.resolver_match.url_name == "mijn_reserveringen" %}class="actief"{% endif %}>Mijn reserveringen</a>
+                    {% if sleutelhouder %}
+                    <a href="{% url 'overzicht' %}" {% if request.resolver_match.url_name == "overzicht" %}class="actief"{% endif %}>Overzicht</a>
+                    {% endif %}
+                </nav>    
             </div>
         </div>
     </header>

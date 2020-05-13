@@ -17,6 +17,26 @@
     {% endfor %}
 </div>
 
+<!-- <div class="dateSelectorsMobile">
+    <form action="{% url 'overzicht' %}" method="GET" >
+        <select name="next" onchange="this.form.submit()">
+            {% for datum, schietdag in schietdagen %}
+            {% if forloop.counter0 == dagkeuze %}
+            <option selected>{{ datum | date:"l j b Y" }}</option>
+            {% else %}
+            <option value="{{forloop.counter0}}">{{ datum | date:"l j b Y" }}</option>
+            {% endif %}
+            {% endfor %}
+        </select>
+    </form>
+
+    <select name="slots">
+        {% for slot_start, slot_eind in slot_tijden  %}
+        <option>{{slot_start}} - {{slot_eind}}</option>
+        {% endfor %}
+    </select>
+</div> -->
+
 <div class="overview">
     <div class="overviewTimes">
         <div class="row rowTime rowHeader">&nbsp;</div>
