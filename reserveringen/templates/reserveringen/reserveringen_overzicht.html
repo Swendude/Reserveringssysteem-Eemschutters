@@ -17,27 +17,7 @@
     {% endfor %}
 </div>
 
-<!-- <div class="dateSelectorsMobile">
-    <form action="{% url 'overzicht' %}" method="GET" >
-        <select name="next" onchange="this.form.submit()">
-            {% for datum, schietdag in schietdagen %}
-            {% if forloop.counter0 == dagkeuze %}
-            <option selected>{{ datum | date:"l j b Y" }}</option>
-            {% else %}
-            <option value="{{forloop.counter0}}">{{ datum | date:"l j b Y" }}</option>
-            {% endif %}
-            {% endfor %}
-        </select>
-    </form>
-
-    <select name="slots">
-        {% for slot_start, slot_eind in slot_tijden  %}
-        <option>{{slot_start}} - {{slot_eind}}</option>
-        {% endfor %}
-    </select>
-</div> -->
-
-<div class="overview">
+<!-- <div class="overview">
     <div class="overviewTimes">
         <div class="row rowTime rowHeader">&nbsp;</div>
         {% for slot_start, slot_eind in slot_tijden  %}
@@ -52,22 +32,23 @@
 
             <div class="col colLocation">
                 <div class="row rowHeader rowLocationName">{{baan}}</div>
-                {% for slot in slots  %}
-                
+                {% for slot in slots  %}        
+                    <div class="">
+                        {{slot.starttijd}} - {{slot.eindtijd}}
+                    </div>
+                    
                     {% if slot.status == 'Vrij' %}
                         <div class="row rowStatus">
-                            <!-- <div class="block available">Beschikbaar</div> -->
                         </div>
                     {% endif %}
 
                     {% if slot.status == 'Zelf' or slot.status == 'Bezet'  %}
                         <div class="row rowStatus">
-                            <div class="block notAvailable"><strong>Bezet</strong><br />{{ slot.reservering_eigenaar }}</div>
+                            <div class="block notAvailable"><strong>Bezet {{ slot.starttijd }}</strong><br />{{ slot.reservering_eigenaar }}</div>
                         </div>
                     {% endif %}
                     {% if slot.status == 'Verlopen' %}
                         <div class="row rowStatus">
-                            <!-- <div class="block available">Beschikbaar</div> -->
                         </div>
                     {% endif %}
 
@@ -78,6 +59,38 @@
 
         </div>
     </div>
+</div> -->
+
+<div class="overview">
+    {% for baan, slots in slots_per_baan.items  %}
+    <div class="overviewGroup">
+        <h3>{{baan}}</h3> <!-- Nu nog de baan, straks de tijden -->
+
+        <div class="ogRows">
+            {% for slot in slots  %}        
+                <div class="ogRow">
+                    <div class="label"> <!-- Nu nog de tijden, straks de baan -->
+                        {{slot.starttijd}} - {{slot.eindtijd}}
+                    </div>
+                    
+                    {% if slot.status == 'Vrij' %}
+                        <div class="status"><div class="indicator positive"></div>Beschikbaar</div>
+                    {% endif %}
+
+                    {% if slot.status == 'Zelf' or slot.status == 'Bezet'  %}
+                        <div class="status notAvailable"><div class="indicator"></div>{{ slot.reservering_eigenaar }}
+                        </div>
+                    {% endif %}
+                    {% if slot.status == 'Verlopen' %}
+                        <div class="status">Verlopen</div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    {% endfor %}
+
 </div>
 
 {% endblock %}
