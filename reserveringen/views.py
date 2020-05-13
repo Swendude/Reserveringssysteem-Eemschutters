@@ -51,7 +51,9 @@ def mijn_reserveringen(request):
     view_date = get_view_date() + datetime.timedelta(days=-1)
     reservering = Reservering.objects.filter(start__gte=view_date,
                                              gebruiker=request.user).order_by('start')
-    return render(request, 'reserveringen/mijn_reserveringen.html', {'reserveringen': reservering})
+    sleutelhouder = request.user.groups.filter(name='Sleutelhouders').exists()
+
+    return render(request, 'reserveringen/mijn_reserveringen.html', {'reserveringen': reservering, 'sleutelhouder': sleutelhouder})
 
 
 @login_required(login_url='/login/')
