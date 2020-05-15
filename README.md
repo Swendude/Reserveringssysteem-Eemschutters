@@ -51,10 +51,21 @@ Om lokaal te draaien:
 **Diverse**
 - [x] Wachtwoord wijzigen
 - [x] Overzicht voor baancommandant/sleutelhouder
-- [x] Bij het wijzigen van een schietdag: Alle toekomstige reservaties verwijderen.
+- [x] Bij het wijzigen van een schietdag: Alle toekomstige reservaties verwijderen
+- [ ] 'Reserveringen' pagina een nieuwsblokje
+- [ ] Eerste en laatste sloten bouwen op/af
 
 **Datamodel/Validatie**
 - [x] Geen twee slots op dezelfde avond
 - [ ] X-de dag van de maand Schietdagen
+- [ ] Label banen naar string
+- [ ] Non int aantal sloten
+    - [ ] Tijd tussen slots
+    - [ ] Tijd begin avond
+    - [ ] Tijd eind avond
+- [ ] Een uur van te voren is een slot vogelvrij
+    - [ ] Vogelvrije sloten tellen niet mee in de weektelling
+    - [ ] Sloten hebben een status: reserveringstype (Normaal, Laat)
+- [ ] Algemene instellingen in admin
 - [x] Admin reserveringen verbeteren
 - [x] Alleen gebruikers in de groep sleutelhouders zien overzicht
