@@ -4,16 +4,13 @@ import datetime
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 
+
 class Baan(models.Model):
     naam = models.CharField(max_length=50)
-    mobiel = models.BooleanField()
-    afstand = models.IntegerField(help_text='in meters')
+    label = models.CharField(max_length=140)
 
     def __str__(self):
-        if not self.mobiel:
-            return f"Baan {self.naam} ({self.afstand} m)"
-        else:
-            return f"Baan {self.naam}  (mobiel)"
+        return f"Baan {self.naam} ({self.label})"
 
     class Meta:
         verbose_name_plural = "Banen"
@@ -39,7 +36,6 @@ class Schietdag(models.Model):
     open = models.TimeField(help_text='[HH:MM:SS]')
     sluit = models.TimeField(help_text='[HH:MM:SS]')
 
-
     def __str__(self):
         return dict(DAGEN)[self.dag]
 
@@ -57,7 +53,7 @@ class Schietdag(models.Model):
                                        minutes=self.sluit.minute - self.open.minute)
 
         return tijd_open/self.slot_duur
-    
+
     @property
     def dagen(self):
         return dict(DAGEN)
@@ -66,7 +62,8 @@ class Schietdag(models.Model):
         times = []
         last_time = self.open
         while last_time < self.sluit:
-            end_time = (datetime.datetime.combine(timezone.now(), last_time) + self.slot_duur).time()
+            end_time = (datetime.datetime.combine(
+                timezone.now(), last_time) + self.slot_duur).time()
             times.append((last_time, end_time))
             last_time = end_time
         assert(len(times) == self.aantal_slots)
@@ -90,7 +87,6 @@ class Schietdag(models.Model):
 
     class Meta:
         verbose_name_plural = 'Schietdagen'
-        
 
 
 class Reservering(models.Model):
@@ -109,7 +105,7 @@ class Reservering(models.Model):
     @property
     def aankomst(self):
         return self.start - self.schietdag.opstart_duur
-    
+
     @property
     def vertrek(self):
         return self.eind + self.schietdag.afbouw_duur

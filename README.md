@@ -58,7 +58,7 @@ Om lokaal te draaien:
 **Datamodel/Validatie**
 - [x] Geen twee slots op dezelfde avond
 - [ ] X-de dag van de maand Schietdagen
-- [ ] Label banen naar string
+- [x] Label banen naar string
 - [ ] Non int aantal sloten
     - [ ] Tijd tussen slots
     - [ ] Tijd begin avond
