@@ -5,6 +5,14 @@ from django.core.exceptions import ValidationError
 from django.utils import timezone
 
 
+def time_add_timedelta(t, td):
+    """
+    Combineer een time object met een timedelta object.
+    Bidden naar de timezone goden.
+    """
+    return (datetime.datetime.combine(timezone.now(), t) + td).time()
+
+
 class Baan(models.Model):
     naam = models.CharField(max_length=50)
     label = models.CharField(max_length=140)
@@ -14,6 +22,7 @@ class Baan(models.Model):
 
     class Meta:
         verbose_name_plural = "Banen"
+        ordering = ['naam']
 
 
 DAGEN = ((0, 'Maandag'),
@@ -30,9 +39,16 @@ class Schietdag(models.Model):
     Een schietdag is een dag waarop men kan schieten.
     """
     dag = models.IntegerField(choices=DAGEN, unique=True, null=False)
-    slot_duur = models.DurationField(help_text='[HH:MM:SS]')
-    opstart_duur = models.DurationField(help_text='[HH:MM:SS]')
-    afbouw_duur = models.DurationField(help_text='[HH:MM:SS]')
+    slot_duur = models.DurationField(
+        help_text='[HH:MM:SS] Overgebleven tijd zal worden toegevoegd aan het eerste en laatste slot.')
+    opstart_duur = models.DurationField(
+        help_text='[HH:MM:SS] Hoelang van te voren mogen deelnemers aanwezig zijn?')
+    afbouw_duur = models.DurationField(
+        help_text='[HH:MM:SS] Hoelang mogen deelnemers na het slot einde aanwezig zijn?')
+    extra_tijd_begin = models.DurationField(
+        help_text='[HH:MM:SS] Als er tijd onverdeeld blijft door je slotkeuze, verdeel deze als extra aan het begin en eind')
+    extra_tijd_eind = models.DurationField(
+        help_text='[HH:MM:SS] Als er tijd onverdeeld blijft door je slotkeuze, verdeel deze als extra aan het begin en eind')
     open = models.TimeField(help_text='[HH:MM:SS]')
     sluit = models.TimeField(help_text='[HH:MM:SS]')
 
@@ -45,29 +61,43 @@ class Schietdag(models.Model):
         super().save(*args, **kwargs)
 
     @property
+    def tijd_open(self):
+        """
+        Een timedelta voor de totale duur van de opening
+        """
+        return datetime.timedelta(hours=self.sluit.hour - self.open.hour,
+                                  minutes=self.sluit.minute - self.open.minute)
+
+    @property
     def aantal_slots(self):
         """
         Bereken het aantal slots als gevolg van deze instellingen.
         """
-        tijd_open = datetime.timedelta(hours=self.sluit.hour - self.open.hour,
-                                       minutes=self.sluit.minute - self.open.minute)
-
-        return tijd_open/self.slot_duur
+        return int(self.tijd_open/self.slot_duur)
 
     @property
     def dagen(self):
         return dict(DAGEN)
 
     def slot_tijden(self):
-        times = []
-        last_time = self.open
-        while last_time < self.sluit:
-            end_time = (datetime.datetime.combine(
-                timezone.now(), last_time) + self.slot_duur).time()
-            times.append((last_time, end_time))
-            last_time = end_time
-        assert(len(times) == self.aantal_slots)
-        return times
+        tijden = []
+
+        # Houd rekening met de extra begintijd
+        tijden.append((self.open, time_add_timedelta(
+            self.open, self.slot_duur + self.extra_tijd_begin)))
+        begin_tijd = tijden[0][1]
+
+        # I am the walrus!
+        while (eind_tijd:= time_add_timedelta(begin_tijd, self.slot_duur)) <= self.sluit:
+            tijden.append((begin_tijd, eind_tijd))
+            begin_tijd = eind_tijd
+
+        # Houd rekening met de extra eindtijd
+        tijden[-1] = (tijden[-1][0],
+                      time_add_timedelta(tijden[-1][1], self.extra_tijd_eind))
+        assert(len(tijden) == self.aantal_slots)
+        # assert(tijden[0][0] == self.open and tijden[-1][1] == self.eind)
+        return tijden
 
     @property
     def opbouw_minutes(self):
@@ -79,11 +109,11 @@ class Schietdag(models.Model):
 
     def clean(self):
         """
-        Valideer dat het aantal slots een rond getal is.
+        Valideer dat het de gehele openingstijd gedefinieerd is.
         """
-        if not self.aantal_slots.is_integer():
+        if not(self.slot_tijden()[0][0] == self.open and self.slot_tijden()[-1][1] == self.sluit):
             raise ValidationError(
-                f'Er zijn {self.aantal_slots} slots in dit protocol. Dit moet een rond getal zijn.')
+                f'Deze instellingen vullen niet de gehele tijd, veranderen extra begin of eind tijd of gebruik een andere tijdsduur voor sloten.')
 
     class Meta:
         verbose_name_plural = 'Schietdagen'

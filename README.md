@@ -60,9 +60,7 @@ Om lokaal te draaien:
 - [ ] X-de dag van de maand Schietdagen
 - [x] Label banen naar string
 - [ ] Non int aantal sloten
-    - [ ] Tijd tussen slots
-    - [ ] Tijd begin avond
-    - [ ] Tijd eind avond
+    - [ ] Resterende tijd toevoegen aan begin en eind slot
 - [ ] Een uur van te voren is een slot vogelvrij
     - [ ] Vogelvrije sloten tellen niet mee in de weektelling
     - [ ] Sloten hebben een status: reserveringstype (Normaal, Laat)

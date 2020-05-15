@@ -9,6 +9,8 @@ class SchietdagAdmin(admin.ModelAdmin):
               'afbouw_duur',
               'open',
               'sluit',
+              'extra_tijd_begin',
+              'extra_tijd_eind',
               'aantal_slots']
     list_display = ['__str__',
                     'slot_duur',
