@@ -56,16 +56,25 @@
                 Kom aan na <strong>{{ reservering.aankomst | time }} uur</strong> en vertrek voor
                 <strong>{{ reservering.vertrek | time }} uur</strong>
             </div>
+
+            {% if reservering.bonus %}
+            <div class="reserveringOpmerking">
+                Dit is een <strong>bonusslot</strong> en telt niet mee bij het bepalen van je weekreservaties
+            </div>
+            {% endif %}
+            
             {% if reservering.eerste_slot %}
             <div class="reserveringWaarschuwing">
                 Dit is het eerste slot van de avond; je wordt geacht mee te helpen met baanopbouw
             </div>
             {% endif %}
+
             {% if reservering.laatste_slot %}
             <div class="reserveringWaarschuwing">
                 Dit is het laatste slot van de avond; je wordt geacht mee te helpen met baanafbouw
             </div>
             {% endif %}
+
             {% endif %}
         </div>
         {% endfor %}

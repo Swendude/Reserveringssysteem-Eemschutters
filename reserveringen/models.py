@@ -131,6 +131,7 @@ class Reservering(models.Model):
     baan = models.ForeignKey(Baan, on_delete=models.PROTECT)
     schietdag = models.ForeignKey(Schietdag, on_delete=models.PROTECT)
     gebruiker = models.ForeignKey(User, on_delete=models.CASCADE)
+    bonus = models.BooleanField(default=False)
 
     def __str__(self):
         return f"Reservering van {self.gebruiker.username} op {self.start}"

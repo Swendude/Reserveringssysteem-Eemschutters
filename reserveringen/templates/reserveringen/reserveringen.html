@@ -64,6 +64,17 @@
                         </form>
                     </div>
                     {% endif %}
+                    {% if slot.status == 'Vogelvrij'%}
+                    <div class="baanSlot">
+                        <div class="tijdSlotMobiel">{{ slot.starttijd }} - {{ slot.eindtijd }}</div>
+                        <form action="{% url 'reserveringen' %}?next={{dagkeuze}}" method="post"
+                            onsubmit="return confirm('Weet je zeker dat je {{baan}} van {{ slot.starttijd }} tot {{ slot.eindtijd }} wilt reserveren?');">
+                            {% csrf_token %}
+                            {{ slot.vogelvrij_slot_form }}
+                            <input type="submit" class="reserveerButton" name="reserveerButton" value="Vogelvrij!" />
+                        </form>
+                    </div>
+                    {% endif %}
                     {% if slot.status == 'Zelf'%}
                     <div class="baanSlot baanSlotBezet baanSlotGereserveerd">
                         <div class="tijdSlotMobiel">{{ slot.starttijd }} - {{ slot.eindtijd }}</div>

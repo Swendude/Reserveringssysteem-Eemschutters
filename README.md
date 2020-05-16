@@ -62,9 +62,9 @@ Om lokaal te draaien:
 - [x] Label banen naar string
 - [x] Non int aantal sloten
     - [x] Resterende tijd toevoegen aan begin en eind slot
-- [ ] Een uur van te voren is een slot vogelvrij
-    - [ ] Vogelvrije sloten tellen niet mee in de weektelling
-    - [ ] Sloten hebben een status: reserveringstype (Normaal, Laat)
+- [x] Een uur van te voren is een slot vogelvrij
+    - [x] Vogelvrije sloten tellen niet mee in de weektelling
+    - [x] Sloten hebben een bonusveld
 - [ ] Algemene instellingen in admin
 - [x] Admin reserveringen verbeteren
 - [x] Alleen gebruikers in de groep sleutelhouders zien overzicht
