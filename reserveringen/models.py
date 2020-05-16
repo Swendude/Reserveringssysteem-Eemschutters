@@ -142,6 +142,19 @@ class Reservering(models.Model):
     @property
     def vertrek(self):
         return self.eind + self.schietdag.afbouw_duur
+    
+    @property
+    def eerste_slot(self):
+        current_tz = timezone.get_current_timezone()
+        local_start = current_tz.normalize(self.start.astimezone(current_tz))
+        print(local_start.time())
+        print(datetime.datetime.combine(timezone.now(), self.schietdag.open).time())
+        return local_start.time() == datetime.datetime.combine(timezone.now(), self.schietdag.open).time()
+
+    @property
+    def laatste_slot(self):
+        return self.eind.time() == self.schietdag.sluit
+
 
     class Meta:
         verbose_name_plural = "Reserveringen"

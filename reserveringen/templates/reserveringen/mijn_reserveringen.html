@@ -51,10 +51,22 @@
 
                 </div>
             </div>
+            {% if not reservering.verlopen %}
             <div class="reserveringOpmerking">
                 Kom aan na <strong>{{ reservering.aankomst | time }} uur</strong> en vertrek voor
                 <strong>{{ reservering.vertrek | time }} uur</strong>
             </div>
+            {% if reservering.eerste_slot %}
+            <div class="reserveringWaarschuwing">
+                Dit is het eerste slot van de avond, je helpt mee de baan op te bouwen
+            </div>
+            {% endif %}
+            {% if reservering.laatste_slot %}
+            <div class="reserveringWaarschuwing">
+                Dit is het laatste slot van de avond, je helpt mee de baan af te breken
+            </div>
+            {% endif %}
+            {% endif %}
         </div>
         {% endfor %}
         {% endfor %}

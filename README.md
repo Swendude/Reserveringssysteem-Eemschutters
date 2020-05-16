@@ -53,7 +53,7 @@ Om lokaal te draaien:
 - [x] Overzicht voor baancommandant/sleutelhouder
 - [x] Bij het wijzigen van een schietdag: Alle toekomstige reservaties verwijderen
 - [ ] 'Reserveringen' pagina een regelblokje
-- [ ] Eerste en laatste sloten bouwen op/af
+- [x] Eerste en laatste sloten bouwen op/af
 - [x] Als een baan geen opmerking heeft, dan ook de 'Haakjes: `(` `)` niet laten zien
 
 **Datamodel/Validatie**

@@ -64,7 +64,6 @@ def mijn_reserveringen(request):
         if reservering.start < view_date:
             reservering.verlopen = True
         reserveringen_per_week[reservering_weekstart].append(reservering)
-    print(reserveringen_per_week)
     sleutelhouder = request.user.groups.filter(name='Sleutelhouders').exists() 
     return render(request, 'reserveringen/mijn_reserveringen.html', {'sleutelhouder':sleutelhouder, 'reserveringen_per_week': dict(reserveringen_per_week)})
 

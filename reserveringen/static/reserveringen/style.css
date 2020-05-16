@@ -486,7 +486,15 @@ header {
     background: rgba(52, 152, 219, 0.1);
     color: #3498db;
     padding: 10px;
-    border-radius: 4px; }
+    border-radius: 4px;
+    margin-bottom: 5px; }
+  .reservering .reserveringWaarschuwing {
+    flex: 100% 1 1;
+    background: rgba(231, 76, 60, 0.1);
+    color: #e74c3c;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 5px; }
 
 .reserveringlabel {
   font-size: 12px;
@@ -552,3 +560,5 @@ form {
           -webkit-print-color-adjust: exact !important; }
         .overview .overviewGroup .ogRows .ogRow .status.notAvailable .indicator {
           background: #e74c3c; }
+
+/*# sourceMappingURL=style.css.map */
