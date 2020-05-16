@@ -18,7 +18,7 @@ class Baan(models.Model):
     label = models.CharField(max_length=140)
 
     def __str__(self):
-        if self.label == "":
+        if self.label != "":
             return f"Baan {self.naam} ({self.label})"
         else:
             return f"Baan {self.naam}"
