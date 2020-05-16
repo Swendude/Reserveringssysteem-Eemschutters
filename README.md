@@ -54,6 +54,7 @@ Om lokaal te draaien:
 - [x] Bij het wijzigen van een schietdag: Alle toekomstige reservaties verwijderen
 - [ ] 'Reserveringen' pagina een nieuwsblokje
 - [ ] Eerste en laatste sloten bouwen op/af
+- [ ] Als een baan geen opmerking heeft, dan ook de 'Haakjes: `(` `)` niet laten zien
 
 **Datamodel/Validatie**
 - [x] Geen twee slots op dezelfde avond
@@ -67,3 +68,6 @@ Om lokaal te draaien:
 - [ ] Algemene instellingen in admin
 - [x] Admin reserveringen verbeteren
 - [x] Alleen gebruikers in de groep sleutelhouders zien overzicht
+
+**Bug**
+- [ ] Na database-migratie Als je de schietdagen niet goed vult, krijg je een error over de assert functie (regel 98)

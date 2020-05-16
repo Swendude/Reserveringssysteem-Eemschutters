@@ -139,8 +139,6 @@ header {
       flex: 50% 1 1; }
     header .headerrow .user {
       display: none;
-      border-left: 1px solid rgba(0, 0, 0, 0.2);
-      padding-left: 20px;
       margin-left: 10px; }
       @media (min-width: 800px) {
         header .headerrow .user {
@@ -149,7 +147,11 @@ header {
         header .headerrow .user {
           display: none; } }
       header .headerrow .user .usermenu {
-        display: none;
+        position: absolute;
+        display: block;
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0s, opacity 0.5s linear;
         top: 40px;
         right: 40px;
         padding: 0;
@@ -159,7 +161,7 @@ header {
         header .headerrow .user .usermenu a {
           display: block;
           text-decoration: none;
-          padding: 5px 10px;
+          padding: 10px 20px;
           border-bottom: 1px solid rgba(0, 0, 0, 0.2);
           color: #000000; }
           header .headerrow .user .usermenu a:last-child {
@@ -167,13 +169,26 @@ header {
           header .headerrow .user .usermenu a:hover {
             color: #6844D5; }
       header .headerrow .user .userdetails {
-        padding: 10px 0; }
+        padding: 10px;
+        background: rgba(0, 0, 0, 0.05);
+        border-radius: 5px;
+        display: flex;
+        box-sizing: border-box;
+        cursor: pointer; }
+        header .headerrow .user .userdetails .usericon {
+          flex: 20px 0 0;
+          margin-right: 10px;
+          line-height: 0; }
+          header .headerrow .user .userdetails .usericon svg path {
+            fill: rgba(0, 0, 0, 0.3); }
         header .headerrow .user .userdetails .username {
-          font-family: "Montserrat", sans-serif;
-          font-weight: bold; }
+          flex: 100% 1 1;
+          line-height: 20px; }
       header .headerrow .user:hover .usermenu {
-        position: absolute;
-        display: block; }
+        visibility: visible;
+        opacity: 1; }
+      header .headerrow .user:hover .usericon svg path {
+        fill: rgba(104, 68, 213, 0.7); }
     header .headerrow nav.menuDesktop {
       display: none;
       text-align: right;
@@ -190,7 +205,7 @@ header {
         display: inline-block;
         text-align: center;
         text-decoration: none;
-        padding: 10px; }
+        padding: 10px 5px; }
         header .headerrow nav.menuDesktop a.actief, header .headerrow nav.menuDesktop a:hover {
           color: #6844D5; }
     header .headerrow .trigger {
@@ -537,5 +552,3 @@ form {
           -webkit-print-color-adjust: exact !important; }
         .overview .overviewGroup .ogRows .ogRow .status.notAvailable .indicator {
           background: #e74c3c; }
-
-/*# sourceMappingURL=style.css.map */

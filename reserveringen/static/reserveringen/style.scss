@@ -188,8 +188,6 @@ header {
             @include for-mobile-up() {
                 display:block;
             }
-            border-left:1px solid $color-border;
-            padding-left:20px;
             margin-left:10px;            
 
             @media print {
@@ -197,7 +195,12 @@ header {
             }
 
             .usermenu {
-                display:none;
+                position: absolute;
+                display:block;
+                visibility: hidden;
+                opacity: 0;
+                transition: visibility 0s, opacity 0.5s linear;
+
                 top:40px;
                 right:40px;
                 padding:0;
@@ -209,7 +212,7 @@ header {
                 a {
                     display:block;
                     text-decoration: none;
-                    padding:5px 10px;
+                    padding:10px 20px;
                     border-bottom:1px solid $color-border;
                     color: #000000;
 
@@ -224,19 +227,46 @@ header {
             }
 
             .userdetails {
-                padding:10px 0;
+                padding:10px;
+                background: rgba(#000000, 0.05);
+                border-radius:5px;
+                display:flex;
+                box-sizing:border-box;
+                cursor:pointer;
+
+                .usericon {
+                    flex:20px 0 0;
+                    margin-right:10px;
+                    line-height:0;
+                    
+                    svg {
+                        path {
+                            fill: rgba(#000000, 0.3);
+                        }
+
+                    }
+
+                }
                 .username {
-                    font-family: $font-header;
-                    font-weight: bold;
+                    flex:100% 1 1;
+                    line-height:20px;
+                    // font-family: $font-header;
+                    // font-weight: bold;
                     
 
                 }
+
+
             }
 
             &:hover {
                 .usermenu {
-                    position: absolute;
-                    display:block;
+                    visibility: visible;
+                    opacity: 1;
+                }
+
+                .usericon svg path {
+                            fill: rgba($color-primary, 0.7);
                 }
             }
 
@@ -261,7 +291,7 @@ header {
                 display:inline-block;
                 text-align:center;
                 text-decoration: none;
-                padding:10px;
+                padding:10px 5px;
 
                 &.actief,
                 &:hover {
