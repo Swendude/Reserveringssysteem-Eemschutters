@@ -87,8 +87,8 @@ class Schietdag(models.Model):
             self.open, self.slot_duur + self.extra_tijd_begin)))
         begin_tijd = tijden[0][1]
 
-        # I am the walrus!
-        while (eind_tijd:= time_add_timedelta(begin_tijd, self.slot_duur)) <= self.sluit:
+        while time_add_timedelta(begin_tijd, self.slot_duur) <= self.sluit:
+            eind_tijd = time_add_timedelta(begin_tijd, self.slot_duur)
             tijden.append((begin_tijd, eind_tijd))
             begin_tijd = eind_tijd
 
