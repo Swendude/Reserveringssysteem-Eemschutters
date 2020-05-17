@@ -166,7 +166,7 @@ class SiteConfiguration(SingletonModel):
     reserveer_venster = models.DurationField(default=datetime.timedelta(
         7), help_text="Hoelang van te voren mogen sloten gereserveerd worden?")
     reserveringen_per_week = models.IntegerField(
-        default=2, help_text="Hoeveel reserveringen per week mogen leden maken?")
+        default=2, help_text="Hoeveel reserveringen per week mogen leden maken? (eerste slot = 0)")
     sleutelhouder_baan = models.ForeignKey(Baan, default=None, on_delete=models.SET_DEFAULT, null=True, blank=True,
                                            help_text="Op welke baan moet een sleutelhouders slot standaard gereserveerd worden?")
     sleutelhouder_slot = models.IntegerField(

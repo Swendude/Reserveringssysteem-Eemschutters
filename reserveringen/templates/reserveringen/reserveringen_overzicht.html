@@ -62,6 +62,9 @@
                     {% if slot.status == 'Verlopen' %}
                         <div class="status">Verlopen</div>
                     {% endif %}
+                    {% if slot.status == 'Sleutelhouder' %}
+                        <div class="status notAvailable"><div class="indicator"></div>Sleutelhouder</div>
+                    {% endif %}
                 </div>
             {% endfor %}
         </div>

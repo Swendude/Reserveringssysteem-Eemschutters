@@ -93,6 +93,12 @@
                         Bezet
                     </div>
                     {% endif %}
+                    {% if slot.status == 'Sleutelhouder'%}
+                    <div class="baanSlot baanSlotBezet">
+                        <div class="tijdSlotMobiel">{{ slot.starttijd }} - {{ slot.eindtijd }}</div>
+                        Bezet door sleutelhouder
+                    </div>
+                    {% endif %}
                     {% endfor %}
                 </div>
             </div>

@@ -11,13 +11,12 @@ from collections import namedtuple, defaultdict
 from .forms import ReserveringForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-# from reserveringssysteem_eemschutters import global_settings
 from django.views.decorators.http import require_http_methods
 from django.urls import reverse
 from django.contrib import messages
 import pytz
 
-global_settings = SiteConfiguration.objects.get()
+global_settings = SiteConfiguration.objects.get
 
 def get_view_date():
     return timezone.get_current_timezone().localize(datetime.datetime(year=2020, month=5, day=18, hour=20, minute=56, second=00), is_dst=None)
@@ -148,9 +147,9 @@ def reserveringen(request, overzicht=False):
                                                                     gebruiker=request.user,
                                                                     bonus=False)
 
-                    if len(week_reserveringen) >= global_settings.reserveringen_per_week:
+                    if len(week_reserveringen) >= global_settings().reserveringen_per_week:
                         messages.error(
-                            request, f"""Je hebt het maximum({global_settings.reserveringen_per_week}) aantal reserveringen voor deze week. Je kan een reservering annuleren via <a href="{reverse('mijn_reserveringen')}">Mijn reserveringen</a>.""")
+                            request, f"""Je hebt het maximum({global_settings().reserveringen_per_week}) aantal reserveringen voor deze week. Je kan een reservering annuleren via <a href="{reverse('mijn_reserveringen')}">Mijn reserveringen</a>.""")
                         pass
 
                     else:
@@ -183,7 +182,7 @@ def reserveringen(request, overzicht=False):
 
     schietdagen = Schietdag.objects.order_by('dag')
     schietdagen = alle_schietdagen_in_venster(
-        view_date, global_settings.reserveer_venster, schietdagen)
+        view_date, global_settings().reserveer_venster, schietdagen)
     if not schietdagen:
         return Http404
     if dagkeuze > len(schietdagen) - 1:
@@ -199,7 +198,7 @@ def reserveringen(request, overzicht=False):
 
         slots_per_baan[baan] = []
 
-        for slot_tijd in slot_tijden:
+        for i, slot_tijd in enumerate(slot_tijden):
 
             slot_start = timezone.make_aware(
                 datetime.datetime.combine(gekozen_schietdag_datum, slot_tijd[0]))
@@ -224,6 +223,8 @@ def reserveringen(request, overzicht=False):
                     status = "Vrij"
                     if (slot_start - view_date) < datetime.timedelta(hours=1):
                         status = "Vogelvrij"
+                    if (baan == global_settings().sleutelhouder_baan and i == global_settings().sleutelhouder_slot):
+                        status = "Sleutelhouder"
 
             slot_form = ReserveringForm(initial={
                 'start': slot_start,

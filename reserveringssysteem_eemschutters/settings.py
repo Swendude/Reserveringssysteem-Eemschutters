@@ -108,7 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-SOLO_CACHE = 'default'
+# SOLO_CACHE = 'default'
 LOGIN_REDIRECT_URL = 'reserveringen'
 LOGOUT_REDIRECT_URL = 'login'
 
