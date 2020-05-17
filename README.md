@@ -73,4 +73,4 @@ Om lokaal te draaien:
 
 **Bug**
 - [x] Na database-migratie Als je de schietdagen niet goed vult, krijg je een error over de assert functie (regel 98)
-- [ ] Mijn reserveringen worden niet goed gesorteerd per week.
+- [x] Mijn reserveringen worden niet goed gesorteerd per week.

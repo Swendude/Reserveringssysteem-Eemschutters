@@ -148,12 +148,11 @@ class Reservering(models.Model):
     def eerste_slot(self):
         current_tz = timezone.get_current_timezone()
         local_start = current_tz.normalize(self.start.astimezone(current_tz))
-        print(local_start.time())
-        print(datetime.datetime.combine(timezone.now(), self.schietdag.open).time())
         return local_start.time() == datetime.datetime.combine(timezone.now(), self.schietdag.open).time()
 
     @property
     def laatste_slot(self):
+        # Todo maybe?
         return self.eind.time() == self.schietdag.sluit
 
 
