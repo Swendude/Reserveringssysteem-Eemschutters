@@ -118,46 +118,103 @@ header {
     @media (min-width: 800px) {
       header .logo {
         font-size: 24px; } }
-  header .systeemNaam,
-  header .systeemBedrijfsnaam {
-    display: inline-block;
-    font-weight: bold; }
-  header .systeemNaam {
-    font-weight: normal; }
-  header .systeemBedrijfsnaam {
-    color: #6844D5; }
+    header .logo .systeemNaam,
+    header .logo .systeemBedrijfsnaam {
+      display: inline-block;
+      font-weight: bold; }
+    header .logo .systeemNaam {
+      font-weight: normal; }
+    header .logo .systeemBedrijfsnaam {
+      color: #6844D5; }
   header .headerrow {
     padding: 0 40px;
     width: 100%;
     box-sizing: border-box;
-    display: flex; }
+    display: flex;
+    flex-wrap: wrap; }
     @media print {
       header .headerrow {
         padding: 0 20px; } }
-    header .headerrow .logo,
-    header .headerrow nav {
-      flex: 50% 1 1; }
-    header .headerrow .user {
-      display: none;
-      margin-left: 10px; }
+    header .headerrow .logo {
+      flex: calc(100% - 30px) 0 0; }
       @media (min-width: 800px) {
-        header .headerrow .user {
-          display: block; } }
+        header .headerrow .logo {
+          flex: 50% 1 1; } }
+    header .headerrow .navigation {
+      flex: 100% 0 0; }
+      @media (min-width: 800px) {
+        header .headerrow .navigation {
+          flex: 50% 1 1; } }
+    header .headerrow .trigger {
+      flex: 30px 0 0;
+      text-align: right;
+      padding-top: 5px; }
+      header .headerrow .trigger img {
+        max-width: 20px; }
+      @media (min-width: 800px) {
+        header .headerrow .trigger {
+          display: none; } }
+    header .headerrow .navigation {
+      display: none; }
+      @media (min-width: 800px) {
+        header .headerrow .navigation {
+          display: flex;
+          position: relative;
+          justify-content: flex-end; } }
+    header .headerrow nav.menu {
+      display: block;
+      font-family: "Montserrat", sans-serif;
+      font-weight: bold;
+      margin-top: 30px;
+      margin-bottom: 20px; }
+      @media print {
+        header .headerrow nav.menu {
+          display: none; } }
+      @media (min-width: 800px) {
+        header .headerrow nav.menu {
+          text-align: right;
+          margin-top: unset;
+          margin-bottom: unset; } }
+      header .headerrow nav.menu a {
+        color: #000;
+        display: block;
+        text-align: center;
+        text-decoration: none;
+        padding: 10px 5px;
+        border-bottom: 1px solid rgba(104, 68, 213, 0.3); }
+        @media (min-width: 800px) {
+          header .headerrow nav.menu a {
+            display: inline-block;
+            border-bottom: none; } }
+        header .headerrow nav.menu a.actief, header .headerrow nav.menu a:hover {
+          color: #6844D5; }
+    header .headerrow .user {
+      display: flex;
+      margin-left: 10px;
+      flex-wrap: wrap; }
       @media print {
         header .headerrow .user {
           display: none; } }
+      @media (min-width: 800px) {
+        header .headerrow .user {
+          display: block; } }
       header .headerrow .user .usermenu {
-        position: absolute;
+        position: relative;
         display: block;
-        visibility: hidden;
-        opacity: 0;
-        transition: visibility 0s, opacity 0.5s linear;
-        top: 40px;
-        right: 40px;
         padding: 0;
         background: #ffffff;
         border-radius: 5px;
+        order: 2;
+        flex: 100% 1 1;
         box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); }
+        @media (min-width: 800px) {
+          header .headerrow .user .usermenu {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s, opacity 0.5s linear; } }
         header .headerrow .user .usermenu a {
           display: block;
           text-decoration: none;
@@ -174,7 +231,9 @@ header {
         border-radius: 5px;
         display: flex;
         box-sizing: border-box;
-        cursor: pointer; }
+        cursor: pointer;
+        order: 1;
+        flex: 100% 1 1; }
         header .headerrow .user .userdetails .usericon {
           flex: 20px 0 0;
           margin-right: 10px;
@@ -189,50 +248,6 @@ header {
         opacity: 1; }
       header .headerrow .user:hover .usericon svg path {
         fill: rgba(104, 68, 213, 0.7); }
-    header .headerrow nav.menuDesktop {
-      display: none;
-      text-align: right;
-      font-family: "Montserrat", sans-serif;
-      font-weight: bold; }
-      @media (min-width: 800px) {
-        header .headerrow nav.menuDesktop {
-          display: block; } }
-      @media print {
-        header .headerrow nav.menuDesktop {
-          display: none; } }
-      header .headerrow nav.menuDesktop a {
-        color: #000;
-        display: inline-block;
-        text-align: center;
-        text-decoration: none;
-        padding: 10px 5px; }
-        header .headerrow nav.menuDesktop a.actief, header .headerrow nav.menuDesktop a:hover {
-          color: #6844D5; }
-    header .headerrow .trigger {
-      flex: 30px 0 0;
-      text-align: right;
-      padding-top: 5px; }
-      header .headerrow .trigger img {
-        max-width: 20px; }
-      @media (min-width: 800px) {
-        header .headerrow .trigger {
-          display: none; } }
-  header .panelMobile {
-    display: none;
-    padding: 10px 20px; }
-  header .menuMobile {
-    border-top: 1px solid rgba(104, 68, 213, 0.3);
-    font-family: "Montserrat", sans-serif;
-    font-weight: bold; }
-    header .menuMobile a {
-      display: block;
-      text-align: center;
-      border-bottom: 1px solid rgba(104, 68, 213, 0.3);
-      padding: 10px 0;
-      text-decoration: none;
-      color: #000000; }
-      header .menuMobile a.actief {
-        color: #6844D5; }
 
 .error_message {
   border-radius: 5px;
