@@ -1,11 +1,13 @@
 {% load static %}
+{% load solo_tags %}
+{% get_solo 'reserveringen.SiteConfiguration' as global_settings %}
 <!DOCTYPE html>
 <html lang="nl">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eemschutters Reserveringssysteem</title>
+    <title>{{global_settings.vereniging_naam}} Reserveringssysteem</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'reserveringen/style.css' %}">
@@ -32,7 +34,7 @@
             <div class="headerrow">
                 <div class="logo">
                     <div class="systeemNaam">Reserveringssysteem</div>
-                    <div class="systeemBedrijfsnaam">Eemschutters</div>
+                    <div class="systeemBedrijfsnaam">{{global_settings.vereniging_naam}}</div>
                 </div>
                 {% if user.is_authenticated %}
                 <div class="trigger"><img src="{% static 'reserveringen/menu-bars.svg' %}" alt="Menu"/></div>

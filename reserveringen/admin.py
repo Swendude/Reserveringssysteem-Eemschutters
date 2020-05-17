@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Baan, Schietdag, Reservering
+from solo.admin import SingletonModelAdmin
+from .models import Baan, Schietdag, Reservering, SiteConfiguration
 
 
 class SchietdagAdmin(admin.ModelAdmin):
@@ -40,3 +41,4 @@ class ReserveringAdmin(admin.ModelAdmin):
 admin.site.register(Baan)
 admin.site.register(Reservering, ReserveringAdmin)
 admin.site.register(Schietdag, SchietdagAdmin)
+admin.site.register(SiteConfiguration, SingletonModelAdmin)

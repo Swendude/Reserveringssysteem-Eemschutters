@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 import datetime
 from django.core.exceptions import ValidationError
 from django.utils import timezone
+from solo.models import SingletonModel
 
 
 def time_add_timedelta(t, td):
@@ -143,7 +144,7 @@ class Reservering(models.Model):
     @property
     def vertrek(self):
         return self.eind + self.schietdag.afbouw_duur
-    
+
     @property
     def eerste_slot(self):
         current_tz = timezone.get_current_timezone()
@@ -152,9 +153,30 @@ class Reservering(models.Model):
 
     @property
     def laatste_slot(self):
-        # Todo maybe?
-        return self.eind.time() == self.schietdag.sluit
-
+        current_tz = timezone.get_current_timezone()
+        local_eind = current_tz.normalize(self.eind.astimezone(current_tz))
+        return local_eind.time() == datetime.datetime.combine(timezone.now(), self.schietdag.sluit).time()
 
     class Meta:
         verbose_name_plural = "Reserveringen"
+
+
+class SiteConfiguration(SingletonModel):
+    vereniging_naam = models.CharField(max_length=255, default='Eemschutters')
+    reserveer_venster = models.DurationField(default=datetime.timedelta(
+        7), help_text="Hoelang van te voren mogen sloten gereserveerd worden?")
+    reserveringen_per_week = models.IntegerField(
+        default=2, help_text="Hoeveel reserveringen per week mogen leden maken?")
+    sleutelhouder_baan = models.ForeignKey(Baan, default=None, on_delete=models.SET_DEFAULT, null=True, blank=True,
+                                           help_text="Op welke baan moet een sleutelhouders slot standaard gereserveerd worden?")
+    sleutelhouder_slot = models.IntegerField(
+        default=2, help_text="Op welk slot moeten een sleutehouders slot standaard gereserveerd worden? ")
+    nieuws_bericht = models.CharField(
+        max_length=500, default="Welkom, hier staat het laatste nieuws.", help_text="Een nieuwsberichtje op de homepagina.")
+    gewijzigd_op = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return "Instellingen"
+
+    class Meta:
+        verbose_name = "Instellingen"

@@ -4,19 +4,20 @@ English and dutch don't mix
 """
 from django.shortcuts import render, HttpResponse, Http404
 from django.utils import timezone
-from .models import Schietdag, Baan, Reservering
+from .models import Schietdag, Baan, Reservering, SiteConfiguration
 import datetime
 from django.db.models import Max
 from collections import namedtuple, defaultdict
 from .forms import ReserveringForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from reserveringssysteem_eemschutters import global_settings
+# from reserveringssysteem_eemschutters import global_settings
 from django.views.decorators.http import require_http_methods
 from django.urls import reverse
 from django.contrib import messages
 import pytz
 
+global_settings = SiteConfiguration.objects.get()
 
 def get_view_date():
     return timezone.get_current_timezone().localize(datetime.datetime(year=2020, month=5, day=18, hour=20, minute=56, second=00), is_dst=None)
@@ -51,7 +52,7 @@ def week_start_eind(datum):
     weekeind = datum + \
         datetime.timedelta(6 - datum.weekday())
     weekstart = datetime.datetime.combine(weekstart, datetime.time())
-    weekeind = datetime.datetime.combine(weekeind, datetime.time())
+    weekeind = datetime.datetime.combine(weekstart, datetime.time())
     return(weekstart, weekeind)
 
 
@@ -183,7 +184,8 @@ def reserveringen(request, overzicht=False):
     schietdagen = Schietdag.objects.order_by('dag')
     schietdagen = alle_schietdagen_in_venster(
         view_date, global_settings.reserveer_venster, schietdagen)
-
+    if not schietdagen:
+        return Http404
     if dagkeuze > len(schietdagen) - 1:
         dagkeuze = len(schietdagen)
 
