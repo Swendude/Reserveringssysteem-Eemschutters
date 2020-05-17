@@ -166,11 +166,11 @@ class SiteConfiguration(SingletonModel):
     reserveer_venster = models.DurationField(default=datetime.timedelta(
         7), help_text="Hoelang van te voren mogen sloten gereserveerd worden?")
     reserveringen_per_week = models.IntegerField(
-        default=2, help_text="Hoeveel reserveringen per week mogen leden maken? (eerste slot = 0)")
+        default=2, help_text="Hoeveel reserveringen per week mogen leden maken?")
     sleutelhouder_baan = models.ForeignKey(Baan, default=None, on_delete=models.SET_DEFAULT, null=True, blank=True,
                                            help_text="Op welke baan moet een sleutelhouders slot standaard gereserveerd worden?")
     sleutelhouder_slot = models.IntegerField(
-        default=2, help_text="Op welk slot moeten een sleutehouders slot standaard gereserveerd worden? ")
+        default=2, help_text="Op welk slot moeten een sleutehouders slot standaard gereserveerd worden? (eerste slot = 0)")
     nieuws_bericht = models.CharField(
         max_length=500, default="Welkom, hier staat het laatste nieuws.", help_text="Een nieuwsberichtje op de homepagina.")
     gewijzigd_op = models.DateTimeField(auto_now=True)
