@@ -500,6 +500,12 @@ header {
 }
 
 .dateSelectors {
+
+    display:none;
+
+    @include for-mobile-up() {
+        display:block;
+    }
     position:fixed;
     top:80px;
     left:0;
@@ -512,6 +518,46 @@ header {
         padding:0 20px;
     }
 
+}
+
+.dateSelectorsMobile {
+    display:block;
+    
+    @include for-mobile-up() {
+        display:none;
+    }
+
+    position:fixed;
+    top:80px;
+    left:0;
+    right:0;
+    padding:10px 40px;
+
+    border-bottom:1px solid rgba(0, 0, 0, 0.1);
+    background: $color-background;
+
+    .chevron_down {
+        position:absolute;
+        right:60px;
+        top:20px;
+        z-index:200;
+    }
+
+    select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        z-index:100;
+        position: relative;
+        display:block;
+        line-height:40px;
+        width:100%;
+        border:none;
+        background: $color-primary;
+        color:#ffffff;
+        font-weight:bold;
+        padding:0 20px;
+
+    }
 }
 
 .dateSelector {
@@ -905,8 +951,12 @@ form {
 
 .overview {
 
+    padding:50px 40px 20px;
 
-    padding:80px 40px 20px;
+    @include for-mobile-up() {
+        padding:80px 40px 20px;
+    }
+
 
     @media print {
         padding:0;

@@ -17,49 +17,27 @@
     {% endfor %}
 </div>
 
-<!-- <div class="overview">
-    <div class="overviewTimes">
-        <div class="row rowTime rowHeader">&nbsp;</div>
-        {% for slot_start, slot_eind in slot_tijden  %}
-        <div class="row rowTime">
-            {{slot_start}} - {{slot_eind}}
-        </div>
-        {% endfor %}
+<div class="dateSelectorsMobile">
+    <div class="chevron_down">
+        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4.99945 5.7637C4.86468 5.7637 4.72992 5.71214 4.62679 5.6094L0.153785 1.1364C-0.0520754 0.930539 -0.0520754 0.596949 0.153785 0.391089C0.359645 0.185229 0.693235 0.185229 0.899095 0.391089L4.9995 4.49109L9.0999 0.391089C9.30576 0.185229 9.63935 0.185229 9.84521 0.391089C10.0511 0.596949 10.0511 0.930539 9.84521 1.1364L5.37221 5.6091C5.26909 5.71222 5.13432 5.76379 4.99955 5.76379L4.99945 5.7637Z" fill="white"/>
+        </svg>            
     </div>
-    <div class="overviewScrollable">
-        <div class="cols">
-            {% for baan, slots in slots_per_baan.items  %}
+    <form method="GET" action="{% url 'overzicht' %}">
+        <select name="next" onchange="this.form.submit()">
 
-            <div class="col colLocation">
-                <div class="row rowHeader rowLocationName">{{baan}}</div>
-                {% for slot in slots  %}        
-                    <div class="">
-                        {{slot.starttijd}} - {{slot.eindtijd}}
-                    </div>
-                    
-                    {% if slot.status == 'Vrij' %}
-                        <div class="row rowStatus">
-                        </div>
-                    {% endif %}
+            {% for datum, schietdag in schietdagen %}
+            {% if forloop.counter0 == dagkeuze %}
+                <option selected>{{ datum | date:"l j b Y" }}</option>
+            {% else %}
+                <option value="{{ forloop.counter0 }}">{{ datum | date:"l j b Y" }}</option>
+            {% endif %}
+            {% endfor %}            
 
-                    {% if slot.status == 'Zelf' or slot.status == 'Bezet'  %}
-                        <div class="row rowStatus">
-                            <div class="block notAvailable"><strong>Bezet {{ slot.starttijd }}</strong><br />{{ slot.reservering_eigenaar }}</div>
-                        </div>
-                    {% endif %}
-                    {% if slot.status == 'Verlopen' %}
-                        <div class="row rowStatus">
-                        </div>
-                    {% endif %}
+        </select>
+    </form>
+</div>
 
-                {% endfor %}
-            </div>
-
-            {% endfor %}
-
-        </div>
-    </div>
-</div> -->
 
 <div class="overview">
     {% for slot, banen in banen_per_slot.items  %}
