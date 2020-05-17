@@ -55,6 +55,7 @@ Om lokaal te draaien:
 - [ ] 'Reserveringen' pagina een regelblokje
 - [x] Eerste en laatste sloten bouwen op/af
 - [x] Als een baan geen opmerking heeft, dan ook de 'Haakjes: `(` `)` niet laten zien
+- [ ] Sleutelhouderslot reserveren
 
 **Datamodel/Validatie**
 - [x] Geen twee slots op dezelfde avond
@@ -72,3 +73,4 @@ Om lokaal te draaien:
 
 **Bug**
 - [x] Na database-migratie Als je de schietdagen niet goed vult, krijg je een error over de assert functie (regel 98)
+- [ ] Mijn reserveringen worden niet goed gesorteerd per week.
