@@ -1,7 +1,9 @@
 asgiref==3.2.7
 autopep8==1.5.2
+chardet==3.0.4
 dj-database-url==0.5.0
 Django==3.0.6
+django-csvimport==2.15
 django-heroku==0.3.1
 django-multiselectfield==0.1.12
 django-solo==1.1.3

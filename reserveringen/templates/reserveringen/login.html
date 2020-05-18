@@ -10,10 +10,12 @@
             <div>
                 <div>{{ form.username.label_tag }}</div>
                 <div>{{ form.username }}</div>
+                <div>{{form.username.errors}}</div>
             </div>
             <div>
                 <div>{{ form.password.label_tag }}</div>
                 <div>{{ form.password }}</div>
+                <div>{{form.password.errors}}</div>
             </div>
             <div>
                 <button type='submit' class="inloggen">Log in</button>
