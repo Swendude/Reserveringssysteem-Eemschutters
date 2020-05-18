@@ -245,7 +245,7 @@ def reserveringen(request, overzicht=False):
                         slot_tijd[1],
                         baan,
                         status,
-                        reservering[0].gebruiker.username if reservering else None,
+                        reservering[0].gebruiker if reservering else None,
                         slot_form,
                         vogelvrij_slot_form)
 
