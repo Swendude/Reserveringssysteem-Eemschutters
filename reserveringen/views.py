@@ -19,7 +19,6 @@ import pytz
 global_settings = SiteConfiguration.objects.get
 
 def get_view_date():
-    return timezone.get_current_timezone().localize(datetime.datetime(year=2020, month=5, day=18, hour=20, minute=56, second=00), is_dst=None)
     return timezone.now()
 
 
@@ -221,6 +220,8 @@ def reserveringen(request, overzicht=False):
                     status = "Verlopen"
                 else:
                     status = "Vrij"
+                    print(slot_start)
+                    print(view_date)
                     if (slot_start - view_date) < datetime.timedelta(hours=1):
                         status = "Vogelvrij"
                     if (baan == global_settings().sleutelhouder_baan and i == global_settings().sleutelhouder_slot):
