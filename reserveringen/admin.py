@@ -1,6 +1,6 @@
 from django.contrib import admin
 from solo.admin import SingletonModelAdmin
-from .models import Baan, Schietdag, Reservering, SiteConfiguration
+from .models import Baan, Schietdag, Reservering, SiteConfiguration, NieuwsBericht
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User  
 from django import forms
@@ -73,6 +73,7 @@ class CustomUserAdmin(UserAdmin):
         )
 
 admin.site.register(Baan)
+admin.site.register(NieuwsBericht)
 admin.site.register(Reservering, ReserveringAdmin)
 admin.site.register(Schietdag, SchietdagAdmin)
 admin.site.register(SiteConfiguration, SingletonModelAdmin)

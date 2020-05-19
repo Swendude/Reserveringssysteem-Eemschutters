@@ -4,7 +4,7 @@ English and dutch don't mix
 """
 from django.shortcuts import render, HttpResponse, Http404
 from django.utils import timezone
-from .models import Schietdag, Baan, Reservering, SiteConfiguration
+from .models import Schietdag, Baan, Reservering, SiteConfiguration, NieuwsBericht
 import datetime
 from django.db.models import Max
 from collections import namedtuple, defaultdict
@@ -260,7 +260,8 @@ def reserveringen(request, overzicht=False):
                'slots_per_baan': slots_per_baan,
                'banen_per_slot': banen_per_slot,
                'dagkeuze': dagkeuze,
-               'sleutelhouder': sleutelhouder}
+               'sleutelhouder': sleutelhouder,
+               'nieuwsbericht': NieuwsBericht.objects.latest('gewijzigd_op')}
 
     if not overzicht:
         return render(request, 'reserveringen/reserveringen.html', context)

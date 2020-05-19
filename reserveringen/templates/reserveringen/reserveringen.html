@@ -5,6 +5,10 @@
 {% block content %}
 <div class="content">
     <div class="wrapper">
+        <div class="nb">
+        <div class="nb-datum">Nieuwsbericht van: {{nieuwsbericht.gewijzigd_op | date}}</div>
+        <div class="nb-text">{{nieuwsbericht.nieuws_bericht}}</div>
+        </div>
         <h1>Maak een reservering</h1>
 
         <h2>Voor wanneer wil je reserveren?</h2>

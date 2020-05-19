@@ -172,12 +172,24 @@ class SiteConfiguration(SingletonModel):
                                            help_text="Op welke baan moet een sleutelhouders slot standaard gereserveerd worden?")
     sleutelhouder_slot = models.IntegerField(
         default=2, help_text="Op welk slot moeten een sleutehouders slot standaard gereserveerd worden? (eerste slot = 0)")
-    nieuws_bericht = models.CharField(
-        max_length=500, default="Welkom, hier staat het laatste nieuws.", help_text="Een nieuwsberichtje op de homepagina.")
-    gewijzigd_op = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return "Instellingen"
 
     class Meta:
         verbose_name = "Instellingen"
+
+class NieuwsBericht(models.Model):
+    """
+        Een nieuwsberichtje voor op de homepage
+    """
+    nieuws_bericht = models.TextField(
+        max_length=800, default="Welkom, hier staat het laatste nieuws.", help_text="Een nieuwsberichtje op de homepagina.")
+    gewijzigd_op = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"Nieuwsbericht van {self.gewijzigd_op}"
+
+    class Meta:
+        verbose_name = "Nieuwsbericht"
+        verbose_name_plural= "Nieuwsberichten"
