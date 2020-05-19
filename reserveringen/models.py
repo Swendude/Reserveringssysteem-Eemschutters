@@ -99,8 +99,9 @@ class Schietdag(models.Model):
         # Houd rekening met de extra eindtijd
         tijden[-1] = (tijden[-1][0],
                       time_add_timedelta(tijden[-1][1], self.extra_tijd_eind))
-        assert(len(tijden) == self.aantal_slots)
-        # assert(tijden[0][0] == self.open and tijden[-1][1] == self.eind)
+        if not len(tijden) == self.aantal_slots:
+             raise ValidationError(
+                f'Deze instellingen passen niet in de gehele tijd, veranderen extra begin of eind tijd of gebruik een andere tijdsduur voor sloten.')
         return tijden
 
     @property
@@ -129,7 +130,7 @@ class Reservering(models.Model):
     """
     start = models.DateTimeField()
     eind = models.DateTimeField()
-    baan = models.ForeignKey(Baan, on_delete=models.PROTECT)
+    baan = models.ForeignKey(Baan, on_delete=models.CASCADE)
     schietdag = models.ForeignKey(Schietdag, on_delete=models.PROTECT)
     gebruiker = models.ForeignKey(User, on_delete=models.CASCADE)
     bonus = models.BooleanField(default=False)
