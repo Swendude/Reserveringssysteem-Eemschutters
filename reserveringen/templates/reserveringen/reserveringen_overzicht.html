@@ -54,7 +54,9 @@
                     {% if slot.status == 'Vrij' %}
                         <div class="status"><div class="indicator positive"></div>Beschikbaar</div>
                     {% endif %}
-
+                    {% if slot.status == 'Vogelvrij' %}
+                        <div class="status"><div class="indicator positive"></div>Vogelvrij</div>
+                    {% endif %}
                     {% if slot.status == 'Zelf' or slot.status == 'Bezet'  %}
                         <div class="status notAvailable"><div class="indicator"></div>
                         {{ slot.reservering_eigenaar.first_name }}, {{ slot.reservering_eigenaar.last_name }}
