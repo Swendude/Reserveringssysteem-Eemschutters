@@ -19,6 +19,7 @@ import pytz
 global_settings = SiteConfiguration.objects.get
 
 def get_view_date():
+    # return datetime.datetime(2020, 5, 24, 23, 30, 0,tzinfo=timezone.utc)
     return timezone.now()
 
 
@@ -36,6 +37,7 @@ def alle_schietdagen_in_venster(current, venster, schietdagen):
     Verkrijg alle dagen die schietdagen zijn binnen het huidige venster (timedelta). 
     Geeft een lijst van tuples (datum, schietdag) terug.
     """
+    current = datetime.datetime.combine(current, datetime.time(12,0,0))
     schietdagen = {schietdag.dag: schietdag for schietdag in schietdagen}
     schietdagen_in_venster = []
     for dag in daterange(current, current + venster):
@@ -67,7 +69,6 @@ def mijn_reserveringen(request):
         if reservering.start < view_date:
             reservering.verlopen = True
         reserveringen_per_week[reservering_weekstart].append(reservering)
-    print(reserveringen_per_week)
     sleutelhouder = request.user.groups.filter(name='Sleutelhouders').exists()
     return render(request, 'reserveringen/mijn_reserveringen.html', {'sleutelhouder': sleutelhouder, 'reserveringen_per_week': dict(reserveringen_per_week)})
 
@@ -220,8 +221,6 @@ def reserveringen(request, overzicht=False):
                     status = "Verlopen"
                 else:
                     status = "Vrij"
-                    print(slot_start)
-                    print(view_date)
                     if (slot_start - view_date) < datetime.timedelta(hours=1):
                         status = "Vogelvrij"
                     if (baan == global_settings().sleutelhouder_baan and i == global_settings().sleutelhouder_slot):
