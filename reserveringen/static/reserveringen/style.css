@@ -112,12 +112,13 @@ header {
     header .wrapper.wide {
       width: 100%; }
   header .logo {
-    font-size: 20px;
-    font-family: "Montserrat", sans-serif;
-    line-height: 1.6em; }
+    font-size: 17px;
+    line-height: 20px;
+    font-family: "Montserrat", sans-serif; }
     @media (min-width: 800px) {
       header .logo {
-        font-size: 24px; } }
+        font-size: 24px;
+        line-height: 1.6em; } }
     header .logo .systeemNaam,
     header .logo .systeemBedrijfsnaam {
       display: inline-block;
@@ -137,12 +138,12 @@ header {
         padding: 0 20px; } }
     header .headerrow .logo {
       flex: calc(100% - 30px) 0 0; }
-      @media (min-width: 800px) {
+      @media (min-width: 950px) {
         header .headerrow .logo {
           flex: 50% 1 1; } }
     header .headerrow .navigation {
       flex: 100% 0 0; }
-      @media (min-width: 800px) {
+      @media (min-width: 950px) {
         header .headerrow .navigation {
           flex: 50% 1 1; } }
     header .headerrow .trigger {
@@ -151,12 +152,12 @@ header {
       padding-top: 5px; }
       header .headerrow .trigger img {
         max-width: 20px; }
-      @media (min-width: 800px) {
+      @media (min-width: 950px) {
         header .headerrow .trigger {
           display: none; } }
     header .headerrow .navigation {
       display: none; }
-      @media (min-width: 800px) {
+      @media (min-width: 950px) {
         header .headerrow .navigation {
           display: flex;
           position: relative;
@@ -170,7 +171,7 @@ header {
       @media print {
         header .headerrow nav.menu {
           display: none; } }
-      @media (min-width: 800px) {
+      @media (min-width: 950px) {
         header .headerrow nav.menu {
           text-align: right;
           margin-top: unset;
@@ -182,7 +183,7 @@ header {
         text-decoration: none;
         padding: 10px 5px;
         border-bottom: 1px solid rgba(104, 68, 213, 0.3); }
-        @media (min-width: 800px) {
+        @media (min-width: 950px) {
           header .headerrow nav.menu a {
             display: inline-block;
             border-bottom: none; } }
@@ -195,7 +196,7 @@ header {
       @media print {
         header .headerrow .user {
           display: none; } }
-      @media (min-width: 800px) {
+      @media (min-width: 950px) {
         header .headerrow .user {
           display: block; } }
       header .headerrow .user .usermenu {
@@ -207,7 +208,7 @@ header {
         order: 2;
         flex: 100% 1 1;
         box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); }
-        @media (min-width: 800px) {
+        @media (min-width: 950px) {
           header .headerrow .user .usermenu {
             position: absolute;
             top: 40px;
@@ -623,5 +624,3 @@ form {
           -webkit-print-color-adjust: exact !important; }
         .overview .overviewGroup .ogRows .ogRow .status.notAvailable .indicator {
           background: #e74c3c; }
-
-/*# sourceMappingURL=style.css.map */
