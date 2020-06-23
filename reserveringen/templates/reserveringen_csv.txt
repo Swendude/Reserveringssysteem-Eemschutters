@@ -1,0 +1,2 @@
+{% autoescape off %}"Datum","Start","Eind","Schietdag","Baan","Gebruiker","Bonusslot"{% for reservering in reserveringen %}
+"{{reservering.start|date|addslashes}}","{{reservering.start|time|addslashes}}","{{reservering.eind|time|addslashes}}","{{reservering.schietdag.sf_dag|addslashes}}", "{{reservering.baan.naam|addslashes}}", "{{reservering.gebruiker.first_name|addslashes}} {{reservering.gebruiker.last_name|addslashes}}({{reservering.gebruiker.username|addslashes}})", "{{reservering.bonus|addslashes}}"{% endfor %}{% endautoescape %}
