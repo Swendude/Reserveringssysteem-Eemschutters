@@ -83,6 +83,9 @@ class Schietdag(models.Model):
     def dagen(self):
         return dict(DAGEN)
 
+    def sf_dag(self):
+        return self.dagen[self.dag]
+
     def slot_tijden(self):
         tijden = []
 
