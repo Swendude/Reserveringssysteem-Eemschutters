@@ -19,7 +19,7 @@ import pytz
 global_settings = SiteConfiguration.objects.get
 
 def get_view_date():
-    # return datetime.datetime(2020, 5, 24, 23, 30, 0,tzinfo=timezone.utc)
+    # return datetime.datetime(2020, 6, 26, 18, 9, 0,tzinfo=timezone.utc)
     return timezone.now()
 
 
@@ -66,7 +66,7 @@ def mijn_reserveringen(request):
     for reservering in reserveringen:
         reservering_weekstart, reservering_weekeind = week_start_eind(
             reservering.start)
-        if reservering.start < view_date:
+        if reservering.eind < view_date:
             reservering.verlopen = True
         reserveringen_per_week[reservering_weekstart].append(reservering)
     sleutelhouder = request.user.groups.filter(name='Sleutelhouders').exists()
@@ -79,9 +79,9 @@ def verwijder_reserveringen(request):
     view_date = get_view_date()
     target = Reservering.objects.get(
         id=request.POST['reservering_id'], gebruiker=request.user)
-    if target.start - datetime.timedelta(hours=1) < view_date:
+    if target.eind < view_date:
         messages.error(
-            request, 'De reservering kan niet meer worden geannuleerd wanneer deze binnen een uur start.')
+            request, 'De reservering kan niet meer worden geannuleerd nadat deze afgelopen is.')
     else:
         target.delete()
     return HttpResponseRedirect(reverse('mijn_reserveringen'))
@@ -164,8 +164,6 @@ def reserveringen(request, overzicht=False):
                             args = {**{'gebruiker': request.user},
                                     **form.cleaned_data}
                             Reservering(**args).save()
-        else:
-            print(form.errors)
         if 'next' in request.GET:
             return HttpResponseRedirect(request.path_info + f"?next={request.GET['next']}")
         else:

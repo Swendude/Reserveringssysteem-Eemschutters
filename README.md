@@ -41,7 +41,7 @@ Om lokaal te draaien:
 - [x] Volgorde omdraaien (eerstvolgende reservering bovenaan)
 - [x] Reserveringen van de huidige dag tonen
 - [x] ~~Reserveringen maximaal een uur van te voren annuleren~~
-- [ ] Reserveringen annuleren tot eindtijd
+- [x] Reserveringen annuleren tot eindtijd
 - [ ] Reserveringen na vier weken verwijderen
 
 **Opmaak**
