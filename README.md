@@ -58,7 +58,7 @@ Om lokaal te draaien:
 - [x] Eerste en laatste sloten bouwen op/af
 - [x] Als een baan geen opmerking heeft, dan ook de 'Haakjes: `(` `)` niet laten zien
 - [x] Sleutelhouderslot reserveren
-- [ ] RIVM Gezondheidschek bij reserveren
+- [ ] RIVM Gezondheidscheck bij reserveren
 - [x] Reserveringen exporteren
 
 **Datamodel/Validatie**
