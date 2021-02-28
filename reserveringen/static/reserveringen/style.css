@@ -47,7 +47,11 @@ body {
   -webkit-font-smoothing: antialiased;
   line-height: 1.6em;
   font-size: 14px;
-  background: #F5F6FA; }
+  background: #F5F6FA;
+  padding-top: 120px; }
+  @media print {
+    body {
+      font-size: 12px; } }
 
 table,
 th,
@@ -88,7 +92,10 @@ b {
       padding: unset; } }
 
 header {
-  position: relative;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
   z-index: 400;
   min-height: 80px;
   background: #ffffff;
@@ -96,52 +103,123 @@ header {
   box-sizing: border-box;
   margin-bottom: 40px;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); }
+  @media print {
+    header {
+      padding: 0;
+      box-shadow: 0 0 0 rgba(0, 0, 0, 0); } }
   header .wrapper {
     padding: 0; }
     header .wrapper.wide {
       width: 100%; }
   header .logo {
-    font-size: 20px;
-    font-family: "Montserrat", sans-serif;
-    line-height: 1.6em; }
+    font-size: 17px;
+    line-height: 20px;
+    font-family: "Montserrat", sans-serif; }
     @media (min-width: 800px) {
       header .logo {
-        font-size: 24px; } }
-  header .systeemNaam,
-  header .systeemBedrijfsnaam {
-    display: inline-block;
-    font-weight: bold; }
-  header .systeemNaam {
-    font-weight: normal; }
-  header .systeemBedrijfsnaam {
-    color: #6844D5; }
+        font-size: 24px;
+        line-height: 1.6em; } }
+    header .logo .systeemNaam,
+    header .logo .systeemBedrijfsnaam {
+      display: inline-block;
+      font-weight: bold; }
+    header .logo .systeemNaam {
+      font-weight: normal; }
+    header .logo .systeemBedrijfsnaam {
+      color: #6844D5; }
   header .headerrow {
     padding: 0 40px;
     width: 100%;
     box-sizing: border-box;
-    display: block; }
-    @media (min-width: 800px) {
+    display: flex;
+    flex-wrap: wrap; }
+    @media print {
       header .headerrow {
-        display: flex; } }
-    header .headerrow .logo,
-    header .headerrow nav {
-      flex: 50% 1 1; }
+        padding: 0 20px; } }
+    header .headerrow .logo {
+      flex: calc(100% - 30px) 0 0; }
+      @media (min-width: 950px) {
+        header .headerrow .logo {
+          flex: 50% 1 1; } }
+    header .headerrow .navigation {
+      flex: 100% 0 0; }
+      @media (min-width: 950px) {
+        header .headerrow .navigation {
+          flex: 50% 1 1; } }
+    header .headerrow .trigger {
+      flex: 30px 0 0;
+      text-align: right;
+      padding-top: 5px; }
+      header .headerrow .trigger img {
+        max-width: 20px; }
+      @media (min-width: 950px) {
+        header .headerrow .trigger {
+          display: none; } }
+    header .headerrow .navigation {
+      display: none; }
+      @media (min-width: 950px) {
+        header .headerrow .navigation {
+          display: flex;
+          position: relative;
+          justify-content: flex-end; } }
+    header .headerrow nav.menu {
+      display: block;
+      font-family: "Montserrat", sans-serif;
+      font-weight: bold;
+      margin-top: 30px;
+      margin-bottom: 20px; }
+      @media print {
+        header .headerrow nav.menu {
+          display: none; } }
+      @media (min-width: 950px) {
+        header .headerrow nav.menu {
+          text-align: right;
+          margin-top: unset;
+          margin-bottom: unset; } }
+      header .headerrow nav.menu a {
+        color: #000;
+        display: block;
+        text-align: center;
+        text-decoration: none;
+        padding: 10px 5px;
+        border-bottom: 1px solid rgba(104, 68, 213, 0.3); }
+        @media (min-width: 950px) {
+          header .headerrow nav.menu a {
+            display: inline-block;
+            border-bottom: none; } }
+        header .headerrow nav.menu a.actief, header .headerrow nav.menu a:hover {
+          color: #6844D5; }
     header .headerrow .user {
-      border-left: 1px solid rgba(0, 0, 0, 0.2);
-      padding-left: 20px;
-      margin-left: 10px; }
+      display: flex;
+      margin-left: 10px;
+      flex-wrap: wrap; }
+      @media print {
+        header .headerrow .user {
+          display: none; } }
+      @media (min-width: 950px) {
+        header .headerrow .user {
+          display: block; } }
       header .headerrow .user .usermenu {
-        display: none;
-        top: 40px;
-        right: 40px;
+        position: relative;
+        display: block;
         padding: 0;
         background: #ffffff;
         border-radius: 5px;
+        order: 2;
+        flex: 100% 1 1;
         box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); }
+        @media (min-width: 950px) {
+          header .headerrow .user .usermenu {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s, opacity 0.5s linear; } }
         header .headerrow .user .usermenu a {
           display: block;
           text-decoration: none;
-          padding: 5px 10px;
+          padding: 10px 20px;
           border-bottom: 1px solid rgba(0, 0, 0, 0.2);
           color: #000000; }
           header .headerrow .user .usermenu a:last-child {
@@ -149,36 +227,39 @@ header {
           header .headerrow .user .usermenu a:hover {
             color: #6844D5; }
       header .headerrow .user .userdetails {
-        padding: 10px 0; }
+        padding: 10px;
+        background: rgba(0, 0, 0, 0.05);
+        border-radius: 5px;
+        display: flex;
+        box-sizing: border-box;
+        cursor: pointer;
+        order: 1;
+        flex: 100% 1 1; }
+        header .headerrow .user .userdetails .usericon {
+          flex: 20px 0 0;
+          margin-right: 10px;
+          line-height: 0; }
+          header .headerrow .user .userdetails .usericon svg path {
+            fill: rgba(0, 0, 0, 0.3); }
         header .headerrow .user .userdetails .username {
-          font-family: "Montserrat", sans-serif;
-          font-weight: bold; }
+          flex: 100% 1 1;
+          line-height: 20px; }
       header .headerrow .user:hover .usermenu {
-        position: absolute;
-        display: block; }
-    header .headerrow nav {
-      text-align: right;
-      font-family: "Montserrat", sans-serif;
-      font-weight: bold; }
-      header .headerrow nav a {
-        color: #000;
-        display: inline-block;
-        text-align: center;
-        text-decoration: none;
-        padding: 10px; }
-        header .headerrow nav a.actief, header .headerrow nav a:hover {
-          color: #6844D5; }
+        visibility: visible;
+        opacity: 1; }
+      header .headerrow .user:hover .usericon svg path {
+        fill: rgba(104, 68, 213, 0.7); }
 
 .error_message {
-  border: 2px solid black;
-  color: white;
   border-radius: 5px;
   padding: 10px;
   font-weight: bold;
   text-decoration: none;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  background-color: red; }
+  background-color: rgba(231, 76, 60, 0.2);
+  color: #e74c3c;
+  margin-bottom: 5px; }
+  .error_message a {
+    color: inherit; }
 
 .content .wrapper {
   background: #fff;
@@ -265,9 +346,51 @@ header {
         background: rgba(104, 68, 213, 0.05); } }
 
 .dateSelectors {
-  margin-top: -40px;
+  display: none;
+  position: fixed;
+  top: 80px;
+  left: 0;
+  right: 0;
   padding: 20px 40px 10px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1); }
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  background: #F5F6FA; }
+  @media (min-width: 800px) {
+    .dateSelectors {
+      display: block; } }
+  @media print {
+    .dateSelectors {
+      padding: 0 20px; } }
+
+.dateSelectorsMobile {
+  display: block;
+  position: fixed;
+  top: 80px;
+  left: 0;
+  right: 0;
+  padding: 10px 40px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  background: #F5F6FA; }
+  @media (min-width: 800px) {
+    .dateSelectorsMobile {
+      display: none; } }
+  .dateSelectorsMobile .chevron_down {
+    position: absolute;
+    right: 60px;
+    top: 20px;
+    z-index: 200; }
+  .dateSelectorsMobile select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    z-index: 100;
+    position: relative;
+    display: block;
+    line-height: 40px;
+    width: 100%;
+    border: none;
+    background: #6844D5;
+    color: #ffffff;
+    font-weight: bold;
+    padding: 0 20px; }
 
 .dateSelector {
   display: block;
@@ -288,9 +411,16 @@ header {
   .dateSelector .icon {
     display: inline-block;
     margin-right: 10px; }
+  @media print {
+    .dateSelector {
+      display: none; } }
   .dateSelector.active, .dateSelector:hover {
     background: #6844D5;
     color: #fff; }
+    @media print {
+      .dateSelector.active, .dateSelector:hover {
+        display: block;
+        color: #000000; } }
 
 .reserveerButton {
   -webkit-appearance: none;
@@ -333,26 +463,32 @@ header {
   margin-bottom: 20px;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 5px; }
-  .reservering .reserveringContainer,
   .reservering .reserveringOpmerking {
     display: block; }
   .reservering .reserveringContainer {
-    display: flex;
+    display: block;
     margin-bottom: 10px; }
+    @media (min-width: 800px) {
+      .reservering .reserveringContainer {
+        display: flex; } }
   .reservering .reserveringInhoud,
   .reservering .reserveringActies {
     flex: 100% 1 1; }
   .reservering .reserveringInhoud {
     margin-bottom: 20px; }
-  .reservering .reserveringActies {
-    flex: 120px 1 1; }
+  @media (min-width: 800px) {
+    .reservering .reserveringActies {
+      flex: 120px 1 1; } }
   @media (min-width: 800px) {
     .reservering {
       flex-direction: row; }
       .reservering .reserveringInhoud {
         margin-bottom: unset; } }
   .reservering .reserveringActies {
-    text-align: right; }
+    text-align: left; }
+    @media (min-width: 800px) {
+      .reservering .reserveringActies {
+        text-align: right; } }
     .reservering .reserveringActies .annuleer {
       display: inline-block;
       -webkit-appearance: none;
@@ -366,6 +502,19 @@ header {
       padding: 0 30px;
       line-height: 30px;
       cursor: pointer; }
+    .reservering .reserveringActies .verlopen {
+      display: inline-block;
+      -webkit-appearance: none;
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: bold;
+      font-size: 12px;
+      border: none;
+      background: #e74c3c;
+      color: #fff;
+      border-radius: 5px;
+      padding: 0 30px;
+      line-height: 30px;
+      cursor: not-allowed; }
   .reservering h2 {
     color: #000000;
     margin-bottom: 10px; }
@@ -374,7 +523,11 @@ header {
     margin-right: 10px; }
   .reservering .reserveringDetails {
     display: flex;
-    margin-bottom: 10px; }
+    margin-bottom: 10px;
+    flex-direction: column; }
+    @media (min-width: 800px) {
+      .reservering .reserveringDetails {
+        flex-direction: row; } }
     .reservering .reserveringDetails .rdTijd,
     .reservering .reserveringDetails .rdBaan {
       flex: 100% 1 1;
@@ -384,7 +537,15 @@ header {
     background: rgba(52, 152, 219, 0.1);
     color: #3498db;
     padding: 10px;
-    border-radius: 4px; }
+    border-radius: 4px;
+    margin-bottom: 5px; }
+  .reservering .reserveringWaarschuwing {
+    flex: 100% 1 1;
+    background: rgba(231, 76, 60, 0.1);
+    color: #e74c3c;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 5px; }
 
 .reserveringlabel {
   font-size: 12px;
@@ -419,50 +580,47 @@ form {
     line-height: 30px;
     cursor: pointer; }
 
+.nb {
+  border-radius: 5px;
+  border: 1px solid;
+  padding: 15px 30px;
+  margin-bottom: 10px; }
+
+.nb-datum {
+  font-weight: bold;
+  font-size: smaller; }
+
 .overview {
-  position: relative;
-  display: flex;
-  min-height: calc(100% - 82px);
-  overflow: hidden; }
-  .overview .overviewTimes {
-    padding-top: 50px;
-    padding-left: 40px;
-    flex: 200px 0 0;
-    font-weight: bold;
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-    position: relative;
-    z-index: 300;
-    background: #ffffff; }
-  .overview .overviewScrollable {
-    padding-top: 50px;
-    flex: 100% 1 1;
-    overflow-x: scroll; }
-    .overview .overviewScrollable .rowHeader {
-      color: #6844D5;
-      font-size: 20px; }
-  .overview .row {
-    display: block;
-    height: 80px;
-    padding: 10px;
-    box-sizing: border-box;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2); }
-    .overview .row.rowHeader {
-      height: 60px;
-      font-weight: bold; }
-  .overview .cols {
-    display: flex;
-    padding-left: 30px; }
-    .overview .cols .col {
-      flex: 300px 0 0;
-      margin-right: 30px; }
-  .overview .block {
-    position: relative;
-    z-index: 200;
+  padding: 50px 40px 20px; }
+  @media (min-width: 800px) {
+    .overview {
+      padding: 80px 40px 20px; } }
+  @media print {
+    .overview {
+      padding: 0; } }
+  .overview .overviewGroup {
     display: block;
     background: #fff;
-    padding: 5px 10px;
-    box-sizing: border-box;
-    border-radius: 5px;
-    border: 1px solid rgba(0, 0, 0, 0.2); }
-    .overview .block.notAvailable strong {
-      color: #e74c3c; }
+    padding: 20px;
+    margin-bottom: 20px; }
+    .overview .overviewGroup .ogRows .ogRow {
+      display: flex;
+      padding: 10px 0;
+      border-bottom: 1px solid #6844D5; }
+      @media print {
+        .overview .overviewGroup .ogRows .ogRow {
+          padding: 2px 0; } }
+      .overview .overviewGroup .ogRows .ogRow .label {
+        flex: 200px 0 0; }
+      .overview .overviewGroup .ogRows .ogRow .status {
+        flex: 100% 1 1; }
+        .overview .overviewGroup .ogRows .ogRow .status .indicator {
+          display: inline-block;
+          width: 10px;
+          height: 10px;
+          border-radius: 5px;
+          background: #27ae60;
+          margin-right: 10px;
+          -webkit-print-color-adjust: exact !important; }
+        .overview .overviewGroup .ogRows .ogRow .status.notAvailable .indicator {
+          background: #e74c3c; }

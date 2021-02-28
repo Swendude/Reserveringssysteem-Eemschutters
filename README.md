@@ -40,7 +40,9 @@ Om lokaal te draaien:
 - [x] Maximaal aantal reserveringen per week
 - [x] Volgorde omdraaien (eerstvolgende reservering bovenaan)
 - [x] Reserveringen van de huidige dag tonen
-- [ ] Reserveringen maximaal een uur van te voren annuleren
+- [x] ~~Reserveringen maximaal een uur van te voren annuleren~~
+- [x] Reserveringen annuleren tot eindtijd
+- [ ] Reserveringen na vier weken verwijderen
 
 **Opmaak**
 - [x] Bestiging modal bij reserveren
@@ -49,6 +51,29 @@ Om lokaal te draaien:
 - [x] Error Messages
 
 **Diverse**
-- [ ] Wachtwoord wijzigen
+- [x] Wachtwoord wijzigen
 - [x] Overzicht voor baancommandant/sleutelhouder
-- [ ] Bij het wijzigen van een schietdag: Alle toekomstige reservaties verwijderen.
+- [x] Bij het wijzigen van een schietdag: Alle toekomstige reservaties verwijderen
+- [x] 'Reserveringen' pagina een regelblokje
+- [x] Eerste en laatste sloten bouwen op/af
+- [x] Als een baan geen opmerking heeft, dan ook de 'Haakjes: `(` `)` niet laten zien
+- [x] Sleutelhouderslot reserveren
+- [ ] RIVM Gezondheidscheck bij reserveren
+- [x] Reserveringen exporteren
+
+**Datamodel/Validatie**
+- [x] Geen twee slots op dezelfde avond
+- [ ] X-de dag van de maand Schietdagen
+- [x] Label banen naar string
+- [x] Non int aantal sloten
+    - [x] Resterende tijd toevoegen aan begin en eind slot
+- [x] Een uur van te voren is een slot vogelvrij
+    - [x] Vogelvrije sloten tellen niet mee in de weektelling
+    - [x] Sloten hebben een bonusveld
+- [x] Algemene instellingen in admin
+- [x] Admin reserveringen verbeteren
+- [x] Alleen gebruikers in de groep sleutelhouders zien overzicht
+
+**Bug**
+- [x] Na database-migratie Als je de schietdagen niet goed vult, krijg je een error over de assert functie (regel 98)
+- [x] Mijn reserveringen worden niet goed gesorteerd per week.

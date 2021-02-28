@@ -4,7 +4,14 @@
 
 {% block content %}
 <div class="content">
+    
     <div class="wrapper">
+        {% if nieuwsbericht %}
+        <div class="nb">
+        <div class="nb-datum">Nieuwsbericht van: {{nieuwsbericht.gewijzigd_op | date}}</div>
+        <div class="nb-text">{{nieuwsbericht.nieuws_bericht}}</div>
+        </div>
+        {% endif %}
         <h1>Maak een reservering</h1>
 
         <h2>Voor wanneer wil je reserveren?</h2>
@@ -25,12 +32,12 @@
         <ul class="messages">
             {% for message in messages %}
             <li class="{{ message.tags }}_message">
-                {{ message }}
+                {{ message.message | safe }}
             </li>
             {% endfor %}
         </ul>
         {% endif %}
-
+        <br /><br />
         <h2>Welke baan, wil je hoelaat reserveren op {{ gekozen_schietdag_datum | date:"l j b Y" }}?</h2>
 
         <div class="overzichtBanen">
@@ -57,10 +64,23 @@
                     <div class="baanSlot">
                         <div class="tijdSlotMobiel">{{ slot.starttijd }} - {{ slot.eindtijd }}</div>
                         <form action="{% url 'reserveringen' %}?next={{dagkeuze}}" method="post"
-                            onsubmit="return confirm('Weet je zeker dat je {{baan}} van {{ slot.starttijd }} tot {{ slot.eindtijd }} wilt reserveren?');">
+                    onsubmit="return bevestigReservering(event)" 
+                    confirm-string="Weet je zeker dat je {{baan}} van {{slot.starttijd}} tot {{slot.eindtijd}} wilt reserveren?">
                             {% csrf_token %}
                             {{ slot.form }}
                             <input type="submit" class="reserveerButton" name="reserveerButton" value="Reserveer" />
+                        </form>
+                    </div>
+                    {% endif %}
+                    {% if slot.status == 'Vogelvrij'%}
+                    <div class="baanSlot">
+                        <div class="tijdSlotMobiel">{{ slot.starttijd }} - {{ slot.eindtijd }}</div>
+                        <form action="{% url 'reserveringen' %}?next={{dagkeuze}}" method="post"
+                            onsubmit="return bevestigReservering(event)"
+                            confirm-string="Weet je zeker dat je {{baan}} van {{slot.starttijd}} tot {{slot.eindtijd}} wilt reserveren?">
+                            {% csrf_token %}
+                            {{ slot.vogelvrij_slot_form }}
+                            <input type="submit" class="reserveerButton" name="reserveerButton" value="Vogelvrij!" />
                         </form>
                     </div>
                     {% endif %}
@@ -82,6 +102,18 @@
                         Bezet
                     </div>
                     {% endif %}
+                    {% if slot.status == 'Sleutelhouder'%}
+                    <div class="baanSlot baanSlotBezet">
+                        <div class="tijdSlotMobiel">{{ slot.starttijd }} - {{ slot.eindtijd }}</div>
+                        Bezet door sleutelhouder
+                    </div>
+                    {% endif %}
+                    {% if slot.status == 'Te laat'%}
+                    <div class="baanSlot baanSlotBezet">
+                        <div class="tijdSlotMobiel">{{ slot.starttijd }} - {{ slot.eindtijd }}</div>
+                        Reserveringsvenster verlopen
+                    </div>
+                    {% endif %}
                     {% endfor %}
                 </div>
             </div>
@@ -89,4 +121,11 @@
         </div>
     </div>
 </div>
+<script>
+    function bevestigReservering(event){
+        confirm = event.target.getAttribute('confirm-string');
+        event.preventDefault();
+        return false;
+        };
+</script>
 {% endblock %}
