@@ -64,7 +64,8 @@
                     <div class="baanSlot">
                         <div class="tijdSlotMobiel">{{ slot.starttijd }} - {{ slot.eindtijd }}</div>
                         <form action="{% url 'reserveringen' %}?next={{dagkeuze}}" method="post"
-                            onsubmit="return confirm('Weet je zeker dat je {{baan}} van {{ slot.starttijd }} tot {{ slot.eindtijd }} wilt reserveren?');">
+                    onsubmit="return bevestigReservering(event)" 
+                    confirm-string="Weet je zeker dat je {{baan}} van {{slot.starttijd}} tot {{slot.eindtijd}} wilt reserveren?">
                             {% csrf_token %}
                             {{ slot.form }}
                             <input type="submit" class="reserveerButton" name="reserveerButton" value="Reserveer" />
@@ -75,7 +76,8 @@
                     <div class="baanSlot">
                         <div class="tijdSlotMobiel">{{ slot.starttijd }} - {{ slot.eindtijd }}</div>
                         <form action="{% url 'reserveringen' %}?next={{dagkeuze}}" method="post"
-                            onsubmit="return confirm('Weet je zeker dat je {{baan}} van {{ slot.starttijd }} tot {{ slot.eindtijd }} wilt reserveren?');">
+                            onsubmit="return bevestigReservering(event)"
+                            confirm-string="Weet je zeker dat je {{baan}} van {{slot.starttijd}} tot {{slot.eindtijd}} wilt reserveren?">
                             {% csrf_token %}
                             {{ slot.vogelvrij_slot_form }}
                             <input type="submit" class="reserveerButton" name="reserveerButton" value="Vogelvrij!" />
@@ -119,4 +121,11 @@
         </div>
     </div>
 </div>
+<script>
+    function bevestigReservering(event){
+        confirm = event.target.getAttribute('confirm-string');
+        event.preventDefault();
+        return false;
+        };
+</script>
 {% endblock %}
