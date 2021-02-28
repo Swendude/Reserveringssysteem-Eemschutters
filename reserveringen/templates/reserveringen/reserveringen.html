@@ -4,11 +4,14 @@
 
 {% block content %}
 <div class="content">
+    
     <div class="wrapper">
+        {% if nieuwsbericht %}
         <div class="nb">
         <div class="nb-datum">Nieuwsbericht van: {{nieuwsbericht.gewijzigd_op | date}}</div>
         <div class="nb-text">{{nieuwsbericht.nieuws_bericht}}</div>
         </div>
+        {% endif %}
         <h1>Maak een reservering</h1>
 
         <h2>Voor wanneer wil je reserveren?</h2>
@@ -103,6 +106,12 @@
                     <div class="baanSlot baanSlotBezet">
                         <div class="tijdSlotMobiel">{{ slot.starttijd }} - {{ slot.eindtijd }}</div>
                         Bezet door sleutelhouder
+                    </div>
+                    {% endif %}
+                    {% if slot.status == 'Te laat'%}
+                    <div class="baanSlot baanSlotBezet">
+                        <div class="tijdSlotMobiel">{{ slot.starttijd }} - {{ slot.eindtijd }}</div>
+                        Reserveringsvenster verlopen
                     </div>
                     {% endif %}
                     {% endfor %}
