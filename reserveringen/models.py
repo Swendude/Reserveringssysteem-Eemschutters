@@ -103,7 +103,7 @@ class Schietdag(models.Model):
         tijden[-1] = (tijden[-1][0],
                       time_add_timedelta(tijden[-1][1], self.extra_tijd_eind))
         if not len(tijden) == self.aantal_slots:
-             raise ValidationError(
+            raise ValidationError(
                 f'Deze instellingen passen niet in de gehele tijd, veranderen extra begin of eind tijd of gebruik een andere tijdsduur voor sloten.')
         return tijden
 
@@ -134,7 +134,7 @@ class Reservering(models.Model):
     start = models.DateTimeField()
     eind = models.DateTimeField()
     baan = models.ForeignKey(Baan, on_delete=models.CASCADE)
-    schietdag = models.ForeignKey(Schietdag, on_delete=models.PROTECT)
+    schietdag = models.ForeignKey(Schietdag, on_delete=models.CASCADE)
     gebruiker = models.ForeignKey(User, on_delete=models.CASCADE)
     bonus = models.BooleanField(default=False)
 
@@ -169,6 +169,8 @@ class SiteConfiguration(SingletonModel):
     vereniging_naam = models.CharField(max_length=255, default='Eemschutters')
     reserveer_venster = models.DurationField(default=datetime.timedelta(
         7), help_text="Hoelang van te voren mogen sloten gereserveerd worden?")
+    reserveer_stop = models.DurationField(default=datetime.timedelta(
+        hours=24), help_text="Hoelang van te voren sluit de mogelijkheid tot reserveren?")
     reserveringen_per_week = models.IntegerField(
         default=2, help_text="Hoeveel reserveringen per week mogen leden maken?")
     sleutelhouder_baan = models.ForeignKey(Baan, default=None, on_delete=models.SET_DEFAULT, null=True, blank=True,
@@ -182,9 +184,10 @@ class SiteConfiguration(SingletonModel):
     class Meta:
         verbose_name = "Instellingen"
 
+
 class NieuwsBericht(models.Model):
     """
-        Een nieuwsberichtje voor op de homepage
+    Een nieuwsberichtje voor op de homepage
     """
     nieuws_bericht = models.TextField(
         max_length=800, default="Welkom, hier staat het laatste nieuws.", help_text="Een nieuwsberichtje op de homepagina.")
@@ -195,4 +198,4 @@ class NieuwsBericht(models.Model):
 
     class Meta:
         verbose_name = "Nieuwsbericht"
-        verbose_name_plural= "Nieuwsberichten"
+        verbose_name_plural = "Nieuwsberichten"

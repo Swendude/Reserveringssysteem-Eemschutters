@@ -18,8 +18,8 @@ import pytz
 
 global_settings = SiteConfiguration.objects.get
 
+
 def get_view_date():
-    # return datetime.datetime(2020, 5, 24, 23, 30, 0,tzinfo=timezone.utc)
     return timezone.now()
 
 
@@ -37,7 +37,7 @@ def alle_schietdagen_in_venster(current, venster, schietdagen):
     Verkrijg alle dagen die schietdagen zijn binnen het huidige venster (timedelta). 
     Geeft een lijst van tuples (datum, schietdag) terug.
     """
-    current = datetime.datetime.combine(current, datetime.time(12,0,0))
+    current = datetime.datetime.combine(current, datetime.time(12, 0, 0))
     schietdagen = {schietdag.dag: schietdag for schietdag in schietdagen}
     schietdagen_in_venster = []
     for dag in daterange(current, current + venster):
@@ -164,8 +164,8 @@ def reserveringen(request, overzicht=False):
                             args = {**{'gebruiker': request.user},
                                     **form.cleaned_data}
                             Reservering(**args).save()
-        else:
-            print(form.errors)
+        # else:
+        #     print(form.errors)
         if 'next' in request.GET:
             return HttpResponseRedirect(request.path_info + f"?next={request.GET['next']}")
         else:
@@ -219,6 +219,8 @@ def reserveringen(request, overzicht=False):
             else:
                 if slot_eind < view_date:
                     status = "Verlopen"
+                elif slot_start - global_settings().reserveer_stop < view_date:
+                    status = "Te laat"
                 else:
                     status = "Vrij"
                     if (slot_start - view_date) < datetime.timedelta(hours=1):
@@ -251,6 +253,7 @@ def reserveringen(request, overzicht=False):
 
             slots_per_baan[baan].append(slot)
             banen_per_slot[slot_tijd[0]].append(slot)
+
     context = {'view_date': view_date,
                'schietdagen': schietdagen,
                'gekozen_schietdag_datum': gekozen_schietdag_datum,
@@ -260,7 +263,7 @@ def reserveringen(request, overzicht=False):
                'banen_per_slot': banen_per_slot,
                'dagkeuze': dagkeuze,
                'sleutelhouder': sleutelhouder,
-               'nieuwsbericht': NieuwsBericht.objects.latest('gewijzigd_op')}
+               'nieuwsbericht': NieuwsBericht.objects.all().order_by('gewijzigd_op').all()[0] or None}
 
     if not overzicht:
         return render(request, 'reserveringen/reserveringen.html', context)
