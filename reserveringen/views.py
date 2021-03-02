@@ -79,9 +79,9 @@ def verwijder_reserveringen(request):
     view_date = get_view_date()
     target = Reservering.objects.get(
         id=request.POST['reservering_id'], gebruiker=request.user)
-    if target.eind < view_date:
+    if target.start - datetime.timedelta(hours=1) < view_date:
         messages.error(
-            request, 'De reservering kan niet meer worden geannuleerd nadat deze afgelopen is.')
+            request, 'De reservering kan niet meer worden geannuleerd wanneer deze binnen een uur start.')
     else:
         target.delete()
     return HttpResponseRedirect(reverse('mijn_reserveringen'))
