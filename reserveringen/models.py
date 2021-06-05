@@ -90,18 +90,29 @@ class Schietdag(models.Model):
         tijden = []
 
         # Houd rekening met de extra begintijd
+        
         tijden.append((self.open, time_add_timedelta(
             self.open, self.slot_duur + self.extra_tijd_begin)))
+        
         begin_tijd = tijden[0][1]
 
+        slots = len(tijden)
         while time_add_timedelta(begin_tijd, self.slot_duur) <= self.sluit:
+            if slots == self.aantal_slots:
+                break
+            # print(time_add_timedelta(begin_tijd, self.slot_duur), ' <= ', self.sluit)
             eind_tijd = time_add_timedelta(begin_tijd, self.slot_duur)
             tijden.append((begin_tijd, eind_tijd))
             begin_tijd = eind_tijd
+            slots += 1
+
+            
 
         # Houd rekening met de extra eindtijd
-        tijden[-1] = (tijden[-1][0],
-                      time_add_timedelta(tijden[-1][1], self.extra_tijd_eind))
+        # if self.extra_tijd_eind:
+        #     tijden[-1] = (tijden[-1][0],
+        #                   time_add_timedelta(tijden[-1][1], self.extra_tijd_eind))
+
         if not len(tijden) == self.aantal_slots:
             raise ValidationError(
                 f'Deze instellingen passen niet in de gehele tijd, veranderen extra begin of eind tijd of gebruik een andere tijdsduur voor sloten.')
